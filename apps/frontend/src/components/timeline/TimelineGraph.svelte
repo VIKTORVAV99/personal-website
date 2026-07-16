@@ -114,11 +114,13 @@
   style="grid-row: 1 / {graphData.totalGridRows + 1}; width: {graphData.graphWidth}px;"
   use:observeInView
 >
+  <!-- Decorative: the accordion cards carry all of the graph's information -->
   <svg
     width={graphData.graphWidth}
     height={totalHeight}
     viewBox="0 0 {graphData.graphWidth} {totalHeight}"
     class="block"
+    aria-hidden="true"
   >
     <!-- Main branch line -->
     <line
@@ -198,14 +200,51 @@
 </div>
 
 <style>
-  /* SVG graph draw-in */
-  .graph-line {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
+  /* SVG graph draw-in. The hidden initial states live inside the motion
+     query so reduced-motion users see the finished graph immediately. */
+  @media (prefers-reduced-motion: no-preference) {
+    .graph-line {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+
+    .in-view .graph-line {
+      animation: draw-line 1.2s ease forwards;
+    }
+
+    .graph-node {
+      transform-box: fill-box;
+      transform-origin: center;
+      transform: scale(0);
+    }
+
+    .in-view .graph-node {
+      animation: pop-in 0.4s ease forwards;
+    }
+
+    .graph-fade {
+      opacity: 0;
+    }
+
+    .in-view .graph-fade {
+      animation: fade-in 0.5s ease forwards;
+    }
   }
 
-  .in-view .graph-line {
-    animation: draw-line 1.2s ease forwards;
+  /* Without JavaScript the IntersectionObserver never adds .in-view;
+     show the finished graph instead of leaving it hidden. */
+  @media (scripting: none) {
+    .graph-line {
+      stroke-dashoffset: 0;
+    }
+
+    .graph-node {
+      transform: scale(1);
+    }
+
+    .graph-fade {
+      opacity: 1;
+    }
   }
 
   @keyframes draw-line {
@@ -214,28 +253,10 @@
     }
   }
 
-  .graph-node {
-    transform-box: fill-box;
-    transform-origin: center;
-    transform: scale(0);
-  }
-
-  .in-view .graph-node {
-    animation: pop-in 0.4s ease forwards;
-  }
-
   @keyframes pop-in {
     to {
       transform: scale(1);
     }
-  }
-
-  .graph-fade {
-    opacity: 0;
-  }
-
-  .in-view .graph-fade {
-    animation: fade-in 0.5s ease forwards;
   }
 
   @keyframes fade-in {
