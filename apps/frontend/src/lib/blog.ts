@@ -60,15 +60,14 @@ export const slugifyTag = (tag: string): string =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-export const paginatePosts = (posts: BlogPostMeta[], url: URL) => {
+export const paginatePosts = (posts: BlogPostMeta[], currentPage: number) => {
   const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
-  let rawPage: string | null = null;
-  try {
-    rawPage = url.searchParams.get("page");
-  } catch {
-    rawPage = null;
-  }
-  const currentPage = rawPage ? Math.max(1, Math.min(Number(rawPage), totalPages)) : 1;
   const pagedPosts = posts.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
   return { pagedPosts, currentPage, totalPages };
+};
+
+/** Parses a `page` route param. Returns undefined for anything but a positive integer. */
+export const parsePageParam = (raw: string): number | undefined => {
+  if (!/^[1-9]\d*$/.test(raw)) return undefined;
+  return Number(raw);
 };

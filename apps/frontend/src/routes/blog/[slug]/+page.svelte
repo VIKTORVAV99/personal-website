@@ -42,13 +42,16 @@
 {/snippet}
 
 <SEO
-  title={data.metadata.title}
+  title={`${data.metadata.title} | Viktor Andersson`}
   description={data.metadata.description}
   type="article"
   canonicalURL={data.postUrl}
   structuredData={data.structuredData}
   prevURL={prevURL}
   nextURL={nextURL}
+  publishedTime={data.datePublished}
+  modifiedTime={data.dateModified}
+  tags={data.metadata.tags}
 />
 
 <article class="w-full max-w-prose mx-auto mt-16 flex flex-1 flex-col gap-8">
