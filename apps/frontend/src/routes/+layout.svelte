@@ -18,6 +18,7 @@
   ] as const;
 
   let open = $state(false);
+  let mobileMenu = $state<HTMLDetailsElement>();
   const year = $derived(new Date().getFullYear());
 
   let { children }: { children: Snippet } = $props();
@@ -25,7 +26,23 @@
   afterNavigate(() => {
     open = false;
   });
+
+  // The home link only matches exactly; section links also match their subpages
+  // (e.g. /blog/some-post keeps Blog marked active).
+  const isActive = (href: string) =>
+    href === "/"
+      ? page.url.pathname === "/"
+      : page.url.pathname === href || page.url.pathname.startsWith(`${href}/`);
 </script>
+
+<svelte:window
+  onkeydown={(event) => {
+    if (open && event.key === "Escape") open = false;
+  }}
+  onclick={(event) => {
+    if (open && mobileMenu && !mobileMenu.contains(event.target as Node)) open = false;
+  }}
+/>
 
 {#snippet navbarLinks()}
   {#each links as link}
@@ -33,8 +50,9 @@
       href={link.href}
       class="text-lg md:flex-1 md:text-center max-md:py-2 max-md:px-4 rounded-full underline-offset-4 font-medium min-w-20 outline-none"
       aria-label={link.label}
+      aria-current={isActive(link.href) ? "page" : undefined}
     >
-      {#if page.url.pathname === link.href}
+      {#if isActive(link.href)}
         <span class="inline-block">&nbsp;</span>>
       {:else}
         cd
@@ -52,15 +70,24 @@
 </svelte:head>
 
 <!-- #region Header -->
-  <header class="sticky top-0 z-10 w-full m-4">
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 rounded-full backdrop-blur-sm bg-surface-800/80 px-4 py-2 font-mono text-sm"
+  >
+    Skip to content
+  </a>
+  <!-- Padding instead of margin: w-full plus horizontal margins would
+       overflow the viewport on browsers with classic scrollbars -->
+  <header class="sticky top-0 z-10 w-full p-4">
     <!-- Desktop nav -->
     <nav
-      class="hidden md:flex font-mono w-fill max-w-5xl mx-auto justify-evenly items-center gap-8 py-4 px-8 rounded-full backdrop-blur-sm bg-surface-800/80"
+      aria-label="Main"
+      class="hidden md:flex font-mono w-full max-w-5xl mx-auto justify-evenly items-center gap-8 py-4 px-8 rounded-full backdrop-blur-sm bg-surface-800/80"
     >
       {@render navbarLinks()}
     </nav>
     <!-- Mobile nav -->
-    <details class="relative md:hidden" bind:open>
+    <details class="relative md:hidden" bind:open bind:this={mobileMenu}>
       <summary
         aria-label="Navigation menu"
         class="list-none cursor-pointer rounded-full backdrop-blur-sm bg-surface-800/80 p-3 text-surface-50 outline-none w-fit"
@@ -68,6 +95,7 @@
         <Menu size={24} />
       </summary>
       <nav
+        aria-label="Main"
         class="absolute flex flex-col gap-1 justify-start top-full mt-2 z-50 rounded-2xl backdrop-blur-sm bg-surface-800/80 py-4 px-4 font-mono"
       >
         {@render navbarLinks()}
@@ -76,12 +104,12 @@
   </header>
   <!-- #endregion -->
   <!-- #region Main -->
-  <main class="flex-1 flex px-4 md:px-8 lg:px-0 flex-col">
+  <main id="main-content" tabindex="-1" class="flex-1 flex px-4 md:px-8 lg:px-0 flex-col outline-none">
     {@render children()}
   </main>
   <!-- #endregion -->
   <!-- #region Footer -->
-  <footer class="flex flex-col w-screen mt-8 mb-2 justify-center items-center">
+  <footer class="flex flex-col w-full mt-8 mb-2 justify-center items-center">
     <small>{year} &copy; Viktor Andersson </small>
     <small
       >Source code licensed under <a

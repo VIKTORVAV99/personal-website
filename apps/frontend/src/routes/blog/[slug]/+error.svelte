@@ -9,7 +9,7 @@
   icon={FileQuestionMark}
   title={`Blog Post Error ${page.status}`}
   description={page.error?.message || "Sorry, there was a problem loading this blog post."}
-  onAction={() => (window.location.href = "/blog")}
+  href="/blog"
 >
   {#snippet buttonContent()}cd <Highlight>~</Highlight>/blog{/snippet}
 </StatusPage>
