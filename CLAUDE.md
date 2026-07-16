@@ -34,6 +34,8 @@ All root scripts use `bun --filter` to proxy into workspaces. You can also run w
 
 SvelteKit file-based routing with Svelte 5 runes (`$props()`, `$state()`, etc.).
 
+**Fully prerendered:** the root `+layout.ts` sets `prerender = true` (and `trailingSlash = "never"`), so every route — including the `sitemap.xml` endpoint — is generated at build time and served as static assets. There is no runtime SSR: load functions run at build time, and query strings cannot drive routing or pagination.
+
 **Path aliases** (defined in svelte.config.js):
 - `$blogs` → `./src/blog_posts`
 - `$components` → `./src/components`
@@ -43,27 +45,32 @@ SvelteKit file-based routing with Svelte 5 runes (`$props()`, `$state()`, etc.).
 - `$interfaces` → `./src/interfaces`
 
 **Key directories:**
-- `src/routes/` — Pages and endpoints (+page.svelte, +page.ts, +server.ts, +layout.svelte)
+- `src/routes/` — Pages and endpoints (+page.svelte, +page.server.ts, +server.ts, +layout.svelte)
 - `src/components/` — Reusable Svelte components
+- `src/components/timeline/` — Git-graph style timeline; layout math lives in plain TS modules (nodes, lanes, overlap, leader lines) with co-located tests
 - `src/blog_posts/` — Markdown blog posts processed by mdsvex
-- `src/data/` — Static content (projects.json, timeline.ts)
+- `src/data/metadata.ts` — Static content (timeline entries)
 - `src/interfaces/` — TypeScript interfaces (ProjectConfig, TimelineEntry)
-- `src/lib/seo/` — Structured data (JSON-LD) schemas and SEO component
-- `src/lib/actions/` — Svelte actions (inview)
-- `src/lib/helpers/` — Utility functions (groupBy)
-- `src/lib/config.ts` — Site-wide constants (SITE_URL)
-- `src/theme.css` — Tailwind v4 @theme color tokens (no tailwind.config.js)
-- `src/app.css` — Global styles with custom utility classes (.btn, .card, .h1-.h4, .preset-*)
+- `src/lib/seo/` — Structured data (JSON-LD) schemas, person/org data, and SEO component
+- `src/lib/helpers/` — Utility functions (formatDate, paginationURLs)
+- `src/lib/config.ts` — Site-wide constants (SITE_URL, fallback OG image)
+- `src/fonts/` — Self-hosted variable font subsets (Inter, Monaspace Neon)
+- `src/theme.css` — Tailwind v4 @theme color tokens, base element styles (headings, links) — no tailwind.config.js
+- `src/app.css` — @font-face declarations and custom utilities (.page-container)
 
-**Styling:** Tailwind CSS v4 using @theme syntax in theme.css. Dark mode via `.dark` class.
+**Styling:** Tailwind CSS v4 using @theme syntax in theme.css. Dark mode via `.dark` class (hardcoded on `<html>` in app.html — the site is dark-only).
 
-**Blog:** Markdown files in `src/blog_posts/` with YAML frontmatter (title, date, last_updated, description, tags). Processed by mdsvex. Paginated listing at `/blog`, individual posts at `/blog/[slug]`.
+**Images/fonts:** `@sveltejs/enhanced-img` and `vite-imagetools` handle image processing (e.g. the OG image is an SVG rasterized to webp at build time); `fontaine` generates font fallback metrics.
 
-**SEO:** Custom `SEO.svelte` component injects JSON-LD structured data, Open Graph tags, Twitter Card tags, canonical URLs, and robots meta into `<svelte:head>`. Schema types include Person, WebSite, BlogPosting, ProfilePage, CollectionPage, BreadcrumbList, and SoftwareSourceCode.
+**Blog:** Markdown files in `src/blog_posts/` with YAML frontmatter (title, date, last_updated, description, tags). Processed by mdsvex with Shiki highlighting. Listing at `/blog`, posts at `/blog/[slug]` (slug = lowercased filename), tag pages at `/blog/tag/[tag]`.
 
-**Service worker:** Offline-first caching with cache-first for static assets/images and network-first for HTML/API. Includes offline fallback page.
+**SEO:** Custom `SEO.svelte` component injects JSON-LD structured data, Open Graph tags, Twitter Card tags, canonical URLs, and robots meta into `<svelte:head>`. Schema types include Person, WebSite, BlogPosting, ProfilePage, CollectionPage, BreadcrumbList, and SoftwareSourceCode. `sitemap.xml` is a prerendered endpoint; `robots.txt` is a static asset.
 
-**Data is static** — projects, timeline entries, and blog posts are defined in source files, no database.
+**Service worker:** `src/service-worker.ts` is deliberately a kill switch — it deletes all caches and unregisters itself, cleaning up after a previous offline-first iteration. Don't add caching logic back without replacing this behavior intentionally.
+
+**Legacy routes:** `/projects/*` returns `410 Gone` (the projects section was removed; the route exists to signal link rot).
+
+**Data is static** — timeline entries and blog posts are defined in source files, no database.
 
 ### Backend (apps/backend/)
 
@@ -71,7 +78,7 @@ Hono app on Cloudflare Workers. Single entry point at src/index.ts. Cache middle
 
 ## Testing
 
-Bun's built-in test runner. Tests are co-located with source files (`*.test.ts` next to the code they test). Snapshots live in `__snapshots__/*.snap`.
+Bun's built-in test runner. Tests are co-located with source files (`*.test.ts` next to the code they test); route-level tests live in `src/tests/` (e.g. sitemap). Snapshots live in `__snapshots__/*.snap`.
 
 ```typescript
 import { describe, it, expect } from "bun:test";
