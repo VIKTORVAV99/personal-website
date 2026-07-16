@@ -1,7 +1,7 @@
 import type { TimelineEntry } from "$interfaces/timelineEntry";
 
 import { timelineEntries } from "$data/metadata";
-import { describe, it, expect, setSystemTime } from "bun:test";
+import { describe, it, expect } from "bun:test";
 
 import { buildGraphData } from "./buildGraphData";
 import { PX_PER_MONTH } from "./constants";
@@ -13,19 +13,11 @@ const snapshottable = (data: ReturnType<typeof buildGraphData>) => {
 };
 
 describe("buildGraphData snapshot", () => {
-  it("matches desktop snapshot", async () => {
-    // Pin the date so row/pixel calculations are stable across months.
-    // Dynamic imports ensure modules load AFTER the mock is active.
-    setSystemTime(new Date("2026-04-01T00:00:00Z"));
-
-    const { buildGraphData: build } = await import("./buildGraphData");
-    const { timelineEntries: entries } = await import("$data/metadata");
-    const { PX_PER_MONTH: pxPerMonth } = await import("./constants");
-
-    const result = build(entries, pxPerMonth);
+  it("matches desktop snapshot", () => {
+    // Time is pinned in src/tests/setup.ts (preloaded before any module),
+    // so date-derived constants and this snapshot are stable across months.
+    const result = buildGraphData(timelineEntries, PX_PER_MONTH);
     expect(snapshottable(result)).toMatchSnapshot();
-
-    setSystemTime();
   });
 });
 
