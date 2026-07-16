@@ -13,11 +13,18 @@
 
 	let { entries }: { entries: TimelineEntry[] } = $props();
 
-	let mode = $state<TimelineMode>('desktop');
+	const COMPACT_QUERY = '(max-width: 640px)';
+
+	// Resolve the mode during init (not in the after-paint effect) so mobile
+	// clients don't hydrate a desktop layout and then reflow to compact.
+	let mode = $state<TimelineMode>(
+		typeof window !== 'undefined' && window.matchMedia(COMPACT_QUERY).matches
+			? 'compact'
+			: 'desktop'
+	);
 
 	$effect(() => {
-		if (typeof window === 'undefined') return;
-		const mql = window.matchMedia('(max-width: 640px)');
+		const mql = window.matchMedia(COMPACT_QUERY);
 		const update = () => {
 			mode = mql.matches ? 'compact' : 'desktop';
 		};
