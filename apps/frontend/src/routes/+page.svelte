@@ -23,7 +23,7 @@
 <div class="page-container">
   <TitleText path="" subtitle="Welcome" />
   <ProfileCard />
-  <nav class="font-mono text-lg flex flex-col w-full leading-tight whitespace-pre">
+  <nav aria-label="Site map" class="font-mono text-lg flex flex-col w-full leading-tight whitespace-pre">
     <span><Highlight>~</Highlight>/</span>
     {@render treeLink("/about", "about", "├── ")}
     {@render treeLink("/history", "history", "├── ")}

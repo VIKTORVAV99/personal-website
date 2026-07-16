@@ -16,7 +16,7 @@
   icon={TriangleAlert}
   title={`Error ${page.status}`}
   description={page.error?.message || "Something went wrong. Please try again later."}
-  onAction={() => (window.location.href = "/")}
+  href="/"
 >
   {#snippet buttonContent()}cd <Highlight>~</Highlight>/{/snippet}
 </StatusPage>
