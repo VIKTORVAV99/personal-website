@@ -18,15 +18,17 @@
   const box = "inline-flex items-center justify-center size-8";
 
   const pageHref = (page: number): string =>
-    page === 1 ? baseHref : `${baseHref}?page=${page}`;
+    page === 1 ? baseHref : `${baseHref}/page/${page}`;
 </script>
 
 {#snippet blogPostCard(post: BlogPostMeta, last: boolean)}
   <li>
     <article class="flex flex-col gap-2">
-      <a href="/blog/{post.slug}" data-sveltekit-preload-data="tap" class="text-2xl font-bold text-surface-100 hover:text-green-500 transition-colors w-fit">
-        {post.title}
-      </a>
+      <h2 class="text-2xl w-fit">
+        <a href="/blog/{post.slug}" data-sveltekit-preload-data="tap" class="text-surface-100 hover:text-green-500 transition-colors">
+          {post.title}
+        </a>
+      </h2>
       <PostDate date={post.date} readingTime={post.readingTime} />
       <p class="text-surface-300 leading-relaxed text-base md:text-lg max-w-3xl">
         {post.description}

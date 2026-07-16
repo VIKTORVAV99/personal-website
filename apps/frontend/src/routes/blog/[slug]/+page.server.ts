@@ -17,7 +17,11 @@ export const load = async ({ params }: PageServerLoadEvent) => {
   if (index === -1) throw error(404, `Post "${params.slug}" not found`);
 
   const post = posts[index];
-  const postUrl = `${SITE_URL}/blog/${params.slug}`;
+  // Build the canonical from the post's own slug, not params.slug, so a
+  // mixed-case request can never become its own canonical URL.
+  const postUrl = `${SITE_URL}/blog/${post.slug}`;
+  const datePublished = new Date(post.date).toISOString();
+  const dateModified = new Date(post.last_updated || post.date).toISOString();
 
   const prevPost =
     index > 0 ? { slug: posts[index - 1].slug, title: posts[index - 1].title } : undefined;
@@ -37,12 +41,14 @@ export const load = async ({ params }: PageServerLoadEvent) => {
     },
     readingTime: post.readingTime,
     postUrl,
+    datePublished,
+    dateModified,
     structuredData: [
       createArticleSchema({
         headline: post.title,
         description: post.description,
-        datePublished: new Date(post.date).toISOString(),
-        dateModified: new Date(post.last_updated || post.date).toISOString(),
+        datePublished,
+        dateModified,
         author: SITE_OWNER_PERSON_REF,
         publisher: SITE_OWNER_PERSON_REF,
         keywords: post.tags,

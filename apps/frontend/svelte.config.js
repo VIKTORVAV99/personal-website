@@ -41,6 +41,14 @@ const config = {
   kit: {
     adapter: adapter(),
     inlineStyleThreshold: Infinity,
+    prerender: {
+      handleUnseenRoutes: ({ routes, message }) => {
+        // Pagination routes legitimately produce zero pages until the post
+        // count exceeds PAGE_SIZE; fail the build for anything else.
+        const unexpected = routes.filter((id) => !id.endsWith("/page/[page]"));
+        if (unexpected.length > 0) throw new Error(message);
+      },
+    },
     alias: {
       $blogs: "./src/blog_posts",
       $components: "./src/components",
