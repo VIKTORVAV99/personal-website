@@ -7,6 +7,7 @@
     toAbsoluteMonth,
     entryEndAbsMonth,
   } from "./types";
+  import { afterNavigate } from "$app/navigation";
 
   let {
     graphData,
@@ -20,21 +21,13 @@
     totalHeight: number;
   } = $props();
 
+  // Draw in on arrival (afterNavigate fires on mount and on navigations) rather
+  // than on scroll — the graph is tall enough an IntersectionObserver could miss.
   let inView = $state(false);
 
-  const observeInView = (node: HTMLElement) => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          inView = true;
-          observer.unobserve(node);
-        }
-      },
-      { threshold: 0.15 },
-    );
-    observer.observe(node);
-    return { destroy: () => observer.disconnect() };
-  };
+  afterNavigate(() => {
+    inView = true;
+  });
 
   const maxGridRow = $derived(Math.max(...graphData.nodes.map((n) => n.gridRow)));
 
@@ -112,7 +105,6 @@
     inView && 'in-view'
   ]}
   style="grid-row: 1 / {graphData.totalGridRows + 1}; width: {graphData.graphWidth}px;"
-  use:observeInView
 >
   <!-- Decorative: the accordion cards carry all of the graph's information -->
   <svg
@@ -231,7 +223,7 @@
     }
   }
 
-  /* Without JavaScript the IntersectionObserver never adds .in-view;
+  /* Without JavaScript nothing adds .in-view (afterNavigate never runs);
      show the finished graph instead of leaving it hidden. */
   @media (scripting: none) {
     .graph-line {
