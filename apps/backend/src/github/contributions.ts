@@ -8,7 +8,7 @@ export const CONTRIBUTION_DAYS = 7;
  * leave this module — no repo names, titles, or timestamps.
  *
  * The fields slot into a `viewer { contributionsCollection(from:, to:) { … } }`
- * block — enrichment.ts composes them into the combined activity query.
+ * block — routes.ts composes them into the combined activity query.
  */
 export const CONTRIBUTIONS_FIELDS = `
         commitContributionsByRepository(maxRepositories: 100) {
