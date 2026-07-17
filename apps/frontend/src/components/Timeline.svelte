@@ -10,60 +10,37 @@
 		GRAPH_TOP_PADDING_PX
 	} from './timeline/constants';
 	import { buildGraphData } from './timeline/buildGraphData';
+	import { MediaQuery, SvelteMap } from 'svelte/reactivity';
+	import type { Attachment } from 'svelte/attachments';
 
 	let { entries }: { entries: TimelineEntry[] } = $props();
 
-	const COMPACT_QUERY = '(max-width: 640px)';
+	// Resolved synchronously on first client read, so mobile avoids hydrating the
+	// desktop layout then reflowing. SSR uses the fallback (false -> desktop).
+	const compact = new MediaQuery('max-width: 640px');
+	const mode = $derived<TimelineMode>(compact.current ? 'compact' : 'desktop');
 
-	// Resolve the mode during init (not in the after-paint effect) so mobile
-	// clients don't hydrate a desktop layout and then reflow to compact.
-	let mode = $state<TimelineMode>(
-		typeof window !== 'undefined' && window.matchMedia(COMPACT_QUERY).matches
-			? 'compact'
-			: 'desktop'
-	);
-
-	$effect(() => {
-		const mql = window.matchMedia(COMPACT_QUERY);
-		const update = () => {
-			mode = mql.matches ? 'compact' : 'desktop';
-		};
-		update();
-		mql.addEventListener('change', update);
-		return () => mql.removeEventListener('change', update);
-	});
-
-	let measuredHeightsByEntry = $state(new Map<TimelineEntry, number>());
+	const measuredHeightsByEntry = new SvelteMap<TimelineEntry, number>();
 
 	const setMeasuredHeight = (entry: TimelineEntry, height: number) => {
 		if (measuredHeightsByEntry.get(entry) === height) return;
-		const next = new Map(measuredHeightsByEntry);
-		next.set(entry, height);
-		measuredHeightsByEntry = next;
+		measuredHeightsByEntry.set(entry, height);
 	};
 
-	const observeCardHeight = (element: HTMLElement, entry: TimelineEntry) => {
-		if (typeof ResizeObserver === 'undefined') return;
+	// Attachment factory: re-runs (tears down + re-observes) whenever the bound
+	// entry changes, replacing the action's manual update() lifecycle.
+	const observeCardHeight =
+		(entry: TimelineEntry): Attachment<HTMLElement> =>
+		(element) => {
+			if (typeof ResizeObserver === 'undefined') return;
 
-		let currentEntry = entry;
-		const measure = () => {
-			setMeasuredHeight(currentEntry, element.offsetHeight);
+			const measure = () => setMeasuredHeight(entry, element.offsetHeight);
+			const observer = new ResizeObserver(measure);
+			observer.observe(element);
+			measure();
+
+			return () => observer.disconnect();
 		};
-
-		const observer = new ResizeObserver(measure);
-		observer.observe(element);
-		measure();
-
-		return {
-			update(nextEntry: TimelineEntry) {
-				currentEntry = nextEntry;
-				measure();
-			},
-			destroy() {
-				observer.disconnect();
-			}
-		};
-	};
 
 	const yearMarkers = $derived.by(() => {
 		const markers: number[] = [];
@@ -102,7 +79,7 @@
 						isLeft ? 'justify-end' : 'justify-start'
 					]}
 					style="grid-row: {node.gridRow} / {node.gridRowEnd};"
-					use:observeCardHeight={node.entry}
+					{@attach observeCardHeight(node.entry)}
 				>
 					<TimelineAccordionCard
 						entry={node.entry}
