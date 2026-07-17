@@ -49,7 +49,7 @@
   {#each links as link}
     <a
       href={link.href}
-      class="text-lg md:flex-1 md:text-center max-md:py-2 max-md:px-4 rounded-full underline-offset-4 font-medium min-w-20 outline-none"
+      class="text-lg md:text-center whitespace-nowrap max-md:py-2 max-md:px-4 rounded-full underline-offset-4 font-medium min-w-20 outline-none"
       aria-label={link.label}
       aria-current={isActive(link.href) ? "page" : undefined}
     >
@@ -73,7 +73,7 @@
 <!-- #region Header -->
   <a
     href="#main-content"
-    class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 rounded-full backdrop-blur-sm bg-surface-800/80 px-4 py-2 font-mono text-sm"
+    class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 rounded-full glass-surface px-4 py-2 font-mono text-sm"
   >
     Skip to content
   </a>
@@ -83,7 +83,7 @@
     <!-- Desktop nav -->
     <nav
       aria-label="Main"
-      class="hidden md:flex font-mono w-full max-w-5xl mx-auto justify-evenly items-center gap-8 py-4 px-8 rounded-full backdrop-blur-sm bg-surface-800/80"
+      class="hidden md:flex font-mono w-full max-w-4xl mx-auto justify-evenly items-center gap-4 lg:gap-8 py-4 px-4 lg:px-8 rounded-full glass-surface"
     >
       {@render navbarLinks()}
     </nav>
@@ -91,13 +91,13 @@
     <details class="relative md:hidden" bind:open bind:this={mobileMenu}>
       <summary
         aria-label="Navigation menu"
-        class="list-none cursor-pointer rounded-full backdrop-blur-sm bg-surface-800/80 p-3 text-surface-50 outline-none w-fit"
+        class="list-none cursor-pointer rounded-full glass-surface p-3 text-surface-50 outline-none w-fit"
       >
         <Menu size={24} />
       </summary>
       <nav
         aria-label="Main"
-        class="absolute flex flex-col gap-1 justify-start top-full mt-2 z-50 rounded-2xl backdrop-blur-sm bg-surface-800/80 py-4 px-4 font-mono"
+        class="absolute flex flex-col gap-1 justify-start top-full mt-2 z-50 rounded-2xl glass-surface py-4 px-4 font-mono"
       >
         {@render navbarLinks()}
       </nav>

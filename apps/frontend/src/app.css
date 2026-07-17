@@ -45,3 +45,15 @@
   margin-right: auto;
   width: 100%;
 }
+
+/* Frosted "glass pill" surface shared by the nav, mobile menu, skip link
+   and button-style links. Compose with rounded-* and padding per element. */
+@utility glass-surface {
+  @apply bg-surface-800/80 backdrop-blur-sm;
+}
+
+/* Opt a link out of the global `a:hover { underline }` reset (button-style
+   links). Needs !important to beat the reset's specificity — the reset stays. */
+@utility link-plain {
+  text-decoration: none !important;
+}

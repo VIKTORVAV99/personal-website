@@ -7,7 +7,7 @@
   :where(ol > li)::marker,
   :where(th),
   :where(th) a {
-    color: var(--color-green-500);
+    color: var(--color-accent);
   }
 }
 

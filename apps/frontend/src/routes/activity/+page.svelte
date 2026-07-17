@@ -21,8 +21,8 @@
 
 <div class="page-container">
   <TitleText path="activity" subtitle={data.description} />
-  <section class="font-mono text-lg flex flex-col gap-4 w-full leading-tight" aria-label="Latest GitHub activity">
-    <span
+  <section class="font-mono text-base flex flex-col gap-4 w-full leading-tight" aria-label="Latest GitHub activity">
+    <span class="text-lg"
       ><Highlight>$</Highlight> gh activity{activity?.log.length ? ` -n ${activity.log.length}` : ""}</span
     >
     <div class="flex flex-col gap-2">

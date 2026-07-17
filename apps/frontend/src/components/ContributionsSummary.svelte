@@ -5,8 +5,8 @@
 </script>
 
 {#if hasContributions(contributions)}
-  <hr class="w-full border-surface-500 my-1" />
-  <span class="text-surface-400">Contributions in the past {contributions.days} days:</span>
-  <span class="text-surface-400">{contributions.publicCount} public</span>
-  <span class="text-surface-400">{contributions.privateCount} private</span>
+  <hr class="w-full border-surface-700 my-1" />
+  <span class="text-surface-300">Contributions in the past {contributions.days} days:</span>
+  <span class="text-surface-300">{contributions.publicCount} public</span>
+  <span class="text-surface-300">{contributions.privateCount} private</span>
 {/if}

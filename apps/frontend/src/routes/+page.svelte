@@ -12,7 +12,7 @@
 </script>
 
 {#snippet treeChar(char: string)}<span class="text-2xl text-surface-500" aria-hidden="true">{char}</span>{/snippet}
-{#snippet treeLink(href: string, label: string, prefix: string)}<a {href} class="flex items-center [text-decoration:none]!">{@render treeChar(prefix)}<span class="hover:underline underline-offset-4">{label}</span></a>{/snippet}
+{#snippet treeLink(href: string, label: string, prefix: string)}<a {href} class="flex items-center link-plain">{@render treeChar(prefix)}<span class="hover:underline underline-offset-4">{label}</span></a>{/snippet}
 
 <SEO
   title="Viktor Andersson - Software Engineer"

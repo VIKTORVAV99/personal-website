@@ -78,6 +78,11 @@
   --color-surface-900: #191919;
   --color-surface-950: #111111;
 
+  /* Accent | #22c55e (green) — brand accent for highlights, active nav,
+     content-link hovers, and prose markers. The single source of truth;
+     use `accent` utilities (text-accent, hover:text-accent, …) not green-*. */
+  --color-accent: #22c55e;
+
   /* Font families */
   --font-inter: "Inter", "Inter fallback", sans-serif;
   --font-mono: "Monaspace Neon", "Monaspace Neon fallback", monospace;
@@ -104,19 +109,21 @@ a:hover {
   @apply underline;
 }
 
-/* Heading typography classes */
+/* Heading typography scale — descending ladder, used outside blog prose
+   (the `prose` plugin sets its own sizes inside .blog-content).
+   h1 = page/display title · h2 = section & card heading · h3/h4 = sub-headings. */
 h1 {
   @apply text-surface-100 text-4xl font-bold;
 }
 
 h2 {
-  @apply text-surface-100 text-3xl font-bold;
-}
-
-h3 {
   @apply text-surface-100 text-2xl font-bold;
 }
 
-h4 {
+h3 {
   @apply text-surface-100 text-xl font-bold;
+}
+
+h4 {
+  @apply text-surface-100 text-lg font-bold;
 }
