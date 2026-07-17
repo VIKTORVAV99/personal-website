@@ -16,6 +16,7 @@ export const _staticPages = [
   { path: "", priority: "1.0", changefreq: "weekly", lastmod: profileLastmod },
   { path: "/blog", priority: "0.9", changefreq: "weekly", lastmod: profileLastmod },
   { path: "/about", priority: "0.8", changefreq: "monthly", lastmod: profileLastmod },
+  { path: "/activity", priority: "0.7", changefreq: "daily", lastmod: profileLastmod },
   { path: "/history", priority: "0.8", changefreq: "monthly", lastmod: profileLastmod },
 ];
 

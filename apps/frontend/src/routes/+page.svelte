@@ -4,6 +4,7 @@
   import ProfileCard from "$components/ProfileCard.svelte";
   import SEO from "$lib/seo/components/SEO.svelte";
   import Highlight from "$components/Highlight.svelte";
+  import LatestActivity from "$components/LatestActivity.svelte";
   import { SITE_URL } from "$lib/config";
 
   let { data }: { data: PageData } = $props();
@@ -26,6 +27,7 @@
   <nav aria-label="Site map" class="font-mono text-lg flex flex-col w-full leading-tight whitespace-pre">
     <span><Highlight>~</Highlight>/</span>
     {@render treeLink("/about", "about", "├── ")}
+    {@render treeLink("/activity", "activity", "├── ")}
     {@render treeLink("/history", "history", "├── ")}
     {@render treeLink("/blog", "blog/", "└─┬ ")}
     {#each blogSlugs as slug}
@@ -33,4 +35,5 @@
     {/each}
     {@render treeLink("/blog", "...", "  └── ")}
   </nav>
+  <LatestActivity />
 </div>

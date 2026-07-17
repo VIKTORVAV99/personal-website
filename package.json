@@ -4,9 +4,9 @@
   "type": "module",
   "workspaces": ["apps/*"],
   "scripts": {
-    "dev": "bun --filter '*' dev",
+    "dev": "bun run --parallel dev:frontend dev:backend",
     "dev:frontend": "bun --filter frontend dev",
-    "dev:backend": "bun --filter backend dev",
+    "dev:backend": "bun --filter portfolio-backend dev",
     "build": "bun --filter '*' build",
     "build:ci": "bun --filter frontend build:ci",
     "check:ci": "bun --filter frontend check:ci",
