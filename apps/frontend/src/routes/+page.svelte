@@ -26,6 +26,7 @@
   <nav aria-label="Site map" class="font-mono text-lg flex flex-col w-full leading-tight whitespace-pre">
     <span><Highlight>~</Highlight>/</span>
     {@render treeLink("/about", "about", "├── ")}
+    {@render treeLink("/activity", "activity", "├── ")}
     {@render treeLink("/history", "history", "├── ")}
     {@render treeLink("/blog", "blog/", "└─┬ ")}
     {#each blogSlugs as slug}

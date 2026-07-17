@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
       - name: Oxfmt
-        run: bun --filter frontend format:check
+        run: bun run format:check
   oxlint:
     name: Oxlint
     runs-on: ubuntu-latest
@@ -38,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
       - name: Oxlint
-        run: bun --filter frontend lint
+        run: bun run lint
   svelte-check:
     name: Svelte Check
     runs-on: ubuntu-latest
@@ -70,7 +70,7 @@ jobs:
       - name: Sync SvelteKit
         run: cd apps/frontend && bunx svelte-kit sync
       - name: Test
-        run: bun --filter frontend test:unit
+        run: bun run test:unit
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -86,6 +86,8 @@ jobs:
         uses: oven-sh/setup-bun@v1
       - name: Install dependencies
         run: bun install --frozen-lockfile
+      - name: Typecheck backend
+        run: bun --filter portfolio-backend build
       - name: Build
         run: bun --filter frontend build:ci
       - name: Upload build artifact
