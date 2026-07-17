@@ -4,9 +4,11 @@ import { CONTRIBUTION_DAYS, CONTRIBUTIONS_FIELDS, shapeContributionCounts } from
 import { MERGED_PRS_FIELDS, OPENED_ISSUES_FIELDS, shapeActivityLog } from "./latestActivity";
 
 const LOG_LIMIT = 15;
-// PR search sorts by update time, so fetch headroom to re-sort by merge time;
-// issue search sorts by creation time, which is already what we display.
-const PR_SEARCH_LIMIT = 25;
+// PR search sorts by update time, so fetch headroom to re-sort by merge time —
+// generous, since a burst of comment activity on old merged PRs can push
+// recent merges far down the update-sorted list; issue search sorts by
+// creation time, which is already what we display.
+const PR_SEARCH_LIMIT = 50;
 
 const ACTIVITY_QUERY = `
   query Activity($prSearch: String!, $issueSearch: String!, $from: DateTime!, $to: DateTime!) {
@@ -31,6 +33,10 @@ export const githubRoutes = new Hono<{ Bindings: GithubEnv }>().get("/activity",
   if (token === undefined) {
     // GraphQL requires a token (e.g. local dev without a provisioned secret);
     // consumers treat an empty log and null counts as "render nothing".
+    // no-store keeps the cache middleware from storing this 200, so a
+    // transient Secrets Store failure in production heals on the next
+    // request instead of pinning an empty feed for an hour.
+    c.header("Cache-Control", "no-store, max-age=0");
     return c.json({ log: [], contributions: null });
   }
 

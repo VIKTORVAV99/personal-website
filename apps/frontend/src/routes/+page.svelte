@@ -4,7 +4,6 @@
   import ProfileCard from "$components/ProfileCard.svelte";
   import SEO from "$lib/seo/components/SEO.svelte";
   import Highlight from "$components/Highlight.svelte";
-  import LatestActivity from "$components/LatestActivity.svelte";
   import { SITE_URL } from "$lib/config";
 
   let { data }: { data: PageData } = $props();
@@ -35,5 +34,4 @@
     {/each}
     {@render treeLink("/blog", "...", "  └── ")}
   </nav>
-  <LatestActivity />
 </div>

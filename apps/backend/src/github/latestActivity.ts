@@ -24,8 +24,11 @@ const MAX_MESSAGE_LENGTH = 72;
 
 const shapeMessage = (message: string): string => {
   const [firstLine] = message.split("\n", 1);
-  return firstLine.length > MAX_MESSAGE_LENGTH
-    ? `${firstLine.slice(0, MAX_MESSAGE_LENGTH - 1)}…`
+  // Measure and slice by code points, not UTF-16 units, so an emoji at the
+  // boundary isn't cut in half into a lone surrogate.
+  const codePoints = [...firstLine];
+  return codePoints.length > MAX_MESSAGE_LENGTH
+    ? `${codePoints.slice(0, MAX_MESSAGE_LENGTH - 1).join("")}…`
     : firstLine;
 };
 

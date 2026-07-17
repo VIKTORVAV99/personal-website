@@ -34,7 +34,7 @@ All root scripts use `bun --filter` to proxy into workspaces. You can also run w
 
 SvelteKit file-based routing with Svelte 5 runes (`$props()`, `$state()`, etc.).
 
-**Fully prerendered (one exception):** the root `+layout.ts` sets `prerender = true` (and `trailingSlash = "never"`), so every route — including the `sitemap.xml` endpoint — is generated at build time and served as static assets. There is no runtime SSR: load functions run at build time, and query strings cannot drive routing or pagination. The single exception is `src/routes/api/[...path]/+server.ts` (`prerender = false`), a runtime GET proxy that forwards `/api/*` to the backend worker over the `BACKEND` service binding — this is how client-side code reaches the backend same-origin, with no CORS and no public backend URL.
+**Prerendered by default (one runtime exception):** the root `+layout.ts` sets `prerender = true` (and `trailingSlash = "never"`), so routes are generated at build time and served as static assets — including the `sitemap.xml` endpoint. For these, load functions run at build time and query strings cannot drive routing or pagination. One route opts out with `prerender = false`: `src/routes/activity/+page.server.ts` is server-rendered per request so the GitHub activity log is in the HTML crawlers receive (SEO). Its load calls the backend directly over the `BACKEND` service binding via `fetchActivityServer` (a typed Hono RPC client whose transport is the binding, not a public URL); the backend's 1-hour cache keeps the per-request cost off GitHub.
 
 **Path aliases** (defined in svelte.config.js):
 - `$blogs` → `./src/blog_posts`
@@ -74,14 +74,14 @@ SvelteKit file-based routing with Svelte 5 runes (`$props()`, `$state()`, etc.).
 
 ### Backend (apps/backend/)
 
-Hono app on Cloudflare Workers, reachable only through the frontend's `BACKEND` service binding (`workers_dev: false` — no public URL). Entry point src/index.ts keeps the app as one chained builder and exports `AppType` so the frontend gets a typed client via `hc<AppType>` from `hono/client`. Cache middleware applies to all routes (1-hour max-age; only 200s are cached, so upstream failures aren't).
+Hono app on Cloudflare Workers, reachable only through the frontend's `BACKEND` service binding (`workers_dev: false` — no public URL). Entry point src/index.ts keeps the app as one chained builder and exports `AppType` so the frontend gets a typed client via `hc<AppType>` from `hono/client`. Cache middleware applies to all routes (1-hour max-age; only 200s are cached, so upstream failures aren't) — except under `wrangler dev`, where the `DEV` flag from `.dev.vars` makes the worker skip its cache and send `no-store`, so local iteration always sees live data.
 
 All activity data comes from a single GraphQL round trip per cache miss: a search for the user's merged PRs (`is:pr is:merged author:…` — the events feed was abandoned because its ~100-event window rarely holds 15 merges) plus windowed contribution counts. PRs in private repos are redacted to type + timestamp only, enforced in the shaper with a redact-by-default rule for repos not explicitly marked public. GraphQL requires a token — without one (e.g. local dev before provisioning a secret) the endpoint returns an empty log and null counts. `GITHUB_PORTFOLIO_TOKEN` must be a **classic** PAT with `repo` + `read:user` scopes: fine-grained PATs are bounded to one resource owner, so GitHub silently omits org-owned private activity — no fine-grained permission fixes this. GitHub API access lives in `src/github/` with three seams — adding a feature is additive:
-- `client.ts` — shared `githubFetch` (base URL, required headers, auth, error mapping) and `getGithubToken` (reads the Secrets Store binding, falls back to unauthenticated in local dev)
+- `client.ts` — shared `githubGraphql` (endpoint, required headers, auth, error mapping) and `getGithubToken` (reads the Secrets Store binding, falls back to unauthenticated in local dev)
 - one pure shaper module per feature (e.g. `latestActivity.ts`) with co-located fixture tests — no fetch or Hono imports
 - `routes.ts` — chained sub-app mounted at `/github` in index.ts via `.route()`, which preserves RPC types
 
-The frontend consumes it client-side through the typed client in `src/lib/api.ts` (see the `/api/*` proxy note above), which derives response DTO types from `AppType` via `InferResponseType` — the backend exports `AppType` and nothing else. The single `/github/activity` endpoint returns everything at once (`{ log, contributions }`); consumers are the homepage `LatestActivity.svelte` widget (first log entry + counts) and the `/activity` page (full client-rendered git log), both built on the shared `ActivityLine.svelte` and `ContributionsSummary.svelte`.
+The frontend consumes it through the typed client in `src/lib/api.ts`, which derives response DTO types from `AppType` via `InferResponseType` — the backend exports `AppType` and nothing else. The single `/github/activity` endpoint returns everything at once (`{ log, contributions }`); the sole consumer is the `/activity` page, whose server load calls `fetchActivityServer` over the `BACKEND` binding and renders the full git log (built on `ActivityLine.svelte` and `ContributionsSummary.svelte`) into the SSR HTML.
 
 ## Testing
 

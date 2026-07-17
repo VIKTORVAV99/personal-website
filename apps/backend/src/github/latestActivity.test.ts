@@ -113,6 +113,11 @@ describe("shapeActivityLog", () => {
     expect(log.map((entry) => entry.message)).toContain(`${"x".repeat(71)}…`);
   });
 
+  it("does not split an emoji at the truncation boundary", () => {
+    const log = shapeActivityLog(data([prNode({ title: `${"x".repeat(70)}🎉 and more` })]));
+    expect(log.map((entry) => entry.message)).toContain(`${"x".repeat(70)}🎉…`);
+  });
+
   it("tolerates a missing title on a public entry", () => {
     const log = shapeActivityLog(data([prNode({ title: undefined })]));
     expect(log).toHaveLength(1);
