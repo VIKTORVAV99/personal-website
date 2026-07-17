@@ -22,16 +22,16 @@
 
   <section class="flex flex-col gap-8 w-full">
     <section class="flex flex-col gap-4">
-      <h2 class="text-2xl">Personal</h2>
-      <p class="text-surface-300">
+      <h2>Personal</h2>
+      <p class="text-surface-300 text-base">
         I'm a Software Engineer by day and hobby coder and home automator by night.
         I enjoy building things that are useful both on a personal level but also for others, either professionally or as contributions to open source.
         When I'm not coding you can find me watching Sci-Fi and Formula 1, going on walks or just reading a nice Sci-Fi book. Yes I do love Sci-Fi.
       </p>
     </section>
     <section class="flex flex-col gap-4">
-      <h2 class="text-2xl">Professional</h2>
-      <p class="text-surface-300">
+      <h2>Professional</h2>
+      <p class="text-surface-300 text-base">
         I work as a full-stack Software Engineer at Electricity Maps and work on everything from our data ingestion, processing pipelines and optimizing our frontend application (optimizations I do for fun).
         I have a passion for optimization, performance and automating things as much as possible.
         I prefer to do this in a way that is maintainable and lowers our technical debt, processing needs and data usage so it has as low impact on the environment as possible.

@@ -24,13 +24,13 @@
 {#snippet blogPostCard(post: BlogPostMeta, last: boolean)}
   <li>
     <article class="flex flex-col gap-2">
-      <h2 class="text-2xl w-fit">
-        <a href="/blog/{post.slug}" data-sveltekit-preload-data="tap" class="text-surface-100 hover:text-green-500 transition-colors">
+      <h2 class="w-fit">
+        <a href="/blog/{post.slug}" data-sveltekit-preload-data="tap" class="text-surface-100 hover:text-accent transition-colors">
           {post.title}
         </a>
       </h2>
       <PostDate date={post.date} readingTime={post.readingTime} />
-      <p class="text-surface-300 leading-relaxed text-base md:text-lg max-w-3xl">
+      <p class="text-surface-300 leading-relaxed text-base max-w-3xl">
         {post.description}
       </p>
       <PostTags tags={post.tags} />
@@ -43,7 +43,7 @@
 
 {#snippet chevron(href: string | undefined, label: string, Icon: LucideIcon)}
   {#if href}
-    <a {href} class={[box, 'text-surface-300 hover:text-green-500 transition-colors']} aria-label={label}>
+    <a {href} class={[box, 'text-surface-300 hover:text-accent transition-colors']} aria-label={label}>
       <Icon size={16} />
     </a>
   {:else}
@@ -70,9 +70,9 @@
 
           {#each Array.from({ length: totalPages }, (_, i) => i + 1) as page}
             {#if page === currentPage}
-              <span class={[box, 'text-green-500']} aria-current="page">{page}</span>
+              <span class={[box, 'text-accent']} aria-current="page">{page}</span>
             {:else}
-              <a href={pageHref(page)} class={[box, 'text-surface-300 hover:text-green-500 transition-colors']}>{page}</a>
+              <a href={pageHref(page)} class={[box, 'text-surface-300 hover:text-accent transition-colors']}>{page}</a>
             {/if}
           {/each}
 

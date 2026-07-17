@@ -20,7 +20,7 @@
   <a
     {href}
     class={[
-      'group relative flex items-center md:max-w-1/2 text-surface-300 hover:text-green-500 transition-colors',
+      'group relative flex items-center md:max-w-1/2 text-surface-300 hover:text-accent transition-colors',
       !isPrev && 'text-right md:ml-auto'
     ]}
   >
@@ -31,7 +31,7 @@
     {/if}
     <div class={['flex flex-col', !isPrev && 'items-end']}>
       <span class="text-xs font-mono uppercase tracking-wide">{isPrev ? "Newer" : "Older"}</span>
-      <span class="text-sm text-surface-300 group-hover:text-green-500 transition-colors">{title}</span>
+      <span class="text-sm text-surface-300 group-hover:text-accent transition-colors">{title}</span>
     </div>
     {#if !isPrev}
       <span class="absolute -right-6 top-1/2 -translate-y-1/2">

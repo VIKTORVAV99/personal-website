@@ -35,7 +35,7 @@
 
   <a
     {href}
-    class="rounded-full font-mono backdrop-blur-sm bg-surface-800/80 px-6 py-3 text-sm text-surface-50 transition-colors hover:bg-surface-700/80 [text-decoration:none]!"
+    class="rounded-full font-mono glass-surface px-6 py-3 text-sm text-surface-50 transition-colors hover:bg-surface-700/80 link-plain"
   >
     {@render buttonContent()}
   </a>
