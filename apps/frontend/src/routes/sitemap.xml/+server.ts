@@ -1,6 +1,7 @@
 export const prerender = true;
 import { getAllPosts, getAllTags, slugifyTag } from "$lib/blog";
 import { SITE_URL } from "$lib/config";
+import { SITE_PAGES } from "$lib/pages";
 import { PROFILE_DATE_MODIFIED } from "$lib/seo/person";
 
 interface SitemapPage {
@@ -12,13 +13,12 @@ interface SitemapPage {
 
 const profileLastmod = PROFILE_DATE_MODIFIED.split("T")[0];
 
-export const _staticPages = [
-  { path: "", priority: "1.0", changefreq: "weekly", lastmod: profileLastmod },
-  { path: "/blog", priority: "0.9", changefreq: "weekly", lastmod: profileLastmod },
-  { path: "/about", priority: "0.8", changefreq: "monthly", lastmod: profileLastmod },
-  { path: "/activity", priority: "0.7", changefreq: "daily", lastmod: profileLastmod },
-  { path: "/history", priority: "0.8", changefreq: "monthly", lastmod: profileLastmod },
-];
+export const _staticPages: SitemapPage[] = SITE_PAGES.map((page) => ({
+  path: page.path,
+  priority: page.priority,
+  changefreq: page.changefreq,
+  lastmod: profileLastmod,
+}));
 
 export const _buildSitemapXml = (pages: SitemapPage[]): string =>
   `<?xml version="1.0" encoding="UTF-8"?>

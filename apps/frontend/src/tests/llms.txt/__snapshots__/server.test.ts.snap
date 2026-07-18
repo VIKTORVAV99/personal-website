@@ -1,0 +1,25 @@
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`llms.txt should match snapshot 1`] = `
+"# Viktor Andersson
+
+> Personal website for Viktor Andersson, Software Engineer at Electricity Maps and Digital Design and Innovation graduate
+
+## Pages
+
+- [Home](https://viktor.andersson.tech/): Overview and latest writing
+- [About](https://viktor.andersson.tech/about): Background, skills, and contact
+- [Activity](https://viktor.andersson.tech/activity): Live GitHub contribution log
+- [History](https://viktor.andersson.tech/history): Career and education timeline
+- [Blog](https://viktor.andersson.tech/blog): Writing on software engineering, climate tech, and open source
+
+## Blog
+
+- [Hello World](https://viktor.andersson.tech/blog/hello_world): My first post
+
+## Optional
+
+- [RSS feed](https://viktor.andersson.tech/rss.xml): Blog posts as an RSS feed
+- [Sitemap](https://viktor.andersson.tech/sitemap.xml): All indexed URLs
+"
+`;
