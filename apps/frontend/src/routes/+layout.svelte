@@ -8,18 +8,17 @@
   import { afterNavigate } from "$app/navigation";
   import { page, navigating } from "$app/state";
   import Highlight from "$components/Highlight.svelte";
+  import { SITE_PAGES } from "$lib/pages";
   import { type Snippet } from "svelte";
   import { motion } from "$lib/motion";
   import { cubicOut } from "svelte/easing";
   import { fade } from "svelte/transition";
 
-  const links = [
-    { href: "/", label: "Home", name: "" },
-    { href: "/about", label: "About", name: "about" },
-    { href: "/activity", label: "Activity", name: "activity" },
-    { href: "/history", label: "History", name: "history" },
-    { href: "/blog", label: "Blog", name: "blog" },
-  ] as const;
+  const links = SITE_PAGES.map((page) => ({
+    href: page.path || "/",
+    label: page.title,
+    name: page.path.replace(/^\//, ""),
+  }));
 
   let open = $state(false);
   let mobileMenu = $state<HTMLDetailsElement>();

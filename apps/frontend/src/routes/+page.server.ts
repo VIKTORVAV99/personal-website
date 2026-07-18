@@ -1,5 +1,5 @@
 import { getAllPosts } from "$lib/blog";
-import { SITE_URL } from "$lib/config";
+import { SITE_URL, SITE_DESCRIPTION } from "$lib/config";
 import {
   createWebSiteSchema,
   createSoftwareSourceCodeSchema,
@@ -14,7 +14,7 @@ const structuredData = [
     "@id": `${SITE_URL}/#website`,
     name: "Viktor Andersson",
     url: SITE_URL,
-    description: "Personal website for Viktor Andersson, Software Engineer at Electricity Maps.",
+    description: SITE_DESCRIPTION,
     author: SITE_OWNER_PERSON_REF,
     publisher: SITE_OWNER_PERSON_REF,
   }),
