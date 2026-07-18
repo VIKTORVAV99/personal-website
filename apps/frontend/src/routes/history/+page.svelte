@@ -18,7 +18,7 @@
 />
 
 <div class="page-container">
-  <TitleText path="history" subtitle={data.description} />
+  <TitleText path="history" heading="History" subtitle={data.description} />
   <section class="flex flex-col gap-4 items-center w-full">
     <Timeline entries={timelineEntries} />
   </section>

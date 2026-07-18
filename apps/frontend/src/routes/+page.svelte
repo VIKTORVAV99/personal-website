@@ -4,7 +4,6 @@
   import ProfileCard from "$components/ProfileCard.svelte";
   import SEO from "$lib/seo/components/SEO.svelte";
   import Highlight from "$components/Highlight.svelte";
-  import { SITE_URL } from "$lib/config";
 
   let { data }: { data: PageData } = $props();
 
@@ -17,12 +16,11 @@
 <SEO
   title="Viktor Andersson - Software Engineer"
   description="Personal website for Viktor Andersson, Software Engineer at Electricity Maps and Digital Design and Innovation graduate"
-  canonicalURL={SITE_URL}
   structuredData={data.structuredData}
 />
 <div class="page-container">
   <TitleText path="" subtitle="Welcome" />
-  <ProfileCard />
+  <ProfileCard as="h1" />
   <nav aria-label="Site map" class="font-mono text-lg flex flex-col w-full leading-tight whitespace-pre">
     <span><Highlight>~</Highlight>/</span>
     {@render treeLink("/about", "about", "├── ")}

@@ -187,6 +187,7 @@ export interface ArticleSchema {
   "@type": "Article" | "BlogPosting" | "NewsArticle";
   headline: string;
   description?: string;
+  inLanguage?: string;
   image?: string | string[];
   datePublished: string; // ISO 8601 format (e.g., "2026-03-15T21:07:31+01:00")
   dateModified?: string; // ISO 8601 format
@@ -203,6 +204,7 @@ export const createArticleSchema = (
   options: Omit<ArticleSchema, "@type"> & { "@type"?: "Article" | "BlogPosting" | "NewsArticle" },
 ): ArticleSchema => ({
   "@type": options["@type"] || blogPostingType,
+  inLanguage: "en",
   ...options,
 });
 
@@ -282,6 +284,7 @@ export interface CollectionPageSchema {
   "@type": typeof collectionPageType;
   name: string;
   description?: string;
+  inLanguage?: string;
   url: string;
   mainEntity: ItemListSchema;
   isPartOf?: CollectionPageRefSchema;
@@ -290,7 +293,7 @@ export interface CollectionPageSchema {
 
 export const createCollectionPageSchema = (
   options: Omit<CollectionPageSchema, "@type">,
-): CollectionPageSchema => ({ "@type": collectionPageType, ...options });
+): CollectionPageSchema => ({ "@type": collectionPageType, inLanguage: "en", ...options });
 
 export interface WebSiteSchema {
   "@type": typeof webSiteType;
@@ -298,12 +301,14 @@ export interface WebSiteSchema {
   name: string;
   url: string;
   description?: string;
+  inLanguage?: string;
   author?: PersonSchema | OrganizationSchema;
   publisher?: PersonSchema | OrganizationSchema;
 }
 
 export const createWebSiteSchema = (options: Omit<WebSiteSchema, "@type">): WebSiteSchema => ({
   "@type": webSiteType,
+  inLanguage: "en",
   ...options,
 });
 

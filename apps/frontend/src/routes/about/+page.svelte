@@ -10,13 +10,13 @@
 
 <SEO
   title="Viktor Andersson | About"
-  description="About Viktor Andersson, Software Engineer at Electricity Maps."
+  description="About Viktor Andersson, Software Engineer based in Malmö, Sweden, working at Electricity Maps."
   canonicalURL={`${SITE_URL}/about`}
   structuredData={data.structuredData}
 />
 
 <div class="page-container">
-  <TitleText path="about" subtitle="Get to know me" />
+  <TitleText path="about" heading="About" subtitle="Get to know me" />
 
   <ProfileCard />
 
