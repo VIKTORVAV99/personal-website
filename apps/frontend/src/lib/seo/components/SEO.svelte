@@ -1,8 +1,10 @@
 <script lang="ts">
+  import { page } from "$app/state";
   import {
     FALLBACK_HERO_IMAGE,
     FALLBACK_HERO_IMAGE_HEIGHT,
     FALLBACK_HERO_IMAGE_WIDTH,
+    SITE_URL,
   } from "$lib/config";
   import type { StructuredDataSchema } from "..";
   import { toJsonLd } from "..";
@@ -43,15 +45,20 @@
     /** Emitted as article:tag when type is "article" */
     tags?: string[];
   } = $props();
+
+  // Default to the current path (no trailing slash); noindex pages get no canonical.
+  const resolvedCanonicalURL = $derived(
+    canonicalURL ?? (noIndex ? undefined : SITE_URL + page.url.pathname.replace(/\/$/, "")),
+  );
 </script>
 
 <svelte:head>
   <title>{title}</title>
   <meta name="description" content={description} />
 
-  {#if canonicalURL}
-    <link rel="canonical" href={canonicalURL} />
-    <meta property="og:url" content={canonicalURL} />
+  {#if resolvedCanonicalURL}
+    <link rel="canonical" href={resolvedCanonicalURL} />
+    <meta property="og:url" content={resolvedCanonicalURL} />
   {/if}
   {#if prevURL}<link rel="prev" href={prevURL} />{/if}
   {#if nextURL}<link rel="next" href={nextURL} />{/if}
@@ -67,11 +74,15 @@
   <meta property="og:description" content={description} />
 
   {#if type === "article"}
+    <meta property="article:author" content={`${SITE_URL}/#person`} />
     {#if publishedTime}<meta property="article:published_time" content={publishedTime} />{/if}
     {#if modifiedTime}<meta property="article:modified_time" content={modifiedTime} />{/if}
     {#each tags ?? [] as tag}
       <meta property="article:tag" content={tag} />
     {/each}
+  {:else if type === "profile"}
+    <meta property="profile:first_name" content="Viktor" />
+    <meta property="profile:last_name" content="Andersson" />
   {/if}
 
   {#if image}
@@ -92,6 +103,9 @@
   {#if noIndex}
     <meta name="robots" content="noindex, nofollow" />
   {:else}
-    <meta name="robots" content="index, follow" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
   {/if}
 </svelte:head>

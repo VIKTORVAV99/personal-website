@@ -19,7 +19,7 @@
 
 <div class="page-container">
 
-  <TitleText path="blog/tag/{data.tag}" subtitle="Posts tagged with #{data.displayTag}" />
+  <TitleText path="blog/tag/{data.tag}" heading="Posts tagged #{data.displayTag}" subtitle="Posts tagged with #{data.displayTag}" />
 
   <BlogPostList posts={data.pagedPosts} currentPage={data.currentPage} totalPages={data.totalPages} baseHref="/blog/tag/{data.tag}" />
 </div>

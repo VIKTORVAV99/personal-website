@@ -35,7 +35,7 @@ const hh = createCollegeOrUniversitySchema({
 });
 
 export const PROFILE_DATE_CREATED = new Date("2026-03-20").toISOString();
-export const PROFILE_DATE_MODIFIED = new Date("2026-03-21").toISOString();
+export const PROFILE_DATE_MODIFIED = new Date("2026-07-18").toISOString();
 
 export const siteOwnerPerson = createPersonSchema({
   "@id": `${SITE_URL}/#person`,

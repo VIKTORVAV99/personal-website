@@ -18,7 +18,7 @@
 
 <div class="page-container">
 
-  <TitleText path="blog" subtitle={data.description} />
+  <TitleText path="blog" heading="Blog" subtitle={data.description} />
 
   <BlogPostList posts={data.pagedPosts} currentPage={data.currentPage} totalPages={data.totalPages} />
 </div>

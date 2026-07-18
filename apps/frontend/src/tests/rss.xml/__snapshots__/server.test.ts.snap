@@ -1,0 +1,22 @@
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`rss.xml should match snapshot 1`] = `
+"<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Viktor Andersson</title>
+    <link>https://viktor.andersson.tech/blog</link>
+    <description>Thoughts on software engineering, climate tech, and open source.</description>
+    <language>en</language>
+    <lastBuildDate>Fri, 20 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://viktor.andersson.tech/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello &amp; &lt;World&gt;</title>
+      <link>https://viktor.andersson.tech/blog/hello_world</link>
+      <guid isPermaLink="true">https://viktor.andersson.tech/blog/hello_world</guid>
+      <description>A &quot;quoted&quot; post</description>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>"
+`;
