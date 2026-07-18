@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
       - name: Install dependencies
@@ -32,7 +32,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
       - name: Install dependencies
@@ -47,7 +47,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
       - name: Install dependencies
@@ -62,7 +62,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
       - name: Install dependencies
@@ -81,7 +81,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
       - name: Install dependencies
@@ -109,7 +109,7 @@ jobs:
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
@@ -132,7 +132,7 @@ jobs:
   #    url: ${{ steps.deployment.outputs.deployment-url }}
   #  steps:
   #    - name: Checkout
-  #      uses: actions/checkout@v6
+  #      uses: actions/checkout@v7
   #    - name: Download build artifact
   #      uses: actions/download-artifact@v4
   #      with:
