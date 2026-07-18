@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
-    "build:ci": "vite build --mode production",
+    "build": "bun --bun vite build",
+    "build:ci": "bun --bun vite build --mode production",
     "preview": "wrangler dev",
     "deploy": "wrangler deploy",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
