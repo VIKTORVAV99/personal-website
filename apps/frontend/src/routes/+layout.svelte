@@ -9,6 +9,7 @@
   import { page, navigating } from "$app/state";
   import Highlight from "$components/Highlight.svelte";
   import { type Snippet } from "svelte";
+  import { motion } from "$lib/motion";
   import { cubicOut } from "svelte/easing";
   import { fade } from "svelte/transition";
 
@@ -43,14 +44,10 @@
     return () => clearTimeout(timer);
   });
 
-  const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   // Indeterminate creep toward ~90% (no built-in fits a horizontal-only scale).
   // The `fade` out reverts to the scaleX(1) base, so completion snaps to full.
-  const creep = (_node: Element, { duration = 8000 } = {}) => {
-    if (reduceMotion()) return { duration: 0 };
-    return { duration, easing: cubicOut, css: (t: number) => `transform: scaleX(${0.9 * t})` };
-  };
+  const creep = (_node: Element, { duration = 8000 } = {}) =>
+    motion({ duration, easing: cubicOut, css: (t: number) => `transform: scaleX(${0.9 * t})` });
 
   // The home link only matches exactly; section links also match their subpages
   // (e.g. /blog/some-post keeps Blog marked active).
@@ -99,7 +96,7 @@
     class="nav-progress"
     aria-hidden="true"
     in:creep
-    out:fade={{ duration: reduceMotion() ? 0 : 300, easing: cubicOut }}
+    out:fade={motion({ duration: 300, easing: cubicOut })}
   ></div>
 {/if}
 

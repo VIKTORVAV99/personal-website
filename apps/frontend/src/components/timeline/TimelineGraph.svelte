@@ -1,4 +1,8 @@
 <script lang="ts">
+  import { afterNavigate } from "$app/navigation";
+  import { motion } from "$lib/motion";
+  import { linear } from "svelte/easing";
+  import { draw, fade, scale } from "svelte/transition";
   import { LINE_WIDTH, NODE_RADIUS } from "./constants";
   import {
     type GraphData,
@@ -7,7 +11,6 @@
     toAbsoluteMonth,
     entryEndAbsMonth,
   } from "./types";
-  import { afterNavigate } from "$app/navigation";
 
   let {
     graphData,
@@ -21,15 +24,29 @@
     totalHeight: number;
   } = $props();
 
-  // Draw in on arrival (afterNavigate fires on mount and on navigations) rather
-  // than on scroll — the graph is tall enough an IntersectionObserver could miss.
-  let inView = $state(false);
-
+  // Draw in on arrival via afterNavigate (replays on each navigation). Elements
+  // are held out of the DOM until then so their intro transitions run.
+  let entered = $state(false);
   afterNavigate(() => {
-    inView = true;
+    entered = true;
   });
 
   const maxGridRow = $derived(Math.max(...graphData.nodes.map((n) => n.gridRow)));
+
+  // Stagger bottom-up: rows nearer the bottom (maxGridRow) start sooner.
+  const msPerRow = 2;
+  const rowDelay = (row: number) => (maxGridRow - row) * msPerRow;
+
+  // Scale branch durations to the trunk's px/ms rate for a consistent draw speed.
+  const trunkPxLen = $derived(Math.abs(nodeY(maxGridRow, pxPerMonth) - nodeY(1, pxPerMonth)));
+  const trunkDuration = $derived(maxGridRow * msPerRow);
+  const pxPerMs = $derived(trunkPxLen / trunkDuration);
+
+  const drawIn = (bp: { verticalPx: number; forkRow: number }) =>
+    motion({ duration: Math.max(400, bp.verticalPx / pxPerMs), delay: rowDelay(bp.forkRow), easing: linear });
+  const scaleIn = (row: number) => motion({ duration: 300, delay: rowDelay(row), start: 0 });
+  const fadeIn = (y: number) =>
+    motion({ duration: 300, delay: (1 - y / totalHeight) * maxGridRow * msPerRow });
 
   const trunkLabels = $derived.by(() => {
     const labels: Array<{ y: number; text: string }> = [];
@@ -93,17 +110,20 @@
           ` C ${bx} ${endY - 0.6 * ch}, ${mainX} ${endY - 0.4 * ch}, ${mainX} ${endY - ch}`;
       }
 
-      return { d, color: branch.color };
+      const verticalPx = Math.abs(forkY + ch - (isOngoing ? endY : endY - ch));
+      return { d, color: branch.color, forkRow: branch.forkRow, verticalPx };
     });
   });
+
+  // Held empty until `entered`, so the {#each} items are "added" and animate in.
+  const visibleBranches = $derived(entered ? branchPaths : []);
+  const visibleNodes = $derived(entered ? graphData.nodes : []);
+  const visibleLeaders = $derived(entered ? graphData.leaderLines : []);
+  const visibleLabels = $derived(entered ? trunkLabels : []);
 </script>
 
 <div
-  class={[
-    graphData.mode === 'compact' ? 'col-start-1' : 'col-start-2',
-    'relative',
-    inView && 'in-view'
-  ]}
+  class={[graphData.mode === 'compact' ? 'col-start-1' : 'col-start-2', 'relative']}
   style="grid-row: 1 / {graphData.totalGridRows + 1}; width: {graphData.graphWidth}px;"
 >
   <!-- Decorative: the accordion cards carry all of the graph's information -->
@@ -120,57 +140,52 @@
       y1={nodeY(maxGridRow, pxPerMonth)}
       x2={graphData.laneX(0)}
       y2={nodeY(1, pxPerMonth)}
-      class="stroke-surface-600 graph-line"
+      class="stroke-surface-600"
       stroke-width={LINE_WIDTH}
       stroke-linecap="round"
-      pathLength="1"
-      style="animation-delay: 200ms;"
     />
 
     <!-- Branch paths (fork curve + vertical + merge curve combined) -->
-    {#each branchPaths as bp, i}
+    {#each visibleBranches as bp}
       <path
         d={bp.d}
         fill="none"
         stroke={bp.color}
         stroke-width={LINE_WIDTH}
         stroke-linecap="round"
-        class="graph-line"
-        pathLength="1"
-        style="animation-delay: {300 + i * 100}ms;"
+        in:draw={drawIn(bp)}
       />
     {/each}
 
     <!-- Leader lines -->
-    {#each graphData.leaderLines as leader, i}
+    {#each visibleLeaders as leader}
       <polyline
         points={leader.points.map((p) => `${p.x},${p.y}`).join(" ")}
         fill="none"
         stroke={leader.color}
         stroke-width={1}
         stroke-dasharray="4 3"
-        class="graph-fade"
-        style="animation-delay: {600 + i * 50}ms;"
+        in:fade={fadeIn(leader.points[0].y)}
       />
     {/each}
 
     <!-- Commit nodes -->
-    {#each graphData.nodes as node, i}
+    {#each visibleNodes as node}
       {@const ny = nodeY(node.row, pxPerMonth)}
       <circle
         cx={graphData.laneX(node.lane)}
         cy={ny}
         r={NODE_RADIUS}
         fill={node.color}
-        class="stroke-surface-950 stroke-3 graph-node"
-        style="animation-delay: {600 + i * 50}ms;"
+        class="transform-fill origin-center stroke-surface-950 stroke-3"
+        in:scale={scaleIn(node.row)}
       />
     {/each}
 
     <!-- Trunk labels (year markers + life labels) -->
-    {#each trunkLabels as label, i}
+    {#each visibleLabels as label}
       {@const mx = graphData.laneX(0)}
-      <g class="graph-fade" style="animation-delay: {800 + i * 50}ms;">
+      <g in:fade={fadeIn(label.y)}>
         <rect
           x={mx - 16}
           y={label.y - 8}
@@ -190,70 +205,3 @@
     {/each}
   </svg>
 </div>
-
-<style>
-  /* SVG graph draw-in. The hidden initial states live inside the motion
-     query so reduced-motion users see the finished graph immediately. */
-  @media (prefers-reduced-motion: no-preference) {
-    .graph-line {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-    }
-
-    .in-view .graph-line {
-      animation: draw-line 1.2s ease forwards;
-    }
-
-    .graph-node {
-      transform-box: fill-box;
-      transform-origin: center;
-      transform: scale(0);
-    }
-
-    .in-view .graph-node {
-      animation: pop-in 0.4s ease forwards;
-    }
-
-    .graph-fade {
-      opacity: 0;
-    }
-
-    .in-view .graph-fade {
-      animation: fade-in 0.5s ease forwards;
-    }
-  }
-
-  /* Without JavaScript nothing adds .in-view (afterNavigate never runs);
-     show the finished graph instead of leaving it hidden. */
-  @media (scripting: none) {
-    .graph-line {
-      stroke-dashoffset: 0;
-    }
-
-    .graph-node {
-      transform: scale(1);
-    }
-
-    .graph-fade {
-      opacity: 1;
-    }
-  }
-
-  @keyframes draw-line {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-
-  @keyframes pop-in {
-    to {
-      transform: scale(1);
-    }
-  }
-
-  @keyframes fade-in {
-    to {
-      opacity: 1;
-    }
-  }
-</style>
