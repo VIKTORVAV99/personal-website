@@ -1,6 +1,6 @@
 export const prerender = true;
 import { getAllPosts } from "$lib/blog";
-import { SITE_URL } from "$lib/config";
+import { BLOG_DESCRIPTION, SITE_URL } from "$lib/config";
 
 interface RssItem {
   title: string;
@@ -12,7 +12,7 @@ interface RssItem {
 export const _channel = {
   title: "Viktor Andersson",
   link: `${SITE_URL}/blog`,
-  description: "Thoughts on software engineering, climate tech, and open source.",
+  description: BLOG_DESCRIPTION,
   feedURL: `${SITE_URL}/rss.xml`,
 };
 
@@ -61,10 +61,8 @@ export const GET = async () => {
   const newest = posts[0];
   const lastBuildDate = new Date(newest?.last_updated || newest?.date || Date.now()).toUTCString();
 
+  // Prerendered: only the body survives the build; caching is the asset layer's job.
   return new Response(_buildRssXml(items, lastBuildDate), {
-    headers: {
-      "Content-Type": "application/rss+xml; charset=utf-8",
-      "Cache-Control": "max-age=0, s-maxage=3600",
-    },
+    headers: { "Content-Type": "application/rss+xml; charset=utf-8" },
   });
 };

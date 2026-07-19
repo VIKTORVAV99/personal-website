@@ -76,10 +76,8 @@ export const GET = async () => {
     ...tagPages,
   ];
 
+  // Prerendered: only the body survives the build; caching is the asset layer's job.
   return new Response(_buildSitemapXml(allPages), {
-    headers: {
-      "Content-Type": "application/xml",
-      "Cache-Control": "max-age=0, s-maxage=3600",
-    },
+    headers: { "Content-Type": "application/xml" },
   });
 };

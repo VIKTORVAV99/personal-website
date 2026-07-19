@@ -66,8 +66,6 @@ SvelteKit file-based routing with Svelte 5 runes (`$props()`, `$state()`, etc.).
 
 **SEO:** Custom `SEO.svelte` component injects JSON-LD structured data, Open Graph tags, Twitter Card tags, canonical URLs, and robots meta into `<svelte:head>`. Schema types include Person, WebSite, BlogPosting, ProfilePage, CollectionPage, BreadcrumbList, and SoftwareSourceCode. `sitemap.xml` is a prerendered endpoint; `robots.txt` is a static asset.
 
-**Service worker:** `src/service-worker.ts` is deliberately a kill switch — it deletes all caches and unregisters itself, cleaning up after a previous offline-first iteration. Don't add caching logic back without replacing this behavior intentionally.
-
 **Legacy routes:** `/projects/*` returns `410 Gone` (the projects section was removed; the route exists to signal link rot).
 
 **Data is static** — timeline entries and blog posts are defined in source files, no database.

@@ -1,5 +1,5 @@
 import { getAllPosts, paginatePosts } from "$lib/blog";
-import { SITE_URL } from "$lib/config";
+import { BLOG_DESCRIPTION, SITE_URL } from "$lib/config";
 import { buildPaginationURLs } from "$lib/helpers/paginationURLs";
 import {
   createBreadcrumbListSchema,
@@ -19,17 +19,23 @@ export const loadBlogListing = (page: number) => {
     paginated.totalPages,
   );
 
-  const description = "Thoughts on software engineering, climate tech, and open source.";
-
   const structuredData = [
     createCollectionPageSchema({
       name: "Blog",
-      description,
+      description: BLOG_DESCRIPTION,
       url: canonicalURL,
       mainEntity: createItemListSchema(allSlugs.map((slug) => `${SITE_URL}/blog/${slug}`)),
     }),
     createBreadcrumbListSchema([{ name: "Home", url: SITE_URL }, { name: "Blog" }]),
   ];
 
-  return { ...paginated, allSlugs, description, structuredData, canonicalURL, prevURL, nextURL };
+  return {
+    ...paginated,
+    allSlugs,
+    description: BLOG_DESCRIPTION,
+    structuredData,
+    canonicalURL,
+    prevURL,
+    nextURL,
+  };
 };

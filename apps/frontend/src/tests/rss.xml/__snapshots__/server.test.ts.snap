@@ -6,7 +6,7 @@ exports[`rss.xml should match snapshot 1`] = `
   <channel>
     <title>Viktor Andersson</title>
     <link>https://viktor.andersson.tech/blog</link>
-    <description>Thoughts on software engineering, climate tech, and open source.</description>
+    <description>Thoughts on software engineering, climate tech, and open source</description>
     <language>en</language>
     <lastBuildDate>Fri, 20 Mar 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://viktor.andersson.tech/rss.xml" rel="self" type="application/rss+xml" />
