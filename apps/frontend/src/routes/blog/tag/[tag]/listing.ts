@@ -7,6 +7,7 @@ import {
   createCollectionPageSchema,
   createDefinedTermSchema,
   createItemListSchema,
+  SITE_WEBSITE_REF,
 } from "$lib/seo";
 
 /** Shared load logic for /blog/tag/[tag] and /blog/tag/[tag]/page/[page]. */
@@ -39,7 +40,7 @@ export const loadTagListing = (tag: string, page: number) => {
       description,
       url: canonicalURL,
       mainEntity: createItemListSchema(allSlugs.map((slug) => `${SITE_URL}/blog/${slug}`)),
-      isPartOf: createCollectionPageRefSchema(`${SITE_URL}/blog`),
+      isPartOf: [createCollectionPageRefSchema(`${SITE_URL}/blog`), SITE_WEBSITE_REF],
       about: createDefinedTermSchema({ name: displayTag }),
     }),
     createBreadcrumbListSchema([

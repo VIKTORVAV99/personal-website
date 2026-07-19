@@ -4,6 +4,7 @@ import {
   createWebSiteSchema,
   createSoftwareSourceCodeSchema,
   SITE_OWNER_PERSON_REF,
+  SITE_WEBSITE_REF,
 } from "$lib/seo";
 import { siteOwnerPerson } from "$lib/seo/person";
 
@@ -11,7 +12,7 @@ import type { PageServerLoad } from "./$types";
 
 const structuredData = [
   createWebSiteSchema({
-    "@id": `${SITE_URL}/#website`,
+    "@id": SITE_WEBSITE_REF["@id"],
     name: "Viktor Andersson",
     url: SITE_URL,
     description: SITE_DESCRIPTION,
