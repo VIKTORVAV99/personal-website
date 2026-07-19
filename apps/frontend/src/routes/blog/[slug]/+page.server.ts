@@ -5,6 +5,7 @@ import {
   createBreadcrumbListSchema,
   createWebPageSchema,
   SITE_OWNER_PERSON_REF,
+  SITE_WEBSITE_REF,
 } from "$lib/seo";
 import { error } from "@sveltejs/kit";
 
@@ -53,7 +54,8 @@ export const load = async ({ params }: PageServerLoadEvent) => {
         publisher: SITE_OWNER_PERSON_REF,
         keywords: post.tags,
         url: postUrl,
-        mainEntityOfPage: createWebPageSchema(postUrl),
+        mainEntityOfPage: createWebPageSchema({ "@id": postUrl }),
+        isPartOf: SITE_WEBSITE_REF,
         image: FALLBACK_HERO_IMAGE,
       }),
       createBreadcrumbListSchema([

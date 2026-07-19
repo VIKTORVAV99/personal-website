@@ -113,14 +113,20 @@ export const createEducationalCredentialSchema = (
   options: Omit<EducationalCredentialSchema, "@type">,
 ): EducationalCredentialSchema => ({ "@type": educationalCredentialType, ...options });
 
-export interface WebPageSchema {
-  "@type": typeof webPageType;
+/** Bare "@id" reference to a node declared elsewhere in the graph. */
+export interface NodeRefSchema {
   "@id": string;
 }
 
-export const createWebPageSchema = (id: string): WebPageSchema => ({
+export interface WebPageSchema {
+  "@type": typeof webPageType;
+  "@id": string;
+  isPartOf?: NodeRefSchema;
+}
+
+export const createWebPageSchema = (options: Omit<WebPageSchema, "@type">): WebPageSchema => ({
   "@type": webPageType,
-  "@id": id,
+  ...options,
 });
 
 export interface SoftwareSourceCodeSchema {
@@ -148,7 +154,7 @@ export interface PersonSchema {
    * For example, you could set it to "https://viktor.andersson.tech/#person" to indicate that this schema describes the person associated with that URL.
    */
   "@id"?: string;
-  mainEntityOfPage?: WebPageSchema;
+  mainEntityOfPage?: WebPageSchema | NodeRefSchema;
   name: string;
   givenName?: string;
   familyName?: string;
@@ -194,6 +200,7 @@ export interface ArticleSchema {
   author?: PersonSchema | OrganizationSchema | Array<PersonSchema | OrganizationSchema>;
   publisher?: OrganizationSchema | PersonSchema;
   mainEntityOfPage?: WebPageSchema | string;
+  isPartOf?: NodeRefSchema;
   wordCount?: number;
   keywords?: string | string[];
   articleBody?: string;
@@ -210,6 +217,9 @@ export const createArticleSchema = (
 
 export interface ProfilePageSchema {
   "@type": typeof profilePageType;
+  "@id"?: string;
+  url?: string;
+  isPartOf?: NodeRefSchema;
   dateCreated?: string;
   dateModified?: string;
   mainEntity: PersonSchema;
@@ -287,7 +297,10 @@ export interface CollectionPageSchema {
   inLanguage?: string;
   url: string;
   mainEntity: ItemListSchema;
-  isPartOf?: CollectionPageRefSchema;
+  isPartOf?:
+    | CollectionPageRefSchema
+    | NodeRefSchema
+    | Array<CollectionPageRefSchema | NodeRefSchema>;
   about?: DefinedTermSchema;
 }
 
@@ -312,6 +325,9 @@ export const createWebSiteSchema = (options: Omit<WebSiteSchema, "@type">): WebS
   ...options,
 });
 
+/** Reference to the WebSite node declared on the home page. */
+export const SITE_WEBSITE_REF: NodeRefSchema = { "@id": `${SITE_URL}/#website` };
+
 export type StructuredDataSchema =
   | PersonSchema
   | OrganizationSchema
@@ -328,19 +344,6 @@ export type StructuredDataSchema =
   | CollectionPageSchema
   | BreadcrumbListSchema
   | DefinedTermSchema;
-
-/** Converts a date string to ISO 8601. Month-only dates (e.g. "2025-07") floor to the 1st. */
-export const toISOStartDate = (date: string): string =>
-  new Date(date.length === 7 ? `${date}-01` : date).toISOString();
-
-/** Converts a date string to ISO 8601. Month-only dates (e.g. "2025-06") ceil to the last day. */
-export const toISOEndDate = (date: string): string => {
-  if (date.length === 7) {
-    const [year, month] = date.split("-").map(Number);
-    return new Date(Date.UTC(year, month, 0)).toISOString();
-  }
-  return new Date(date).toISOString();
-};
 
 const schemaURL = "https://schema.org/";
 

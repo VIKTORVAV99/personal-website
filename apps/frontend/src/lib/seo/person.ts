@@ -9,8 +9,6 @@ import {
   createPlaceSchema,
   createDefinedTermSchema,
   createEducationalCredentialSchema,
-  toISOStartDate,
-  toISOEndDate,
 } from "$lib/seo";
 
 export const electricityMaps = createOrganizationSchema({
@@ -65,13 +63,13 @@ export const siteOwnerPerson = createPersonSchema({
   worksFor: [
     createEmployeeRoleSchema({
       roleName: "Software Engineer",
-      startDate: toISOStartDate("2025-07"),
+      startDate: "2025-07",
       worksFor: electricityMaps,
     }),
     createEmployeeRoleSchema({
       roleName: "Open Source Community Engineer",
-      startDate: toISOStartDate("2022-12"),
-      endDate: toISOEndDate("2025-06"),
+      startDate: "2022-12",
+      endDate: "2025-06",
       worksFor: electricityMaps,
     }),
   ],
@@ -81,14 +79,14 @@ export const siteOwnerPerson = createPersonSchema({
       name: "Bachelor of Science in Digital Design and Innovation",
       credentialCategory: createDefinedTermSchema({ name: "Degree", termCode: "BSc" }),
       educationalLevel: "Bachelor",
-      datePublished: toISOEndDate("2025-06"),
+      datePublished: "2025-06",
       recognizedBy: hh,
     }),
     createEducationalCredentialSchema({
       name: "High School Diploma in Information and Media Technology",
       credentialCategory: createDefinedTermSchema({ name: "High School Diploma" }),
       educationalLevel: "Upper secondary",
-      datePublished: toISOEndDate("2020-06"),
+      datePublished: "2020-06",
       recognizedBy: createHighSchoolSchema({
         name: "Haganässkolan",
         location: createPlaceSchema("Älmhult", "SE"),

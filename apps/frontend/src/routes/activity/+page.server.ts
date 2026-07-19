@@ -1,6 +1,6 @@
 import { fetchActivityServer } from "$lib/api";
 import { SITE_URL } from "$lib/config";
-import { createBreadcrumbListSchema, createWebPageSchema } from "$lib/seo";
+import { createBreadcrumbListSchema, createWebPageSchema, SITE_WEBSITE_REF } from "$lib/seo";
 
 import type { PageServerLoad } from "./$types";
 
@@ -12,7 +12,7 @@ export const prerender = false;
 const description = "A live feed of my recently merged pull requests and opened issues.";
 
 const structuredData = [
-  createWebPageSchema(`${SITE_URL}/activity`),
+  createWebPageSchema({ "@id": `${SITE_URL}/activity`, isPartOf: SITE_WEBSITE_REF }),
   createBreadcrumbListSchema([{ name: "Home", url: SITE_URL }, { name: "Activity" }]),
 ];
 

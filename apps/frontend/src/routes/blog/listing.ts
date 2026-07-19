@@ -5,6 +5,7 @@ import {
   createBreadcrumbListSchema,
   createCollectionPageSchema,
   createItemListSchema,
+  SITE_WEBSITE_REF,
 } from "$lib/seo";
 
 /** Shared load logic for /blog and /blog/page/[page]. */
@@ -25,6 +26,7 @@ export const loadBlogListing = (page: number) => {
       description: BLOG_DESCRIPTION,
       url: canonicalURL,
       mainEntity: createItemListSchema(allSlugs.map((slug) => `${SITE_URL}/blog/${slug}`)),
+      isPartOf: SITE_WEBSITE_REF,
     }),
     createBreadcrumbListSchema([{ name: "Home", url: SITE_URL }, { name: "Blog" }]),
   ];
