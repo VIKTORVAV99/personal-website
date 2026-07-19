@@ -1,3 +1,5 @@
+import { BLOG_DESCRIPTION } from "$lib/config";
+
 export interface SiteLink {
   /** Path relative to the site root. Empty string is the homepage. */
   path: string;
@@ -47,7 +49,7 @@ export const SITE_PAGES: SitePage[] = [
   {
     path: "/blog",
     title: "Blog",
-    description: "Writing on software engineering, climate tech, and open source",
+    description: BLOG_DESCRIPTION,
     priority: "0.9",
     changefreq: "weekly",
   },

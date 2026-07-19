@@ -46,10 +46,8 @@ export const GET = async () => {
     description: post.description,
   }));
 
+  // Prerendered: only the body survives the build; caching is the asset layer's job.
   return new Response(_buildLlmsTxt(blogLinks), {
-    headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "max-age=0, s-maxage=3600",
-    },
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 };

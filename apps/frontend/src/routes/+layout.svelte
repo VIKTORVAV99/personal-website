@@ -8,6 +8,7 @@
   import { afterNavigate } from "$app/navigation";
   import { page, navigating } from "$app/state";
   import Highlight from "$components/Highlight.svelte";
+  import { SITE_URL } from "$lib/config";
   import { SITE_PAGES } from "$lib/pages";
   import { type Snippet } from "svelte";
   import { motion } from "$lib/motion";
@@ -88,6 +89,12 @@
   <link rel="icon" href={icon48} type="image/png" sizes="48x48" />
   <link rel="icon" href={icon96} type="image/png" sizes="96x96" />
   <link rel="apple-touch-icon" href={appleTouchIcon} />
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="Viktor Andersson"
+    href={`${SITE_URL}/rss.xml`}
+  />
 </svelte:head>
 
 {#if showProgress}
