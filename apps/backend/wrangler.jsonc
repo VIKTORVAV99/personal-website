@@ -5,6 +5,8 @@
   "workers_dev": false,
   "compatibility_flags": ["nodejs_als"],
   "compatibility_date": "2026-03-10",
+  // Global edge cache in front of the worker; honors the Cache-Control set in src/index.ts.
+  "cache": { "enabled": true },
   "observability": {
     "logs": {
       "enabled": true,
