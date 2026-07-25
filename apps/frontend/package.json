@@ -29,7 +29,7 @@
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
     "@types/bun": "^1.3.14",
-    "@types/serviceworker": "^0.0.199",
+    "@types/serviceworker": "^0.0.200",
     "fontaine": "^0.8.0",
     "mdsvex": "^0.12.7",
     "shiki": "^4.3.1",
