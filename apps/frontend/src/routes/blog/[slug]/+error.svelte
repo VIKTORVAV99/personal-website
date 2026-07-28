@@ -4,12 +4,13 @@
   import StatusPage from "$components/StatusPage.svelte";
   import Highlight from "$components/Highlight.svelte";
   import SEO from "$lib/seo/components/SEO.svelte";
+  import { ROBOTS } from "$lib/seo";
 </script>
 
 <SEO
   title={`Blog Post Error ${page.status}`}
   description={page.error?.message || "Sorry, there was a problem loading this blog post."}
-  noIndex={true}
+  robots={ROBOTS.error}
 />
 
 <StatusPage

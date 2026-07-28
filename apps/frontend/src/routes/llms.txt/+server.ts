@@ -1,5 +1,5 @@
 export const prerender = true;
-import { getAllPosts } from "$lib/blog";
+import { getAllPosts } from "$lib/blog.server";
 import { SITE_URL, SITE_DESCRIPTION } from "$lib/config";
 import { SITE_PAGES, RESOURCE_LINKS, type SiteLink } from "$lib/pages";
 

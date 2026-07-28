@@ -1,4 +1,5 @@
-import { getAllPosts, paginatePosts } from "$lib/blog";
+import { paginatePosts } from "$lib/blog";
+import { getAllPosts } from "$lib/blog.server";
 import { BLOG_DESCRIPTION, SITE_URL } from "$lib/config";
 import { buildPaginationURLs } from "$lib/helpers/paginationURLs";
 import {
@@ -12,7 +13,6 @@ import {
 export const loadBlogListing = (page: number) => {
   const posts = getAllPosts();
   const paginated = paginatePosts(posts, page);
-  const allSlugs = posts.map((p) => p.slug);
 
   const { canonicalURL, prevURL, nextURL } = buildPaginationURLs(
     `${SITE_URL}/blog`,
@@ -25,7 +25,7 @@ export const loadBlogListing = (page: number) => {
       name: "Blog",
       description: BLOG_DESCRIPTION,
       url: canonicalURL,
-      mainEntity: createItemListSchema(allSlugs.map((slug) => `${SITE_URL}/blog/${slug}`)),
+      mainEntity: createItemListSchema(posts.map((p) => `${SITE_URL}/blog/${p.slug}`)),
       isPartOf: SITE_WEBSITE_REF,
     }),
     createBreadcrumbListSchema([{ name: "Home", url: SITE_URL }, { name: "Blog" }]),
@@ -33,7 +33,6 @@ export const loadBlogListing = (page: number) => {
 
   return {
     ...paginated,
-    allSlugs,
     description: BLOG_DESCRIPTION,
     structuredData,
     canonicalURL,

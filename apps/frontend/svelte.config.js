@@ -1,11 +1,31 @@
 import adapter from "@sveltejs/adapter-cloudflare";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex, escapeSvelte } from "mdsvex";
+import { execSync } from "node:child_process";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHighlighter } from "shiki";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// SvelteKit defaults version.name to Date.now(), which lands in the client runtime chunk
+// and re-hashes every chunk importing it — so every build busts the immutable asset cache
+// even when nothing changed. Git tree hashes of the inputs that can alter this bundle keep
+// it stable across deploys that don't touch them. `HEAD:path` is repo-root relative.
+const appVersion = () => {
+  try {
+    return execSync("git rev-parse HEAD:apps/frontend HEAD:bun.lock", {
+      stdio: ["ignore", "pipe", "ignore"],
+    })
+      .toString()
+      .trim()
+      .split("\n")
+      .map((sha) => sha.slice(0, 12))
+      .join("-");
+  } catch {
+    return process.env.GITHUB_SHA ?? "dev";
+  }
+};
 
 const shikiHighlighter = await createHighlighter({
   themes: ["github-dark"],
@@ -41,6 +61,7 @@ const config = {
   kit: {
     adapter: adapter(),
     inlineStyleThreshold: Infinity,
+    version: { name: appVersion() },
     prerender: {
       handleUnseenRoutes: ({ routes, message }) => {
         // Pagination routes legitimately produce zero pages until the post

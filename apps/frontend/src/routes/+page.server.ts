@@ -1,4 +1,4 @@
-import { getAllPosts } from "$lib/blog";
+import { getAllPosts } from "$lib/blog.server";
 import { SITE_URL, SITE_DESCRIPTION } from "$lib/config";
 import {
   createWebSiteSchema,

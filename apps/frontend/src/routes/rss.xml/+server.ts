@@ -1,5 +1,5 @@
 export const prerender = true;
-import { getAllPosts } from "$lib/blog";
+import { getAllPosts } from "$lib/blog.server";
 import { BLOG_DESCRIPTION, SITE_URL } from "$lib/config";
 
 interface RssItem {
