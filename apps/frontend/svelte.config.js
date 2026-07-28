@@ -12,18 +12,35 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // and re-hashes every chunk importing it — so every build busts the immutable asset cache
 // even when nothing changed. Git tree hashes of the inputs that can alter this bundle keep
 // it stable across deploys that don't touch them. `HEAD:path` is repo-root relative.
+const treeVersion = () =>
+  execSync("git rev-parse HEAD:apps/frontend HEAD:bun.lock", {
+    stdio: ["ignore", "pipe", "ignore"],
+  })
+    .toString()
+    .trim()
+    .split("\n")
+    .map((sha) => sha.slice(0, 12))
+    .join("-");
+
+// Every build platform exposes the commit it is building. Less precise than the tree
+// hashes — any commit changes it — but still unique per deploy.
+const platformCommit = () =>
+  process.env.WORKERS_CI_COMMIT_SHA ?? process.env.CF_PAGES_COMMIT_SHA ?? process.env.GITHUB_SHA;
+
+// Never fall back to a constant. SvelteKit compares this value to decide a new deployment
+// happened; freezing it silently disables that, and the failure only shows up as clients
+// holding a stale manifest. Failing the build is the lesser evil.
 const appVersion = () => {
   try {
-    return execSync("git rev-parse HEAD:apps/frontend HEAD:bun.lock", {
-      stdio: ["ignore", "pipe", "ignore"],
-    })
-      .toString()
-      .trim()
-      .split("\n")
-      .map((sha) => sha.slice(0, 12))
-      .join("-");
+    return treeVersion();
   } catch {
-    return process.env.GITHUB_SHA ?? "dev";
+    const sha = platformCommit();
+    if (sha) return sha.slice(0, 12);
+    throw new Error(
+      "Cannot derive kit.version.name: no git repository, and no commit SHA in the " +
+        "environment (WORKERS_CI_COMMIT_SHA / CF_PAGES_COMMIT_SHA / GITHUB_SHA). Building " +
+        "with a constant version would silently break SvelteKit's new-deployment detection.",
+    );
   }
 };
 
