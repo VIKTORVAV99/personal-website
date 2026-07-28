@@ -1,6 +1,10 @@
 export const prerender = true;
-import { getAllPosts, getAllTags, slugifyTag } from "$lib/blog";
+import type { BlogPostMeta } from "$lib/blog";
+
+import { getAllTagSlugs, getPostsForTag, isTagIndexable } from "$lib/blog";
+import { getAllPosts } from "$lib/blog.server";
 import { SITE_URL } from "$lib/config";
+import { formatDate } from "$lib/helpers/formatDate";
 import { SITE_PAGES } from "$lib/pages";
 import { PROFILE_DATE_MODIFIED } from "$lib/seo/person";
 
@@ -13,12 +17,28 @@ interface SitemapPage {
 
 const profileLastmod = PROFILE_DATE_MODIFIED.split("T")[0];
 
+const postLastmod = (post: BlogPostMeta): string => formatDate(post.last_updated || post.date);
+
 export const _staticPages: SitemapPage[] = SITE_PAGES.map((page) => ({
   path: page.path,
   priority: page.priority,
   changefreq: page.changefreq,
   lastmod: profileLastmod,
 }));
+
+export const _tagSitemapPages = (posts: BlogPostMeta[]): SitemapPage[] =>
+  getAllTagSlugs(posts).flatMap((tagSlug) => {
+    const tagPosts = getPostsForTag(posts, tagSlug);
+    if (!isTagIndexable(tagPosts)) return [];
+    return [
+      {
+        path: `/blog/tag/${tagSlug}`,
+        priority: "0.6",
+        changefreq: "weekly",
+        lastmod: postLastmod(tagPosts[0]),
+      },
+    ];
+  });
 
 export const _buildSitemapXml = (pages: SitemapPage[]): string =>
   `<?xml version="1.0" encoding="UTF-8"?>
@@ -42,28 +62,16 @@ export const GET = async () => {
     path: `/blog/${post.slug}`,
     priority: "0.7",
     changefreq: "monthly",
-    lastmod: new Date(post.last_updated || post.date).toISOString().split("T")[0],
+    lastmod: postLastmod(post),
   }));
 
   // lastmod for /blog = newest post's last_updated or date
-  const newestPostDate = new Date(allPosts[0].last_updated || allPosts[0].date)
-    .toISOString()
-    .split("T")[0];
+  const newestPostDate = postLastmod(allPosts[0]);
 
   // lastmod for homepage = newest post's original date (homepage only uses slugs)
-  const newestPostOriginalDate = new Date(allPosts[0].date).toISOString().split("T")[0];
+  const newestPostOriginalDate = formatDate(allPosts[0].date);
 
-  const tagPages = getAllTags(allPosts)
-    .map((tag) => {
-      const tagSlug = slugifyTag(tag);
-      const tagPosts = allPosts.filter((p) => p.tags?.some((t) => slugifyTag(t) === tagSlug));
-      if (tagPosts.length < 4) return null;
-      const lastmod = new Date(tagPosts[0].last_updated || tagPosts[0].date)
-        .toISOString()
-        .split("T")[0];
-      return { path: `/blog/tag/${tagSlug}`, priority: "0.6", changefreq: "weekly", lastmod };
-    })
-    .filter(Boolean) as SitemapPage[];
+  const tagPages = _tagSitemapPages(allPosts);
 
   const allPages = [
     ..._staticPages.map((p) => {

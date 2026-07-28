@@ -6,8 +6,8 @@
     FALLBACK_HERO_IMAGE_WIDTH,
     SITE_URL,
   } from "$lib/config";
-  import type { StructuredDataSchema } from "..";
-  import { toJsonLd } from "..";
+  import type { Robots, StructuredDataSchema } from "..";
+  import { ROBOTS, toJsonLd } from "..";
 
   let {
     title,
@@ -16,7 +16,7 @@
     prevURL,
     nextURL,
     structuredData,
-    noIndex = false,
+    robots = ROBOTS.default,
     image = FALLBACK_HERO_IMAGE,
     imageWidth = FALLBACK_HERO_IMAGE_WIDTH,
     imageHeight = FALLBACK_HERO_IMAGE_HEIGHT,
@@ -32,7 +32,7 @@
     prevURL?: string;
     nextURL?: string;
     structuredData?: StructuredDataSchema | StructuredDataSchema[];
-    noIndex?: boolean;
+    robots?: Robots;
     image?: string;
     imageWidth?: number;
     imageHeight?: number;
@@ -48,7 +48,8 @@
 
   // Default to the current path (no trailing slash); noindex pages get no canonical.
   const resolvedCanonicalURL = $derived(
-    canonicalURL ?? (noIndex ? undefined : SITE_URL + page.url.pathname.replace(/\/$/, "")),
+    canonicalURL ??
+      (robots.startsWith("noindex") ? undefined : SITE_URL + page.url.pathname.replace(/\/$/, "")),
   );
 </script>
 
@@ -100,12 +101,5 @@
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
 
-  {#if noIndex}
-    <meta name="robots" content="noindex, nofollow" />
-  {:else}
-    <meta
-      name="robots"
-      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-    />
-  {/if}
+  <meta name="robots" content={robots} />
 </svelte:head>

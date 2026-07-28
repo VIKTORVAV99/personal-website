@@ -1,5 +1,15 @@
 import { SITE_URL } from "$lib/config";
 
+/** robots directives, one per indexing policy. Pages pick a policy; they never spell out directives. */
+export const ROBOTS = {
+  default: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  /** Listings too thin to index, still crawled so they pass equity to the posts they link. */
+  thinArchive: "noindex, follow",
+  error: "noindex, nofollow",
+} as const;
+
+export type Robots = (typeof ROBOTS)[keyof typeof ROBOTS];
+
 const postalAddressType = "PostalAddress" as const;
 const placeType = "Place" as const;
 const organizationType = "Organization" as const;

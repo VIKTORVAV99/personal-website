@@ -1,4 +1,4 @@
-import { getAllPosts } from "$lib/blog";
+import { getAllPosts } from "$lib/blog.server";
 import { FALLBACK_HERO_IMAGE, SITE_URL } from "$lib/config";
 import {
   createArticleSchema,

@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { BlogPostMeta } from "$lib/blog";
+  import { pageURL } from "$lib/helpers/paginationURLs";
   import type { LucideIcon } from "@lucide/svelte";
   import ChevronLeft from "@lucide/svelte/icons/chevron-left";
   import ChevronRight from "@lucide/svelte/icons/chevron-right";
@@ -17,8 +18,7 @@
 
   const box = "inline-flex items-center justify-center size-8";
 
-  const pageHref = (page: number): string =>
-    page === 1 ? baseHref : `${baseHref}/page/${page}`;
+  const pageHref = (page: number): string => pageURL(baseHref, page);
 </script>
 
 {#snippet blogPostCard(post: BlogPostMeta, last: boolean)}

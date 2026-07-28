@@ -6,7 +6,8 @@ interface PaginationURLs {
 
 // Pagination uses path segments (/page/2) rather than query strings, because
 // the site is fully prerendered and query strings are ignored for static pages.
-const pageURL = (baseURL: string, page: number): string =>
+// Format-only, so it serves both absolute SEO URLs and relative nav hrefs.
+export const pageURL = (baseURL: string, page: number): string =>
   page === 1 ? baseURL : `${baseURL}/page/${page}`;
 
 export const buildPaginationURLs = (

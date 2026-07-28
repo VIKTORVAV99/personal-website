@@ -1,13 +1,11 @@
-import { getAllPosts, getAllTags, slugifyTag } from "$lib/blog";
+import { getAllTagSlugs } from "$lib/blog";
+import { getAllPosts } from "$lib/blog.server";
 
 import type { PageServerLoadEvent } from "./$types";
 
 import { loadTagListing } from "./listing";
 
-export const entries = () => {
-  const posts = getAllPosts();
-  const tags = getAllTags(posts);
-  return tags.map((tag) => ({ tag: slugifyTag(tag) }));
-};
+export const entries = () => getAllTagSlugs(getAllPosts()).map((tag) => ({ tag }));
 
-export const load = async ({ params }: PageServerLoadEvent) => loadTagListing(params.tag, 1);
+export const load = async ({ params }: PageServerLoadEvent) =>
+  loadTagListing(params.tag, 1, getAllPosts());

@@ -1,4 +1,6 @@
-import { getAllPosts, paginatePosts, slugifyTag } from "$lib/blog";
+import type { BlogPostMeta } from "$lib/blog";
+
+import { getPostsForTag, isTagIndexable, paginatePosts, slugifyTag } from "$lib/blog";
 import { SITE_URL } from "$lib/config";
 import { buildPaginationURLs } from "$lib/helpers/paginationURLs";
 import {
@@ -7,23 +9,22 @@ import {
   createCollectionPageSchema,
   createDefinedTermSchema,
   createItemListSchema,
+  ROBOTS,
   SITE_WEBSITE_REF,
 } from "$lib/seo";
 
 /** Shared load logic for /blog/tag/[tag] and /blog/tag/[tag]/page/[page]. */
-export const loadTagListing = (tag: string, page: number) => {
-  const posts = getAllPosts();
-  const tagSlug = tag.toLowerCase();
+export const loadTagListing = (tag: string, page: number, posts: BlogPostMeta[]) => {
+  const tagSlug = slugifyTag(tag);
 
-  const filtered = posts.filter((p) => p.tags?.some((t) => slugifyTag(t) === tagSlug));
+  const filtered = getPostsForTag(posts, tagSlug);
 
   // Derive display name from the first matching post's original tag (newest post wins)
-  const displayTag =
-    posts.flatMap((p) => p.tags ?? []).find((t) => slugifyTag(t) === tagSlug) ?? tagSlug;
+  const displayTag = filtered[0]?.tags?.find((t) => slugifyTag(t) === tagSlug) ?? tagSlug;
 
   const paginated = paginatePosts(filtered, page);
-  const allSlugs = filtered.map((p) => p.slug);
-  const totalPosts = allSlugs.length;
+  const totalPosts = filtered.length;
+  const robots = isTagIndexable(filtered) ? ROBOTS.default : ROBOTS.thinArchive;
 
   const baseURL = `${SITE_URL}/blog/tag/${tagSlug}`;
   const { canonicalURL, prevURL, nextURL } = buildPaginationURLs(
@@ -39,7 +40,7 @@ export const loadTagListing = (tag: string, page: number) => {
       name: `Posts tagged "${displayTag}"`,
       description,
       url: canonicalURL,
-      mainEntity: createItemListSchema(allSlugs.map((slug) => `${SITE_URL}/blog/${slug}`)),
+      mainEntity: createItemListSchema(filtered.map((p) => `${SITE_URL}/blog/${p.slug}`)),
       isPartOf: [createCollectionPageRefSchema(`${SITE_URL}/blog`), SITE_WEBSITE_REF],
       about: createDefinedTermSchema({ name: displayTag }),
     }),
@@ -54,8 +55,8 @@ export const loadTagListing = (tag: string, page: number) => {
     ...paginated,
     tag: tagSlug,
     displayTag,
-    allSlugs,
-    totalPosts,
+    title: `Viktor Andersson | #${displayTag}${page > 1 ? ` — Page ${page}` : ""}`,
+    robots,
     description,
     structuredData,
     canonicalURL,
