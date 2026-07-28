@@ -10,9 +10,9 @@ export interface BlogPostMeta {
   readingTime: number;
 }
 
-// Glob-free by design: the client reaches this module for slugFromPath/slugifyTag, so
-// an eager import.meta.glob here would pull every post into the client bundle. Post
-// loading lives in $lib/blog.server.ts (build-time) and $lib/blog-loader.ts (per-post).
+// Glob-free by design: the client reaches this module for slugifyTag, so an eager
+// import.meta.glob here would pull every post into the client bundle. Post loading and
+// rendering live in $lib/blog.server.ts.
 export const slugFromPath = (path: string): string | undefined =>
   path.split("/").at(-1)?.replace(/\.md$/, "").toLowerCase();
 
