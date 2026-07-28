@@ -1,4 +1,4 @@
-import { getAllPosts } from "$lib/blog.server";
+import { getAllPosts, renderPostBody } from "$lib/blog.server";
 import { FALLBACK_HERO_IMAGE, SITE_URL } from "$lib/config";
 import {
   createArticleSchema,
@@ -32,6 +32,7 @@ export const load = async ({ params }: PageServerLoadEvent) => {
       : undefined;
 
   return {
+    html: renderPostBody(post.slug),
     slug: post.slug,
     metadata: {
       title: post.title,

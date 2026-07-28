@@ -62,7 +62,8 @@
     <AuthorBanner />
   </header>
   <section class="blog-content">
-    <data.component />
+    <!-- Rendered server-side so post content ships as markup, never as a client chunk -->
+    {@html data.html}
   </section>
   {#if data.prevPost || data.nextPost}
     <footer class="mt-auto w-full flex flex-col md:flex-row md:justify-between items-center md:items-start gap-4 md:gap-8" aria-label="Post navigation">
