@@ -3,7 +3,7 @@ title: "Flowtracing Go Brrrr - Making our pipeline faster, cheaper and greener w
 date: 2026-07-20
 last_updated: 2026-07-20
 description: "How we made the flowtracing pipeline at Electricity Maps 30% faster with 46% less CPU time by switching to Google's ARM-based Axion (C4A) processors on Dataflow, and what it actually took to get there."
-tags: ["Google Cloud", "Dataflow", "ARM", "Axion", "Performance", "Sustainability"]
+tags: ["Google Cloud", "Dataflow", "ARM", "Performance", "Sustainability"]
 ---
 
 **TL;DR:** We switched the flowtracing pipeline at Electricity Maps from x86 workers to ARM-based C4A machines powered by Google's Axion processors. Wall time went down 30%, CPU time went down 46%, the machines are about 25% cheaper and, according to Google, up to 60% more energy efficient. Faster, cheaper and greener! Funny thing is, we didn't even have to change the pipeline code to do it.
