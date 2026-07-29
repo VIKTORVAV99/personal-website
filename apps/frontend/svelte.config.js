@@ -27,6 +27,7 @@ const treeVersion = () =>
 const platformCommit = () =>
   process.env.WORKERS_CI_COMMIT_SHA ?? process.env.CF_PAGES_COMMIT_SHA ?? process.env.GITHUB_SHA;
 
+// The footer displays the first 8 characters of this value.
 // Never fall back to a constant. SvelteKit compares this value to decide a new deployment
 // happened; freezing it silently disables that, and the failure only shows up as clients
 // holding a stale manifest. Failing the build is the lesser evil.

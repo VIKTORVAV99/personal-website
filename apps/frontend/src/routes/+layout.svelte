@@ -7,6 +7,7 @@
   import Menu from "@lucide/svelte/icons/menu";
   import { afterNavigate } from "$app/navigation";
   import { page, navigating } from "$app/state";
+  import Footer from "$components/Footer.svelte";
   import Highlight from "$components/Highlight.svelte";
   import { SITE_URL } from "$lib/config";
   import { SITE_PAGES } from "$lib/pages";
@@ -23,7 +24,6 @@
 
   let open = $state(false);
   let mobileMenu = $state<HTMLDetailsElement>();
-  const year = $derived(new Date().getFullYear());
 
   let { children }: { children: Snippet } = $props();
 
@@ -119,7 +119,7 @@
     <!-- Desktop nav -->
     <nav
       aria-label="Main"
-      class="hidden md:flex font-mono w-full max-w-4xl mx-auto justify-evenly items-center gap-4 lg:gap-8 py-4 px-4 lg:px-8 rounded-full glass-surface"
+      class="hidden md:flex font-mono page-width justify-evenly items-center gap-4 lg:gap-8 py-4 px-4 lg:px-8 rounded-full glass-surface"
     >
       {@render navbarLinks()}
     </nav>
@@ -141,21 +141,11 @@
   </header>
   <!-- #endregion -->
   <!-- #region Main -->
-  <main id="main-content" tabindex="-1" class="flex-1 flex px-4 md:px-8 lg:px-0 flex-col outline-none">
+  <main id="main-content" tabindex="-1" class="flex-1 flex page-gutters flex-col outline-none">
     {@render children()}
   </main>
   <!-- #endregion -->
-  <!-- #region Footer -->
-  <footer class="flex flex-col w-full mt-8 mb-2 justify-center items-center">
-    <small>{year} &copy; Viktor Andersson </small>
-    <small
-      >Source code licensed under <a
-        href="https://github.com/VIKTORVAV99/personal-website/blob/main/LICENSE"
-        rel="license">MIT license</a
-      ></small
-    >
-  </footer>
-  <!-- #endregion -->
+  <Footer />
 
 <style>
   .nav-progress {

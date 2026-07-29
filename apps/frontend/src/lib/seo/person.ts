@@ -1,5 +1,5 @@
 import portrait from "$images/Viktor_Andersson.jpeg";
-import { SITE_URL } from "$lib/config";
+import { IDENTITY_URLS, SITE_URL, SOCIAL_LINKS } from "$lib/config";
 import {
   createPersonSchema,
   createOrganizationSchema,
@@ -33,7 +33,7 @@ const hh = createCollegeOrUniversitySchema({
 });
 
 export const PROFILE_DATE_CREATED = new Date("2026-03-20").toISOString();
-export const PROFILE_DATE_MODIFIED = new Date("2026-07-18").toISOString();
+export const PROFILE_DATE_MODIFIED = new Date("2026-07-29").toISOString();
 
 export const siteOwnerPerson = createPersonSchema({
   "@id": `${SITE_URL}/#person`,
@@ -94,9 +94,5 @@ export const siteOwnerPerson = createPersonSchema({
       }),
     }),
   ],
-  sameAs: [
-    "https://github.com/viktorvav99",
-    "https://www.linkedin.com/in/viktor-va-andersson/",
-    "https://bsky.app/profile/viktor.andersson.tech",
-  ],
+  sameAs: [...SOCIAL_LINKS.map((social) => social.href), ...IDENTITY_URLS],
 });
