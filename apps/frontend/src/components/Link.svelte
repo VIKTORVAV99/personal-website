@@ -31,7 +31,11 @@
   {href}
   {target}
   {rel}
-  class={['inline-flex items-center gap-0.5', mono && 'font-mono', className]}
+  class={[
+    'inline-flex items-center gap-0.5 hover:text-accent transition-colors',
+    mono && 'font-mono',
+    className,
+  ]}
   {...restProps}
 >
   {@render children()}
