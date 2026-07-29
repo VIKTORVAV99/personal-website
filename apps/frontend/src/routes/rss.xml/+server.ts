@@ -1,6 +1,6 @@
 export const prerender = true;
 import { getAllPosts } from "$lib/blog.server";
-import { BLOG_DESCRIPTION, SITE_URL } from "$lib/config";
+import { BLOG_DESCRIPTION, SITE_AUTHOR, SITE_URL } from "$lib/config";
 
 interface RssItem {
   title: string;
@@ -10,7 +10,7 @@ interface RssItem {
 }
 
 export const _channel = {
-  title: "Viktor Andersson",
+  title: SITE_AUTHOR,
   link: `${SITE_URL}/blog`,
   description: BLOG_DESCRIPTION,
   feedURL: `${SITE_URL}/rss.xml`,

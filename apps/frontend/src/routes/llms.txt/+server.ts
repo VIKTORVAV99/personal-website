@@ -1,6 +1,6 @@
 export const prerender = true;
 import { getAllPosts } from "$lib/blog.server";
-import { SITE_URL, SITE_DESCRIPTION } from "$lib/config";
+import { SITE_AUTHOR, SITE_URL, SITE_DESCRIPTION } from "$lib/config";
 import { SITE_PAGES, RESOURCE_LINKS, type SiteLink } from "$lib/pages";
 
 interface LlmsLink {
@@ -22,7 +22,7 @@ const _linkList = (links: LlmsLink[]): string =>
   links.map((link) => `- [${link.title}](${link.url}): ${link.description}`).join("\n");
 
 export const _buildLlmsTxt = (blogLinks: LlmsLink[]): string =>
-  `# Viktor Andersson
+  `# ${SITE_AUTHOR}
 
 > ${SITE_DESCRIPTION}
 

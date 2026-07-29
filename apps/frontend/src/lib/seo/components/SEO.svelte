@@ -5,6 +5,9 @@
     FALLBACK_HERO_IMAGE_HEIGHT,
     FALLBACK_HERO_IMAGE_WIDTH,
     SITE_URL,
+    AUTHOR_FAMILY_NAME,
+    AUTHOR_GIVEN_NAME,
+    SITE_AUTHOR,
   } from "$lib/config";
   import type { Robots, StructuredDataSchema } from "..";
   import { ROBOTS, toJsonLd } from "..";
@@ -68,7 +71,7 @@
     {@html `<script type="application/ld+json">${toJsonLd(structuredData)}<` + `/script>`}
   {/if}
 
-  <meta property="og:site_name" content="Viktor Andersson" />
+  <meta property="og:site_name" content={SITE_AUTHOR} />
   <meta property="og:locale" content="en_US" />
   <meta property="og:type" content={type} />
   <meta property="og:title" content={title} />
@@ -82,8 +85,8 @@
       <meta property="article:tag" content={tag} />
     {/each}
   {:else if type === "profile"}
-    <meta property="profile:first_name" content="Viktor" />
-    <meta property="profile:last_name" content="Andersson" />
+    <meta property="profile:first_name" content={AUTHOR_GIVEN_NAME} />
+    <meta property="profile:last_name" content={AUTHOR_FAMILY_NAME} />
   {/if}
 
   {#if image}

@@ -2,15 +2,15 @@
   import TitleText from "$components/TitleText.svelte";
   import ProfileCard from "$components/ProfileCard.svelte";
   import SEO from "$lib/seo/components/SEO.svelte";
-  import { SITE_URL } from "$lib/config";
+  import { SITE_AUTHOR, SITE_URL } from "$lib/config";
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
 </script>
 
 <SEO
-  title="Viktor Andersson | About"
-  description="About Viktor Andersson, Software Engineer based in Malmö, Sweden, working at Electricity Maps."
+  title={`${SITE_AUTHOR} | About`}
+  description={`About ${SITE_AUTHOR}, Software Engineer based in Malmö, Sweden, working at Electricity Maps.`}
   canonicalURL={`${SITE_URL}/about`}
   structuredData={data.structuredData}
 />

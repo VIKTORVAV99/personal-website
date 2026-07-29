@@ -9,7 +9,7 @@
   import { page, navigating } from "$app/state";
   import Footer from "$components/Footer.svelte";
   import Highlight from "$components/Highlight.svelte";
-  import { SITE_URL } from "$lib/config";
+  import { SITE_AUTHOR, SITE_URL } from "$lib/config";
   import { SITE_PAGES } from "$lib/pages";
   import { type Snippet } from "svelte";
   import { motion } from "$lib/motion";
@@ -92,7 +92,7 @@
   <link
     rel="alternate"
     type="application/rss+xml"
-    title="Viktor Andersson"
+    title={SITE_AUTHOR}
     href={`${SITE_URL}/rss.xml`}
   />
 </svelte:head>
