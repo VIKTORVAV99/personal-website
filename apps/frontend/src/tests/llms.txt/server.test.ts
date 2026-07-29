@@ -6,7 +6,7 @@ import { _buildLlmsTxt, _sitePages, _optionalLinks } from "../../routes/llms.txt
 const testPosts = [
   {
     title: "Hello World",
-    url: "https://viktor.andersson.tech/blog/hello_world",
+    url: "https://viktor.andersson.tech/blog/hello-world",
     description: "My first post",
   },
 ];
@@ -32,7 +32,7 @@ describe("llms.txt", () => {
   it("should render links in `- [title](url): description` format", () => {
     const txt = _buildLlmsTxt(testPosts);
     expect(txt).toContain(
-      "- [Hello World](https://viktor.andersson.tech/blog/hello_world): My first post",
+      "- [Hello World](https://viktor.andersson.tech/blog/hello-world): My first post",
     );
     expect(txt).toContain(
       `- [${_sitePages[0].title}](${_sitePages[0].url}): ${_sitePages[0].description}`,

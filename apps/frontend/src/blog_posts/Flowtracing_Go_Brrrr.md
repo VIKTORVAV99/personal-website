@@ -1,5 +1,6 @@
 ---
 title: "Flowtracing Go Brrrr - Making our pipeline faster, cheaper and greener with ARM"
+slug: dataflow-arm-axion-c4a
 date: 2026-07-20
 last_updated: 2026-07-20
 description: "How we made the flowtracing pipeline at Electricity Maps 30% faster with 46% less CPU time by switching to Google's ARM-based Axion (C4A) processors on Dataflow, and what it actually took to get there."

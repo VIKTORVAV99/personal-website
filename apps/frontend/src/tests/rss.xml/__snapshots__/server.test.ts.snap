@@ -12,8 +12,8 @@ exports[`rss.xml should match snapshot 1`] = `
     <atom:link href="https://viktor.andersson.tech/rss.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello &amp; &lt;World&gt;</title>
-      <link>https://viktor.andersson.tech/blog/hello_world</link>
-      <guid isPermaLink="true">https://viktor.andersson.tech/blog/hello_world</guid>
+      <link>https://viktor.andersson.tech/blog/hello-world</link>
+      <guid isPermaLink="true">https://viktor.andersson.tech/blog/hello-world</guid>
       <description>A &quot;quoted&quot; post</description>
       <pubDate>Fri, 20 Mar 2026 00:00:00 GMT</pubDate>
     </item>

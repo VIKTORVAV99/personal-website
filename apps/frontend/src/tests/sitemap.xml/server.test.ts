@@ -4,9 +4,11 @@ import { _buildSitemapXml, _staticPages } from "../../routes/sitemap.xml/+server
 
 const buildDate = "2026-03-20";
 
+// Only pages that already carry a lastmod get the fixed date — forcing one on would mask
+// the lastmod-less entries the sitemap deliberately emits.
 const testPages = [
-  ..._staticPages.map((p) => Object.assign({}, p, { lastmod: buildDate })),
-  { path: "/blog/hello_world", priority: "0.7", changefreq: "monthly", lastmod: buildDate },
+  ..._staticPages.map((p) => Object.assign({}, p, p.lastmod ? { lastmod: buildDate } : {})),
+  { path: "/blog/hello-world", priority: "0.7", changefreq: "monthly", lastmod: buildDate },
 ];
 
 describe("sitemap.xml", () => {
@@ -25,7 +27,19 @@ describe("sitemap.xml", () => {
 
   it("should include blog posts", () => {
     const xml = _buildSitemapXml(testPages);
-    expect(xml).toContain("<loc>https://viktor.andersson.tech/blog/hello_world</loc>");
+    expect(xml).toContain("<loc>https://viktor.andersson.tech/blog/hello-world</loc>");
+  });
+
+  it("should leave /activity without a lastmod", () => {
+    const activity = _staticPages.find((p) => p.path === "/activity");
+    expect(activity).toBeDefined();
+    expect(activity?.lastmod).toBeUndefined();
+  });
+
+  it("should omit the lastmod element for pages without one", () => {
+    const xml = _buildSitemapXml([{ path: "/activity", priority: "0.7", changefreq: "daily" }]);
+    expect(xml).toContain("<loc>https://viktor.andersson.tech/activity</loc>");
+    expect(xml).not.toContain("<lastmod>");
   });
 
   it("should include domain", () => {
