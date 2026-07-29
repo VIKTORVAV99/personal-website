@@ -33,17 +33,26 @@
 
 /* Custom utilities */
 
+/* The shared content column width, used by <main>'s pages, the nav and the footer. */
+@utility page-width {
+  max-width: 56rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
 @utility page-container {
+  @apply page-width;
   display: flex;
   flex-direction: column;
   gap: 2rem;
   justify-content: flex-start;
   padding-top: 2rem;
   align-items: center;
-  max-width: 56rem;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+}
+
+/* Horizontal page gutters for <main> and the footer. Zero at lg. */
+@utility page-gutters {
+  @apply px-4 md:px-8 lg:px-0;
 }
 
 /* Frosted "glass pill" surface shared by the nav, mobile menu, skip link
