@@ -3,13 +3,13 @@
   import SEO from "$lib/seo/components/SEO.svelte";
   import BlogPostList from "$components/blog/BlogPostList.svelte";
   import TitleText from "$components/TitleText.svelte";
-  import { SITE_AUTHOR } from "$lib/config";
+  import { pageTitle } from "$lib/helpers/pageTitle";
 
   let { data }: { data: PageData } = $props();
 </script>
 
 <SEO
-  title={`${SITE_AUTHOR} | Blog${data.currentPage > 1 ? ` — Page ${data.currentPage}` : ""}`}
+  title={pageTitle(`Blog${data.currentPage > 1 ? ` — Page ${data.currentPage}` : ""}`)}
   description={data.description}
   canonicalURL={data.canonicalURL}
   prevURL={data.prevURL}

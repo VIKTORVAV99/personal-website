@@ -2,6 +2,7 @@
   import TitleText from "$components/TitleText.svelte";
   import ProfileCard from "$components/ProfileCard.svelte";
   import SEO from "$lib/seo/components/SEO.svelte";
+  import { pageTitle } from "$lib/helpers/pageTitle";
   import { SITE_AUTHOR, SITE_URL } from "$lib/config";
   import type { PageData } from "./$types";
 
@@ -9,7 +10,7 @@
 </script>
 
 <SEO
-  title={`${SITE_AUTHOR} | About`}
+  title={pageTitle("About")}
   description={`About ${SITE_AUTHOR}, Software Engineer based in Malmö, Sweden, working at Electricity Maps.`}
   canonicalURL={`${SITE_URL}/about`}
   structuredData={data.structuredData}

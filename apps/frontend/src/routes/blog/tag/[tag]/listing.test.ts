@@ -27,7 +27,7 @@ describe("loadTagListing", () => {
 
   it("titles page 1 without a page number and later pages with one", () => {
     const posts = postsTagged("vite", 1);
-    expect(loadTagListing("vite", 1, posts).title).toBe("Viktor Andersson | #vite");
-    expect(loadTagListing("vite", 2, posts).title).toBe("Viktor Andersson | #vite — Page 2");
+    expect(loadTagListing("vite", 1, posts).title).toBe("#vite | Viktor Andersson");
+    expect(loadTagListing("vite", 2, posts).title).toBe("#vite — Page 2 | Viktor Andersson");
   });
 });

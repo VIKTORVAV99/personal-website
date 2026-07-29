@@ -3,14 +3,15 @@
   import TitleText from "$components/TitleText.svelte";
   import { timelineEntries } from "$data/metadata";
   import SEO from "$lib/seo/components/SEO.svelte";
-  import { SITE_AUTHOR, SITE_URL } from "$lib/config";
+  import { pageTitle } from "$lib/helpers/pageTitle";
+  import { SITE_URL } from "$lib/config";
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
 </script>
 
 <SEO
-  title={`${SITE_AUTHOR} | History`}
+  title={pageTitle("History")}
   description={data.description}
   canonicalURL={`${SITE_URL}/history`}
   type="profile"

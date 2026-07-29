@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { PageData } from './$types';
   import SEO from '$lib/seo/components/SEO.svelte';
-  import { SITE_AUTHOR, SITE_URL } from '$lib/config';
+  import { pageTitle } from '$lib/helpers/pageTitle';
+  import { SITE_URL } from '$lib/config';
   import ChevronLeft from "@lucide/svelte/icons/chevron-left";
   import ChevronRight from "@lucide/svelte/icons/chevron-right";
   import PostDate from '$components/blog/PostDate.svelte';
@@ -42,7 +43,7 @@
 {/snippet}
 
 <SEO
-  title={`${data.metadata.title} | ${SITE_AUTHOR}`}
+  title={pageTitle(data.metadata.title)}
   description={data.metadata.description}
   type="article"
   canonicalURL={data.postUrl}

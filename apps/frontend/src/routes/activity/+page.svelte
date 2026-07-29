@@ -4,7 +4,8 @@
   import Highlight from "$components/Highlight.svelte";
   import TitleText from "$components/TitleText.svelte";
   import SEO from "$lib/seo/components/SEO.svelte";
-  import { SITE_AUTHOR, SITE_URL } from "$lib/config";
+  import { pageTitle } from "$lib/helpers/pageTitle";
+  import { SITE_URL } from "$lib/config";
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
@@ -13,7 +14,7 @@
 </script>
 
 <SEO
-  title={`${SITE_AUTHOR} | Activity`}
+  title={pageTitle("Activity")}
   description={data.description}
   canonicalURL={`${SITE_URL}/activity`}
   structuredData={data.structuredData}
