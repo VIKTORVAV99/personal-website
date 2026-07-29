@@ -1,11 +1,10 @@
 import { timelineEntries } from "$data/metadata";
+import { CURRENT_YEAR, CURRENT_MONTH } from "$lib/helpers/currentDate";
 
 // Layout constants
 const lifeEntry = timelineEntries.find((e) => e.type === "life");
 export const ORIGIN_YEAR = lifeEntry?.startYear ?? 1999;
 export const ORIGIN_MONTH = lifeEntry?.startMonth ?? 1;
-export const CURRENT_YEAR = new Date().getFullYear();
-export const CURRENT_MONTH = new Date().getMonth() + 1;
 const PX_PER_YEAR = 96;
 export const PX_PER_MONTH = PX_PER_YEAR / 12;
 export const TOTAL_MONTHS = (CURRENT_YEAR - ORIGIN_YEAR) * 12 + CURRENT_MONTH;

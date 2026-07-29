@@ -3,9 +3,9 @@
 	import type { TimelineMode } from './timeline/types';
 	import TimelineGraph from './timeline/TimelineGraph.svelte';
 	import TimelineAccordionCard from './timeline/TimelineAccordionCard.svelte';
+	import { CURRENT_YEAR } from '$lib/helpers/currentDate';
 	import {
 		ORIGIN_YEAR,
-		CURRENT_YEAR,
 		PX_PER_MONTH,
 		GRAPH_TOP_PADDING_PX
 	} from './timeline/constants';
