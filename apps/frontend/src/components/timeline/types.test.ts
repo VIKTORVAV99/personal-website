@@ -74,7 +74,9 @@ describe("entryEndAbsMonth", () => {
       endYear: null,
     } as TimelineEntry;
     const now = new Date();
-    expect(entryEndAbsMonth(entry)).toBe(toAbsoluteMonth(now.getFullYear(), now.getMonth() + 1));
+    expect(entryEndAbsMonth(entry)).toBe(
+      toAbsoluteMonth(now.getUTCFullYear(), now.getUTCMonth() + 1),
+    );
   });
 
   it("falls back to start date when endYear is undefined", () => {
