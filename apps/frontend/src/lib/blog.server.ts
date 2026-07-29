@@ -4,10 +4,10 @@ import { slugFromPath } from "$lib/blog";
 
 const WORDS_PER_MINUTE = 200;
 
-const calculateReadingTime = (raw: string): number => {
+/** Words in the post body, frontmatter stripped. */
+const countWords = (raw: string): number => {
   const body = raw.replace(/^---[\s\S]*?---/, "").trim();
-  const words = body.match(/\S+/g)?.length ?? 0;
-  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+  return body.match(/\S+/g)?.length ?? 0;
 };
 
 /**
@@ -32,11 +32,14 @@ export const getAllPosts = (): BlogPostMeta[] => {
     const slug = (metadata?.slug as string | undefined) ?? moduleSlug;
 
     if (metadata && slug && moduleSlug) {
+      const wordCount = countWords(raw);
+
       posts.push({
         ...metadata,
         slug,
         moduleSlug,
-        readingTime: calculateReadingTime(raw),
+        readingTime: Math.max(1, Math.round(wordCount / WORDS_PER_MINUTE)),
+        wordCount,
       } as BlogPostMeta);
     }
   }

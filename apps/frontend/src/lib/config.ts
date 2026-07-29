@@ -22,9 +22,9 @@ export const LICENSE_URL = `${REPO_URL}/blob/main/LICENSE`;
  * Labels are the link text everywhere, so the same destination reads the same in both places.
  */
 export const SOCIAL_LINKS = [
-  { label: "github", href: "https://github.com/viktorvav99" },
-  { label: "linkedin", href: "https://www.linkedin.com/in/viktor-va-andersson/" },
-  { label: "bluesky", href: "https://bsky.app/profile/viktor.andersson.tech" },
+  { label: "github", href: "https://github.com/viktorvav99", rel: "me" },
+  { label: "linkedin", href: "https://www.linkedin.com/in/viktor-va-andersson/", rel: "me" },
+  { label: "bluesky", href: "https://bsky.app/profile/viktor.andersson.tech", rel: "me" },
 ] as const;
 
 /** Identity URLs added to the Person schema's sameAs only, never rendered as links. */
@@ -32,6 +32,9 @@ export const IDENTITY_URLS: readonly string[] = [
   "https://dev.to/viktorvav99",
   "https://x.com/VIKTORVAV99",
 ];
+
+/** Matches the x.com entry in IDENTITY_URLS; emitted as twitter:site and twitter:creator. */
+export const TWITTER_HANDLE = "@VIKTORVAV99";
 
 // Social scrapers (Open Graph, Twitter Cards) and Google's structured-data
 // parser require absolute image URLs, so prefix the Vite asset path.

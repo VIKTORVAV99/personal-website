@@ -31,17 +31,26 @@ export const load = async ({ params }: PageServerLoadEvent) => {
       ? { slug: posts[index + 1].slug, title: posts[index + 1].title }
       : undefined;
 
+  const image = post.image
+    ? post.image.startsWith("http")
+      ? post.image
+      : `${SITE_URL}${post.image}`
+    : FALLBACK_HERO_IMAGE;
+
   return {
     slug: post.slug,
     moduleSlug: post.moduleSlug,
     metadata: {
       title: post.title,
+      seo_title: post.seo_title,
       description: post.description,
       date: post.date,
       last_updated: post.last_updated,
       tags: post.tags,
     },
     readingTime: post.readingTime,
+    image,
+    imageAlt: post.image_alt,
     postUrl,
     datePublished,
     dateModified,
@@ -57,7 +66,9 @@ export const load = async ({ params }: PageServerLoadEvent) => {
         url: postUrl,
         mainEntityOfPage: createWebPageSchema({ "@id": postUrl }),
         isPartOf: SITE_WEBSITE_REF,
-        image: FALLBACK_HERO_IMAGE,
+        image,
+        wordCount: post.wordCount,
+        timeRequired: `PT${post.readingTime}M`,
       }),
       createBreadcrumbListSchema([
         { name: "Home", url: SITE_URL },

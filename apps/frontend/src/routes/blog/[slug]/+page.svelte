@@ -43,7 +43,8 @@
 {/snippet}
 
 <SEO
-  title={pageTitle(data.metadata.title)}
+  title={pageTitle(data.metadata.seo_title ?? data.metadata.title)}
+  socialTitle={data.metadata.title}
   description={data.metadata.description}
   type="article"
   canonicalURL={data.postUrl}
@@ -53,6 +54,8 @@
   publishedTime={data.datePublished}
   modifiedTime={data.dateModified}
   tags={data.metadata.tags}
+  image={data.image}
+  imageAlt={data.imageAlt}
 />
 
 <article class="w-full max-w-prose mx-auto mt-16 flex flex-1 flex-col gap-8">

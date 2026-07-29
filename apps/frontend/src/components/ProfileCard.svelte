@@ -20,7 +20,7 @@
     <p class="text-sm text-surface-300">Malmö, Sweden</p>
     <div class="flex flex-wrap gap-4 text-sm mt-1">
       {#each SOCIAL_LINKS as social}
-        <Link href={social.href} mono>{social.label}</Link>
+        <Link href={social.href} rel={social.rel} mono>{social.label}</Link>
       {/each}
     </div>
   </div>
