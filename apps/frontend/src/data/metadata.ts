@@ -5,7 +5,8 @@ const electricityMapsBase = {
   type: "work",
   showDates: true,
   group: "electricity-maps",
-  link: "https://electricitymaps.com",
+  link: "https://www.electricitymaps.com",
+  linkLabel: "electricitymaps.com",
 } as const;
 
 const primaryWorkEntries: TimelineEntry[] = [
@@ -91,7 +92,8 @@ const educationEntries: TimelineEntry[] = [
     showDates: true,
     description: "Bachelor of Science with a major in Informatics, Digital Design and Innovation",
     location: "Halmstad, Sweden",
-    link: "https://hh.se",
+    link: "https://www.hh.se",
+    linkLabel: "hh.se",
   },
 ];
 const lifeEntries: TimelineEntry[] = [

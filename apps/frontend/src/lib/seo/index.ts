@@ -12,6 +12,7 @@ export type Robots = (typeof ROBOTS)[keyof typeof ROBOTS];
 
 const postalAddressType = "PostalAddress" as const;
 const placeType = "Place" as const;
+const countryType = "Country" as const;
 const organizationType = "Organization" as const;
 const employeeRoleType = "EmployeeRole" as const;
 const educationalOrganizationType = "EducationalOrganization" as const;
@@ -47,6 +48,16 @@ export const createPlaceSchema = (
 ): PlaceSchema => ({
   "@type": placeType,
   address: { "@type": postalAddressType, addressLocality, addressCountry },
+});
+
+export interface CountrySchema {
+  "@type": typeof countryType;
+  name: string;
+}
+
+export const createCountrySchema = (name: string): CountrySchema => ({
+  "@type": countryType,
+  name,
 });
 
 export interface OrganizationSchema {
@@ -131,6 +142,7 @@ export interface NodeRefSchema {
 export interface WebPageSchema {
   "@type": typeof webPageType;
   "@id": string;
+  url?: string;
   isPartOf?: NodeRefSchema;
 }
 
@@ -171,6 +183,7 @@ export interface PersonSchema {
   url?: string;
   image?: string | string[];
   homeLocation?: string | PlaceSchema;
+  birthPlace?: PlaceSchema | CountrySchema;
   jobTitle?: string;
   description?: string;
   knowsLanguage?: string | string[];

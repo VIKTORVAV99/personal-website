@@ -10,6 +10,7 @@ import {
 import {
   createPersonSchema,
   createOrganizationSchema,
+  createCountrySchema,
   createCollegeOrUniversitySchema,
   createHighSchoolSchema,
   createEmployeeRoleSchema,
@@ -29,6 +30,13 @@ export const electricityMaps = createOrganizationSchema({
   ],
 });
 
+const ikea = createOrganizationSchema({
+  name: "IKEA",
+  url: "https://www.ikea.com",
+  location: createPlaceSchema("Älmhult", "SE"),
+  sameAs: ["https://www.wikidata.org/wiki/Q54078"],
+});
+
 const hh = createCollegeOrUniversitySchema({
   name: "Halmstad University",
   url: "https://www.hh.se",
@@ -44,12 +52,14 @@ export const PROFILE_DATE_MODIFIED = new Date("2026-07-29").toISOString();
 
 export const siteOwnerPerson = createPersonSchema({
   "@id": `${SITE_URL}/#person`,
+  mainEntityOfPage: { "@id": `${SITE_URL}/about` },
   name: SITE_AUTHOR,
   givenName: AUTHOR_GIVEN_NAME,
   familyName: AUTHOR_FAMILY_NAME,
   url: SITE_URL,
   image: `${SITE_URL}${portrait}`,
   homeLocation: createPlaceSchema("Malmö", "SE"),
+  birthPlace: createCountrySchema("Sweden"),
   jobTitle: "Software Engineer",
   description:
     "Software Engineer at Electricity Maps, the world's most comprehensive electricity data platform. BSc in Digital Design and Innovation from Halmstad University.",
@@ -78,6 +88,18 @@ export const siteOwnerPerson = createPersonSchema({
       startDate: "2022-12",
       endDate: "2025-06",
       worksFor: electricityMaps,
+    }),
+    createEmployeeRoleSchema({
+      roleName: "FOOD Co-Worker",
+      startDate: "2022-06",
+      endDate: "2023-01",
+      worksFor: ikea,
+    }),
+    createEmployeeRoleSchema({
+      roleName: "FOOD Co-Worker",
+      startDate: "2019-06",
+      endDate: "2019-08",
+      worksFor: ikea,
     }),
   ],
   alumniOf: hh,

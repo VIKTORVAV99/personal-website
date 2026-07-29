@@ -15,7 +15,7 @@ const structuredData = [
     isPartOf: SITE_WEBSITE_REF,
     dateCreated: PROFILE_DATE_CREATED,
     dateModified: PROFILE_DATE_MODIFIED,
-    mainEntity: { ...siteOwnerPerson, mainEntityOfPage: { "@id": pageUrl } },
+    mainEntity: siteOwnerPerson,
   }),
   createBreadcrumbListSchema([{ name: "Home", url: SITE_URL }, { name: "History" }]),
 ];

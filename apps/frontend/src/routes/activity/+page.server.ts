@@ -12,7 +12,11 @@ export const prerender = false;
 const description = "A live feed of my recently merged pull requests and opened issues.";
 
 const structuredData = [
-  createWebPageSchema({ "@id": `${SITE_URL}/activity`, isPartOf: SITE_WEBSITE_REF }),
+  createWebPageSchema({
+    "@id": `${SITE_URL}/activity`,
+    url: `${SITE_URL}/activity`,
+    isPartOf: SITE_WEBSITE_REF,
+  }),
   createBreadcrumbListSchema([{ name: "Home", url: SITE_URL }, { name: "Activity" }]),
 ];
 
