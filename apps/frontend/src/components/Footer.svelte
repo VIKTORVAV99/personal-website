@@ -2,7 +2,7 @@
   import { version } from "$app/environment";
   import Highlight from "$components/Highlight.svelte";
   import Link from "$components/Link.svelte";
-  import { LICENSE_URL, SOCIAL_LINKS } from "$lib/config";
+  import { LICENSE_URL, SITE_AUTHOR, SOCIAL_LINKS } from "$lib/config";
   import { CURRENT_YEAR } from "$lib/helpers/currentDate";
 
   // First 8 chars of kit.version.name — see appVersion() in svelte.config.js.
@@ -33,7 +33,7 @@
       <p class="flex flex-wrap items-center gap-x-2 text-surface-100">
         <span>
           <Link href={LICENSE_URL} rel="license" aria-label="MIT license">MIT</Link>
-          &copy; {CURRENT_YEAR} Viktor Andersson
+          &copy; {CURRENT_YEAR} {SITE_AUTHOR}
         </span>
         <span class="text-surface-300 whitespace-nowrap">
           <span class="sr-only">Build</span>

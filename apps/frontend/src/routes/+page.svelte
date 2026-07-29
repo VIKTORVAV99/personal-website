@@ -4,7 +4,7 @@
   import ProfileCard from "$components/ProfileCard.svelte";
   import SEO from "$lib/seo/components/SEO.svelte";
   import Highlight from "$components/Highlight.svelte";
-  import { SITE_DESCRIPTION } from "$lib/config";
+  import { SITE_AUTHOR, SITE_DESCRIPTION } from "$lib/config";
   import { SITE_PAGES } from "$lib/pages";
 
   let { data }: { data: PageData } = $props();
@@ -17,7 +17,7 @@
 {#snippet treeLink(href: string, label: string, prefix: string)}<a {href} class="flex items-center link-plain">{@render treeChar(prefix)}<span class="hover:underline underline-offset-4">{label}</span></a>{/snippet}
 
 <SEO
-  title="Viktor Andersson - Software Engineer"
+  title={`${SITE_AUTHOR} - Software Engineer`}
   description={SITE_DESCRIPTION}
   structuredData={data.structuredData}
 />

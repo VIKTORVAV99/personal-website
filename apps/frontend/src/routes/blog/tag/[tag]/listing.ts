@@ -2,6 +2,7 @@ import type { BlogPostMeta } from "$lib/blog";
 
 import { getPostsForTag, isTagIndexable, paginatePosts, slugifyTag } from "$lib/blog";
 import { SITE_URL } from "$lib/config";
+import { pageTitle } from "$lib/helpers/pageTitle";
 import { buildPaginationURLs } from "$lib/helpers/paginationURLs";
 import {
   createBreadcrumbListSchema,
@@ -55,7 +56,7 @@ export const loadTagListing = (tag: string, page: number, posts: BlogPostMeta[])
     ...paginated,
     tag: tagSlug,
     displayTag,
-    title: `Viktor Andersson | #${displayTag}${page > 1 ? ` — Page ${page}` : ""}`,
+    title: pageTitle(`#${displayTag}${page > 1 ? ` — Page ${page}` : ""}`),
     robots,
     description,
     structuredData,

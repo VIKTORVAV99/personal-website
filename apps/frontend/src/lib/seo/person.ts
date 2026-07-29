@@ -1,5 +1,12 @@
 import portrait from "$images/Viktor_Andersson.jpeg";
-import { IDENTITY_URLS, SITE_URL, SOCIAL_LINKS } from "$lib/config";
+import {
+  AUTHOR_FAMILY_NAME,
+  AUTHOR_GIVEN_NAME,
+  IDENTITY_URLS,
+  SITE_AUTHOR,
+  SITE_URL,
+  SOCIAL_LINKS,
+} from "$lib/config";
 import {
   createPersonSchema,
   createOrganizationSchema,
@@ -37,9 +44,9 @@ export const PROFILE_DATE_MODIFIED = new Date("2026-07-29").toISOString();
 
 export const siteOwnerPerson = createPersonSchema({
   "@id": `${SITE_URL}/#person`,
-  name: "Viktor Andersson",
-  givenName: "Viktor",
-  familyName: "Andersson",
+  name: SITE_AUTHOR,
+  givenName: AUTHOR_GIVEN_NAME,
+  familyName: AUTHOR_FAMILY_NAME,
   url: SITE_URL,
   image: `${SITE_URL}${portrait}`,
   homeLocation: createPlaceSchema("Malmö", "SE"),

@@ -1,5 +1,5 @@
 import { getAllPosts } from "$lib/blog.server";
-import { SITE_URL, SITE_DESCRIPTION, REPO_URL, LICENSE_URL } from "$lib/config";
+import { SITE_URL, SITE_DESCRIPTION, SITE_AUTHOR, REPO_URL, LICENSE_URL } from "$lib/config";
 import {
   createWebSiteSchema,
   createSoftwareSourceCodeSchema,
@@ -13,7 +13,7 @@ import type { PageServerLoad } from "./$types";
 const structuredData = [
   createWebSiteSchema({
     "@id": SITE_WEBSITE_REF["@id"],
-    name: "Viktor Andersson",
+    name: SITE_AUTHOR,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     author: SITE_OWNER_PERSON_REF,

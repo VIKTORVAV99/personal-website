@@ -4,6 +4,7 @@
   import Highlight from "$components/Highlight.svelte";
   import TitleText from "$components/TitleText.svelte";
   import SEO from "$lib/seo/components/SEO.svelte";
+  import { pageTitle } from "$lib/helpers/pageTitle";
   import { SITE_URL } from "$lib/config";
   import type { PageData } from "./$types";
 
@@ -13,7 +14,7 @@
 </script>
 
 <SEO
-  title="Viktor Andersson | Activity"
+  title={pageTitle("Activity")}
   description={data.description}
   canonicalURL={`${SITE_URL}/activity`}
   structuredData={data.structuredData}

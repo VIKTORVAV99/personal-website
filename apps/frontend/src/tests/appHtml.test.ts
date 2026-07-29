@@ -1,4 +1,4 @@
-import { LICENSE_URL, SITE_URL } from "$lib/config";
+import { LICENSE_URL, SITE_AUTHOR, SITE_URL } from "$lib/config";
 import { describe, it, expect } from "bun:test";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -13,6 +13,11 @@ describe("app.html", () => {
   it("declares the same license URL as LICENSE_URL", () => {
     const href = appHtml.match(/<link\s+rel="license"\s+href="([^"]+)"/)?.[1];
     expect(href).toBe(LICENSE_URL);
+  });
+
+  it("declares the same author as SITE_AUTHOR", () => {
+    const content = appHtml.match(/<meta\s+name="author"\s+content="([^"]+)"/)?.[1];
+    expect(content).toBe(SITE_AUTHOR);
   });
 
   it("hardcodes no other absolute URL to the site or repo", () => {

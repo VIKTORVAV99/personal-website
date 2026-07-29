@@ -1,4 +1,4 @@
-import { SITE_URL } from "$lib/config";
+import { SITE_AUTHOR, SITE_URL } from "$lib/config";
 
 /** robots directives, one per indexing policy. Pages pick a policy; they never spell out directives. */
 export const ROBOTS = {
@@ -195,7 +195,7 @@ export const createPersonSchema = (options: Omit<PersonSchema, "@type">): Person
 
 export const SITE_OWNER_PERSON_REF = createPersonSchema({
   "@id": `${SITE_URL}/#person`,
-  name: "Viktor Andersson",
+  name: SITE_AUTHOR,
   url: SITE_URL,
 });
 
