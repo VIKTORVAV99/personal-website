@@ -17,7 +17,7 @@
   <div class="flex flex-col gap-0.5">
     <svelte:element this={as} class="text-2xl">{SITE_AUTHOR}</svelte:element>
     <p class="text-base text-surface-300">Software Engineer</p>
-    <p class="text-sm text-surface-400">Malmö, Sweden</p>
+    <p class="text-sm text-surface-300">Malmö, Sweden</p>
     <div class="flex flex-wrap gap-4 text-sm mt-1">
       {#each SOCIAL_LINKS as social}
         <Link href={social.href} mono>{social.label}</Link>

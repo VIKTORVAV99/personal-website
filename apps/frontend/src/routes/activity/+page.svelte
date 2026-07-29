@@ -28,9 +28,9 @@
     >
     <div class="flex flex-col gap-2">
       {#if activity === null}
-        <span class="text-surface-500">fatal: unable to read from remote</span>
+        <span class="text-surface-300">fatal: unable to read from remote</span>
       {:else if activity.log.length === 0}
-        <span class="text-surface-500">no recent activity</span>
+        <span class="text-surface-300">no recent activity</span>
       {:else}
         {#each activity.log as entry}
           <ActivityLine activity={entry} />
