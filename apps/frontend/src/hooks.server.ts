@@ -4,7 +4,8 @@ import { ifNoneMatchHits, weakEtag } from "$lib/helpers/etag";
 
 export const handle: Handle = async ({ event, resolve }) => {
   const response = await resolve(event, {
-    preload: ({ type }) => type === "css" || type === "font",
+    preload: ({ type, path }) =>
+      type === "css" || type === "font" || (type === "js" && path.includes("/entry/")),
   });
 
   // Add an ETag to SSR HTML responses and return 304 when If-None-Match matches.
