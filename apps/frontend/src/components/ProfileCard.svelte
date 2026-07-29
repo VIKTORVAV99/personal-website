@@ -16,7 +16,7 @@
   <div class="flex flex-col gap-0.5">
     <svelte:element this={as} class="text-2xl">Viktor Andersson</svelte:element>
     <p class="text-base text-surface-300">Software Engineer</p>
-    <p class="text-sm text-surface-400">Malmö, Sweden</p>
+    <p class="text-sm text-surface-300">Malmö, Sweden</p>
     <div class="flex flex-wrap gap-4 text-sm mt-1">
       <Link href="https://www.linkedin.com/in/viktor-va-andersson/" mono>open linkedin</Link>
       <Link href="https://github.com/viktorvav99" mono>open github</Link>
