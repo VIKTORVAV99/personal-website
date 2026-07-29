@@ -9,12 +9,12 @@
 
   let { data }: { data: PageData } = $props();
 
-  const blogSlugs = $derived(data.blogSlugs);
+  const blogPosts = $derived(data.blogPosts);
   const treePages = SITE_PAGES.filter((page) => page.path !== "" && page.path !== "/blog");
 </script>
 
 {#snippet treeChar(char: string)}<span class="text-2xl text-surface-500" aria-hidden="true">{char}</span>{/snippet}
-{#snippet treeLink(href: string, label: string, prefix: string)}<a {href} class="flex items-center link-plain">{@render treeChar(prefix)}<span class="hover:underline underline-offset-4">{label}</span></a>{/snippet}
+{#snippet treeLink(href: string, label: string, prefix: string)}<a {href} class="flex items-baseline link-plain">{@render treeChar(prefix)}<span class="hover:underline underline-offset-4 whitespace-normal">{label}</span></a>{/snippet}
 
 <SEO
   title={`${SITE_AUTHOR} - Software Engineer`}
@@ -30,8 +30,8 @@
       {@render treeLink(page.path, page.path.slice(1), "├── ")}
     {/each}
     {@render treeLink("/blog", "blog/", "└─┬ ")}
-    {#each blogSlugs as slug}
-      {@render treeLink(`/blog/${slug}`, slug, "  ├── ")}
+    {#each blogPosts as post}
+      {@render treeLink(`/blog/${post.slug}`, post.title, "  ├── ")}
     {/each}
     {@render treeLink("/blog", "...", "  └── ")}
   </nav>

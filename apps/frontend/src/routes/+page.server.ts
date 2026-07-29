@@ -29,11 +29,11 @@ const structuredData = [
   }),
 ];
 
-const blogSlugs = getAllPosts()
+const blogPosts = getAllPosts()
   .slice(0, 5)
-  .map((post) => post.slug);
+  .map((post) => ({ slug: post.slug, title: post.title }));
 
 export const load = (() => ({
   structuredData,
-  blogSlugs,
+  blogPosts,
 })) satisfies PageServerLoad;

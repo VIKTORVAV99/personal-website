@@ -12,7 +12,7 @@ tags: ["SvelteKit", "MDsveX", "TailwindCSS", "Cloudflare", "Vite"]
 
 ### Framework: Svelte and SvelteKit
 
-I've tried both Angular and React extensively before, but Angular felt a bit heavy for the task and React just isn't opinionated enough (no batteries included). So, it was time for something new. I made this choice years ago but didn't build a blog before. After my website revamp a week or so ago I decided it was time to make a blog post about it.
+I've tried both Angular and React extensively before, but Angular felt a bit heavy for the task and React just isn't opinionated enough (no batteries included). So, it was time for something new. I made this choice years ago but didn't build a blog before. After my [website revamp](/blog/hello-world) a week or so ago I decided it was time to make a blog post about it.
 
 So I picked Svelte, or more accurately SvelteKit, the meta framework around Svelte that comes with all the features I need. Vue was also in the running but Svelte's syntax and SvelteKit's features won me over. It was as similar to pure HTML and JS I could find at the time and the fact that SvelteKit compiles all the code means it sends less code to the browser which is just a win for everyone involved.
 
