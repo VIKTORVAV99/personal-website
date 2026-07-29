@@ -1,12 +1,12 @@
 import type { TimelineEntry } from "$interfaces/timelineEntry";
 
+import { CURRENT_YEAR, CURRENT_MONTH } from "$lib/helpers/currentDate";
+
 import {
   ORIGIN_YEAR,
   ORIGIN_MONTH,
   TOTAL_MONTHS,
   PX_PER_MONTH,
-  CURRENT_YEAR,
-  CURRENT_MONTH,
   GRAPH_TOP_PADDING_PX,
 } from "./constants";
 
