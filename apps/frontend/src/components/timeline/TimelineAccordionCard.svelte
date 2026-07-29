@@ -44,7 +44,7 @@
 	{/if}
 	{#if entry.link}
 		<Link href={entry.link} mono class={['text-sm mt-2', isRight && 'ml-auto']}>
-			{entry.linkLabel ?? entry.link}
+			{entry.linkLabel ?? new URL(entry.link).host}
 		</Link>
 	{/if}
 {/snippet}
