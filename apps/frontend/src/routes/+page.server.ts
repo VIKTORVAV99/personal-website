@@ -1,5 +1,5 @@
 import { getAllPosts } from "$lib/blog.server";
-import { SITE_URL, SITE_DESCRIPTION } from "$lib/config";
+import { SITE_URL, SITE_DESCRIPTION, REPO_URL, LICENSE_URL } from "$lib/config";
 import {
   createWebSiteSchema,
   createSoftwareSourceCodeSchema,
@@ -22,10 +22,10 @@ const structuredData = [
   siteOwnerPerson,
   createSoftwareSourceCodeSchema({
     name: "personal-website",
-    codeRepository: "https://github.com/VIKTORVAV99/personal-website",
+    codeRepository: REPO_URL,
     programmingLanguage: ["TypeScript", "Svelte"],
     author: SITE_OWNER_PERSON_REF,
-    license: "https://github.com/VIKTORVAV99/personal-website/blob/main/LICENSE",
+    license: LICENSE_URL,
   }),
 ];
 
