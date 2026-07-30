@@ -62,7 +62,7 @@ SvelteKit file-based routing with Svelte 5 runes (`$props()`, `$state()`, etc.).
 
 **Images/fonts:** `@sveltejs/enhanced-img` and `vite-imagetools` handle image processing (e.g. the OG image is an SVG rasterized to webp at build time); `fontaine` generates font fallback metrics.
 
-**Blog:** Markdown files in `src/blog_posts/` with YAML frontmatter (title, date, last_updated, description, tags). Processed by mdsvex with Shiki highlighting. Listing at `/blog`, posts at `/blog/[slug]` (slug = lowercased filename), tag pages at `/blog/tag/[tag]`.
+**Blog:** Markdown files in `src/blog_posts/` with YAML frontmatter (title, date, last_updated, description, tags, optional slug). Processed by mdsvex with Shiki highlighting. Listing at `/blog`, posts at `/blog/[slug]`, tag pages at `/blog/tag/[tag]`. The slug is the lowercased filename with underscores turned into hyphens, unless frontmatter `slug` overrides it; legacy underscore URLs 301 via `apps/frontend/_redirects`.
 
 **SEO:** Custom `SEO.svelte` component injects JSON-LD structured data, Open Graph tags, Twitter Card tags, canonical URLs, and robots meta into `<svelte:head>`. Schema types include Person, WebSite, BlogPosting, ProfilePage, CollectionPage, BreadcrumbList, and SoftwareSourceCode. `sitemap.xml` is a prerendered endpoint; `robots.txt` is a static asset.
 

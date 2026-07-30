@@ -15,7 +15,7 @@ exports[`llms.txt should match snapshot 1`] = `
 
 ## Blog
 
-- [Hello World](https://viktor.andersson.tech/blog/hello_world): My first post
+- [Hello World](https://viktor.andersson.tech/blog/hello-world): My first post
 
 ## Optional
 

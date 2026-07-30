@@ -7,7 +7,7 @@ const pubDate = "Fri, 20 Mar 2026 00:00:00 GMT";
 const testItems = [
   {
     title: "Hello & <World>",
-    link: "https://viktor.andersson.tech/blog/hello_world",
+    link: "https://viktor.andersson.tech/blog/hello-world",
     description: 'A "quoted" post',
     pubDate,
   },
@@ -29,9 +29,9 @@ describe("rss.xml", () => {
 
   it("should include item link + permalink guid", () => {
     const xml = _buildRssXml(testItems, pubDate);
-    expect(xml).toContain("<link>https://viktor.andersson.tech/blog/hello_world</link>");
+    expect(xml).toContain("<link>https://viktor.andersson.tech/blog/hello-world</link>");
     expect(xml).toContain(
-      '<guid isPermaLink="true">https://viktor.andersson.tech/blog/hello_world</guid>',
+      '<guid isPermaLink="true">https://viktor.andersson.tech/blog/hello-world</guid>',
     );
   });
 

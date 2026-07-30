@@ -1,0 +1,4 @@
+# Legacy underscore blog URLs, kept alive after the switch to hyphenated slugs.
+/blog/hello_world /blog/hello-world 301
+/blog/website_stack /blog/website-stack 301
+/blog/flowtracing_go_brrrr /blog/dataflow-arm-axion-c4a 301

@@ -1,7 +1,28 @@
-import { getAllTagSlugs, getPostsForTag, isTagIndexable, slugifyTag } from "$lib/blog";
+import {
+  getAllTagSlugs,
+  getPostsForTag,
+  isTagIndexable,
+  slugFromPath,
+  slugifyTag,
+} from "$lib/blog";
 import { describe, expect, it } from "bun:test";
 
 import { makePost, postsTagged } from "../tests/fixtures/posts";
+
+describe("slugFromPath", () => {
+  it("lowercases the filename and turns underscores into hyphens", () => {
+    expect(slugFromPath("/src/blog_posts/Hello_World.md")).toBe("hello-world");
+    expect(slugFromPath("/src/blog_posts/Flowtracing_Go_Brrrr.md")).toBe("flowtracing-go-brrrr");
+  });
+
+  it("leaves a filename without underscores alone beyond lowercasing", () => {
+    expect(slugFromPath("/src/blog_posts/Changelog.md")).toBe("changelog");
+  });
+
+  it("keeps existing hyphens", () => {
+    expect(slugFromPath("/src/blog_posts/Hello-World.md")).toBe("hello-world");
+  });
+});
 
 describe("slugifyTag", () => {
   it("lowercases and collapses non-alphanumeric runs", () => {

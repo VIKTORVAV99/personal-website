@@ -12,19 +12,26 @@ interface SitemapPage {
   path: string;
   priority: string;
   changefreq: string;
-  lastmod: string;
+  lastmod?: string;
 }
 
 const profileLastmod = PROFILE_DATE_MODIFIED.split("T")[0];
 
 const postLastmod = (post: BlogPostMeta): string => formatDate(post.last_updated || post.date);
 
-export const _staticPages: SitemapPage[] = SITE_PAGES.map((page) => ({
-  path: page.path,
-  priority: page.priority,
-  changefreq: page.changefreq,
-  lastmod: profileLastmod,
-}));
+// Pages whose content changes faster than the profile date can track. A hand-maintained
+// lastmod on those is worse than none at all.
+const LASTMOD_EXEMPT = new Set(["/activity"]);
+
+export const _staticPages: SitemapPage[] = SITE_PAGES.map((page) => {
+  const entry: SitemapPage = {
+    path: page.path,
+    priority: page.priority,
+    changefreq: page.changefreq,
+  };
+  if (!LASTMOD_EXEMPT.has(page.path)) entry.lastmod = profileLastmod;
+  return entry;
+});
 
 export const _tagSitemapPages = (posts: BlogPostMeta[]): SitemapPage[] =>
   getAllTagSlugs(posts).flatMap((tagSlug) => {
@@ -44,13 +51,15 @@ export const _buildSitemapXml = (pages: SitemapPage[]): string =>
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages
-  .map(
-    (page) => `  <url>
-    <loc>${SITE_URL}${page.path}</loc>
-    <lastmod>${page.lastmod}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
-  </url>`,
+  .map((page) =>
+    [
+      "  <url>",
+      `    <loc>${SITE_URL}${page.path}</loc>`,
+      ...(page.lastmod ? [`    <lastmod>${page.lastmod}</lastmod>`] : []),
+      `    <changefreq>${page.changefreq}</changefreq>`,
+      `    <priority>${page.priority}</priority>`,
+      "  </url>",
+    ].join("\n"),
   )
   .join("\n")}
 </urlset>`;

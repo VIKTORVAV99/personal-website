@@ -28,10 +28,16 @@ export const getAllPosts = (): BlogPostMeta[] => {
     const file = modules[path] as any;
     const metadata = file?.metadata as Record<string, any> | undefined;
     const raw = (rawPaths[path] as string) ?? "";
-    const slug = slugFromPath(path);
+    const moduleSlug = slugFromPath(path);
+    const slug = (metadata?.slug as string | undefined) ?? moduleSlug;
 
-    if (metadata && slug) {
-      posts.push({ ...metadata, slug, readingTime: calculateReadingTime(raw) } as BlogPostMeta);
+    if (metadata && slug && moduleSlug) {
+      posts.push({
+        ...metadata,
+        slug,
+        moduleSlug,
+        readingTime: calculateReadingTime(raw),
+      } as BlogPostMeta);
     }
   }
 

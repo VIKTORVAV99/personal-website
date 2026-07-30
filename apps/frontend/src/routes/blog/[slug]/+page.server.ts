@@ -33,6 +33,7 @@ export const load = async ({ params }: PageServerLoadEvent) => {
 
   return {
     slug: post.slug,
+    moduleSlug: post.moduleSlug,
     metadata: {
       title: post.title,
       description: post.description,

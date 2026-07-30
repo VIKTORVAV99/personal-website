@@ -7,6 +7,8 @@ export interface BlogPostMeta {
   last_updated?: string;
   tags?: string[];
   slug: string;
+  /** Slug derived from the filename, used to look the post's module up in the glob. */
+  moduleSlug?: string;
   readingTime: number;
 }
 
@@ -14,7 +16,7 @@ export interface BlogPostMeta {
 // an eager import.meta.glob here would pull every post into the client bundle. Post
 // loading lives in $lib/blog.server.ts (build-time) and $lib/blog-loader.ts (per-post).
 export const slugFromPath = (path: string): string | undefined =>
-  path.split("/").at(-1)?.replace(/\.md$/, "").toLowerCase();
+  path.split("/").at(-1)?.replace(/\.md$/, "").toLowerCase().replaceAll("_", "-");
 
 export const slugifyTag = (tag: string): string =>
   tag
