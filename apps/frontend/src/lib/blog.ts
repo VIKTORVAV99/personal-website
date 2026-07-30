@@ -9,7 +9,13 @@ export interface BlogPostMeta {
   slug: string;
   /** Slug derived from the filename, used to look the post's module up in the glob. */
   moduleSlug?: string;
+  /** Overrides the `<title>` tag; the `title` still drives the heading and social cards. */
+  seo_title?: string;
+  /** Social card image, absolute or site-root relative. Falls back to the hero banner. */
+  image?: string;
+  image_alt?: string;
   readingTime: number;
+  wordCount: number;
 }
 
 // Glob-free by design: the client reaches this module for slugFromPath/slugifyTag, so

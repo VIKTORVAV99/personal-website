@@ -225,6 +225,8 @@ export interface ArticleSchema {
   mainEntityOfPage?: WebPageSchema | string;
   isPartOf?: NodeRefSchema;
   wordCount?: number;
+  /** ISO 8601 duration, e.g. "PT7M". */
+  timeRequired?: string;
   keywords?: string | string[];
   articleBody?: string;
   url?: string;

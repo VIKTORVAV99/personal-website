@@ -22,7 +22,7 @@
       <ul class="flex flex-wrap gap-x-6 gap-y-1">
         {#each SOCIAL_LINKS as social}
           <li>
-            <Link href={social.href} class="text-surface-100">{social.label}</Link>
+            <Link href={social.href} rel={social.rel} class="text-surface-100">{social.label}</Link>
           </li>
         {/each}
       </ul>

@@ -1,5 +1,6 @@
 ---
 title: "Flowtracing Go Brrrr - Making our pipeline faster, cheaper and greener with ARM"
+seo_title: "Apache Beam on Arm: Moving Dataflow to Google Axion C4A"
 slug: dataflow-arm-axion-c4a
 date: 2026-07-20
 last_updated: 2026-07-20

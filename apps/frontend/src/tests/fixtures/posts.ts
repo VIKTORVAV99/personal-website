@@ -5,6 +5,7 @@ export const makePost = (overrides: Partial<BlogPostMeta> & { slug: string }): B
   description: overrides.slug,
   date: "2026-01-01",
   readingTime: 1,
+  wordCount: 200,
   ...overrides,
 });
 

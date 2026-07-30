@@ -8,12 +8,14 @@
     AUTHOR_FAMILY_NAME,
     AUTHOR_GIVEN_NAME,
     SITE_AUTHOR,
+    TWITTER_HANDLE,
   } from "$lib/config";
   import type { Robots, StructuredDataSchema } from "..";
   import { ROBOTS, toJsonLd } from "..";
 
   let {
     title,
+    socialTitle = title,
     description,
     canonicalURL,
     prevURL,
@@ -21,15 +23,18 @@
     structuredData,
     robots = ROBOTS.default,
     image = FALLBACK_HERO_IMAGE,
-    imageWidth = FALLBACK_HERO_IMAGE_WIDTH,
-    imageHeight = FALLBACK_HERO_IMAGE_HEIGHT,
-    imageAlt = "viktor.andersson.tech",
+    imageWidth,
+    imageHeight,
+    imageAlt = `Hero banner for ${SITE_AUTHOR}'s personal website`,
+    imageType,
     type = "website",
     publishedTime,
     modifiedTime,
     tags,
   }: {
     title: string;
+    /** og:title and twitter:title; defaults to the `<title>`. */
+    socialTitle?: string;
     description: string;
     canonicalURL?: string;
     prevURL?: string;
@@ -40,6 +45,8 @@
     imageWidth?: number;
     imageHeight?: number;
     imageAlt?: string;
+    /** MIME type of `image`; sniffed from its extension when omitted. */
+    imageType?: string;
     type?: "website" | "article" | "profile" | string;
     /** ISO 8601 date; emitted as article:published_time when type is "article" */
     publishedTime?: string;
@@ -53,6 +60,30 @@
   const resolvedCanonicalURL = $derived(
     canonicalURL ??
       (robots.startsWith("noindex") ? undefined : SITE_URL + page.url.pathname.replace(/\/$/, "")),
+  );
+
+  const IMAGE_TYPES: Record<string, string> = {
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    png: "image/png",
+    webp: "image/webp",
+    gif: "image/gif",
+  };
+
+  const resolvedImageType = $derived.by(() => {
+    if (imageType) return imageType;
+    const extension = image?.split("?")[0].split(".").at(-1)?.toLowerCase();
+    return extension ? IMAGE_TYPES[extension] : undefined;
+  });
+
+  // Dimensions describe the fallback banner only; a custom image without explicit
+  // dims gets no og:image:width/height.
+  const isFallbackImage = $derived(image === FALLBACK_HERO_IMAGE);
+  const resolvedImageWidth = $derived(
+    imageWidth ?? (isFallbackImage ? FALLBACK_HERO_IMAGE_WIDTH : undefined),
+  );
+  const resolvedImageHeight = $derived(
+    imageHeight ?? (isFallbackImage ? FALLBACK_HERO_IMAGE_HEIGHT : undefined),
   );
 </script>
 
@@ -74,7 +105,7 @@
   <meta property="og:site_name" content={SITE_AUTHOR} />
   <meta property="og:locale" content="en_US" />
   <meta property="og:type" content={type} />
-  <meta property="og:title" content={title} />
+  <meta property="og:title" content={socialTitle} />
   <meta property="og:description" content={description} />
 
   {#if type === "article"}
@@ -94,14 +125,21 @@
     <meta name="twitter:image" content={image} />
     <meta name="twitter:image:alt" content={imageAlt} />
     <meta property="og:image" content={image} />
-    <meta property="og:image:width" content={String(imageWidth)} />
-    <meta property="og:image:height" content={String(imageHeight)} />
+    {#if resolvedImageType}<meta property="og:image:type" content={resolvedImageType} />{/if}
+    {#if resolvedImageWidth}
+      <meta property="og:image:width" content={String(resolvedImageWidth)} />
+    {/if}
+    {#if resolvedImageHeight}
+      <meta property="og:image:height" content={String(resolvedImageHeight)} />
+    {/if}
     <meta property="og:image:alt" content={imageAlt} />
   {:else}
     <meta name="twitter:card" content="summary" />
   {/if}
 
-  <meta name="twitter:title" content={title} />
+  <meta name="twitter:title" content={socialTitle} />
+  <meta name="twitter:site" content={TWITTER_HANDLE} />
+  <meta name="twitter:creator" content={TWITTER_HANDLE} />
   <meta name="twitter:description" content={description} />
 
   <meta name="robots" content={robots} />
