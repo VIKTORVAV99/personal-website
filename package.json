@@ -19,7 +19,7 @@
     "hono": "^4.12.30"
   },
   "devDependencies": {
-    "oxfmt": "^0.59.0",
+    "oxfmt": "^0.62.0",
     "oxlint": "^1.74.0",
     "typescript": "^6.0.3",
     "wrangler": "^4.111.0"
