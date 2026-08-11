@@ -22,6 +22,7 @@ export const loadBlogListing = (page: number) => {
 
   const structuredData = [
     createCollectionPageSchema({
+      inLanguage: "en",
       name: "Blog",
       description: BLOG_DESCRIPTION,
       url: canonicalURL,

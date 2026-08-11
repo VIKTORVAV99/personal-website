@@ -38,6 +38,7 @@ export const loadTagListing = (tag: string, page: number, posts: BlogPostMeta[])
 
   const structuredData = [
     createCollectionPageSchema({
+      inLanguage: "en",
       name: `Posts tagged "${displayTag}"`,
       description,
       url: canonicalURL,

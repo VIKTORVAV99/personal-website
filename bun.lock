@@ -41,6 +41,7 @@
         "fontaine": "^0.8.0",
         "mdsvex": "^0.12.7",
         "shiki": "^4.3.1",
+        "structured-data-generators": "^0.1.1",
         "svelte": "^5.56.5",
         "svelte-check": "^4.7.3",
         "tailwindcss": "^4.3.3",
@@ -655,6 +656,8 @@
     "space-separated-tokens": ["space-separated-tokens@2.0.2", "", {}, "sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q=="],
 
     "stringify-entities": ["stringify-entities@4.0.4", "", { "dependencies": { "character-entities-html4": "^2.0.0", "character-entities-legacy": "^3.0.0" } }, "sha512-IwfBptatlO+QCJUo19AqvrPNqlVMpW9YEL2LIVY+Rpv2qsjCGxaDLNRgeGsQWJhfItebuJhsGSLjaBbNSQ+ieg=="],
+
+    "structured-data-generators": ["structured-data-generators@0.1.1", "", {}, "sha512-NrWiHAKghxhRJ+7FC2VgZm4RT0Pc9WmkNgvjKbvZBe0RzBA4pr3PrK+Hyu7F7Zpu4lN2mhM+SsAg1j94Wzl36w=="],
 
     "supports-color": ["supports-color@10.2.2", "", {}, "sha512-SS+jx45GF1QjgEXQx4NJZV9ImqmO2NPz5FNsIHrsDjh2YsHnawpan7SNQ1o8NuhrbHZy9AZhIoCUiCeaW/C80g=="],
 

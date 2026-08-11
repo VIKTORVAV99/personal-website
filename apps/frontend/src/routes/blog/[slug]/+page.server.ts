@@ -56,6 +56,7 @@ export const load = async ({ params }: PageServerLoadEvent) => {
     dateModified,
     structuredData: [
       createArticleSchema({
+        inLanguage: "en",
         headline: post.title,
         description: post.description,
         datePublished,

@@ -12,6 +12,7 @@ import type { PageServerLoad } from "./$types";
 
 const structuredData = [
   createWebSiteSchema({
+    inLanguage: "en",
     "@id": SITE_WEBSITE_REF["@id"],
     name: SITE_AUTHOR,
     url: SITE_URL,
