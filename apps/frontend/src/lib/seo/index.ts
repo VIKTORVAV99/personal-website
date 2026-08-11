@@ -1,8 +1,6 @@
 import { SITE_AUTHOR, SITE_URL } from "$lib/config";
 import { createPersonSchema, type NodeRefSchema } from "structured-data-generators";
 
-export * from "structured-data-generators";
-
 /** robots directives, one per indexing policy. Pages pick a policy; they never spell out directives. */
 export const ROBOTS = {
   default: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",

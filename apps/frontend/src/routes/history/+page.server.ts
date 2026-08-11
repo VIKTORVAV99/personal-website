@@ -1,6 +1,7 @@
 import { SITE_URL } from "$lib/config";
-import { createBreadcrumbListSchema, createProfilePageSchema, SITE_WEBSITE_REF } from "$lib/seo";
+import { SITE_WEBSITE_REF } from "$lib/seo";
 import { PROFILE_DATE_CREATED, PROFILE_DATE_MODIFIED, siteOwnerPerson } from "$lib/seo/person";
+import { createBreadcrumbListSchema, createProfilePageSchema } from "structured-data-generators";
 
 import type { PageServerLoad } from "./$types";
 

@@ -4,15 +4,14 @@ import { getPostsForTag, isTagIndexable, paginatePosts, slugifyTag } from "$lib/
 import { SITE_URL } from "$lib/config";
 import { pageTitle } from "$lib/helpers/pageTitle";
 import { buildPaginationURLs } from "$lib/helpers/paginationURLs";
+import { ROBOTS, SITE_WEBSITE_REF } from "$lib/seo";
 import {
   createBreadcrumbListSchema,
   createCollectionPageRefSchema,
   createCollectionPageSchema,
   createDefinedTermSchema,
   createItemListSchema,
-  ROBOTS,
-  SITE_WEBSITE_REF,
-} from "$lib/seo";
+} from "structured-data-generators";
 
 /** Shared load logic for /blog/tag/[tag] and /blog/tag/[tag]/page/[page]. */
 export const loadTagListing = (tag: string, page: number, posts: BlogPostMeta[]) => {
