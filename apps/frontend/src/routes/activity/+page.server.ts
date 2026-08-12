@@ -1,6 +1,7 @@
 import { fetchActivityServer } from "$lib/api";
 import { SITE_URL } from "$lib/config";
-import { createBreadcrumbListSchema, createWebPageSchema, SITE_WEBSITE_REF } from "$lib/seo";
+import { SITE_WEBSITE_REF } from "$lib/seo";
+import { createBreadcrumbListSchema, createWebPageSchema } from "structured-data-generators";
 
 import type { PageServerLoad } from "./$types";
 

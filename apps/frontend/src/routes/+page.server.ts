@@ -1,17 +1,14 @@
 import { getAllPosts } from "$lib/blog.server";
 import { SITE_URL, SITE_DESCRIPTION, SITE_AUTHOR, REPO_URL, LICENSE_URL } from "$lib/config";
-import {
-  createWebSiteSchema,
-  createSoftwareSourceCodeSchema,
-  SITE_OWNER_PERSON_REF,
-  SITE_WEBSITE_REF,
-} from "$lib/seo";
+import { SITE_OWNER_PERSON_REF, SITE_WEBSITE_REF } from "$lib/seo";
 import { siteOwnerPerson } from "$lib/seo/person";
+import { createSoftwareSourceCodeSchema, createWebSiteSchema } from "structured-data-generators";
 
 import type { PageServerLoad } from "./$types";
 
 const structuredData = [
   createWebSiteSchema({
+    inLanguage: "en",
     "@id": SITE_WEBSITE_REF["@id"],
     name: SITE_AUTHOR,
     url: SITE_URL,

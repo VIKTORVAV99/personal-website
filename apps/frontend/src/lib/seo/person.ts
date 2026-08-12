@@ -17,7 +17,7 @@ import {
   createPlaceSchema,
   createDefinedTermSchema,
   createEducationalCredentialSchema,
-} from "$lib/seo";
+} from "structured-data-generators";
 
 export const electricityMaps = createOrganizationSchema({
   name: "Electricity Maps",

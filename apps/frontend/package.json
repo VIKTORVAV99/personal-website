@@ -33,6 +33,7 @@
     "fontaine": "^0.8.0",
     "mdsvex": "^0.12.7",
     "shiki": "^4.3.1",
+    "structured-data-generators": "^0.1.1",
     "svelte": "^5.56.5",
     "svelte-check": "^4.7.3",
     "tailwindcss": "^4.3.3",

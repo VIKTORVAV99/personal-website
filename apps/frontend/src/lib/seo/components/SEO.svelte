@@ -10,8 +10,10 @@
     SITE_AUTHOR,
     TWITTER_HANDLE,
   } from "$lib/config";
-  import type { Robots, StructuredDataSchema } from "..";
-  import { ROBOTS, toJsonLd } from "..";
+  import type { StructuredDataSchema } from "structured-data-generators";
+  import type { Robots } from "..";
+  import { toJsonLd } from "structured-data-generators";
+  import { ROBOTS } from "..";
 
   let {
     title,
