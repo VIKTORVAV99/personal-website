@@ -38,6 +38,6 @@
     "svelte-check": "^4.7.3",
     "tailwindcss": "^4.3.3",
     "vite": "^8.1.5",
-    "vite-imagetools": "^10.0.1"
+    "vite-imagetools": "^12.0.0"
   }
 }
