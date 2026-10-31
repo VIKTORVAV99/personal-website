@@ -9,7 +9,7 @@ const appHtml = await Bun.file(
 ).text();
 
 describe("app.html", () => {
-  // app.html is a static template and cannot import from $lib, so these
+  // app.html is a static template and cannot import from #lib, so these
   // literals are the one place the constants are duplicated.
   it("declares the same license URL as LICENSE_URL", () => {
     const href = appHtml.match(/<link\s+rel="license"\s+href="([^"]+)"/)?.[1];

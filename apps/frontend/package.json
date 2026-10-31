@@ -36,7 +36,6 @@
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
     "@types/bun": "^1.4.4",
-    "@types/serviceworker": "^0.0.203",
     "fontaine": "^1.0.3",
     "mdsvex": "^0.12.8",
     "shiki": "^4.5.0",
