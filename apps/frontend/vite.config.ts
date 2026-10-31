@@ -1,3 +1,5 @@
+import type { Highlighter } from "shiki";
+
 import adapter from "@sveltejs/adapter-cloudflare";
 import { enhancedImages } from "@sveltejs/enhanced-img";
 import { sveltekit } from "@sveltejs/kit/vite";
@@ -6,13 +8,9 @@ import tailwindcss from "@tailwindcss/vite";
 import { FontaineTransform } from "fontaine";
 import { escapeSvelte, mdsvex } from "mdsvex";
 import { execSync } from "node:child_process";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-import { createHighlighter } from "shiki";
+import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import { imagetools } from "vite-imagetools";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // SvelteKit defaults version.name to Date.now(), which lands in the client runtime chunk
 // and re-hashes every chunk importing it — so every build busts the immutable asset cache
@@ -51,10 +49,16 @@ const appVersion = () => {
   }
 };
 
-const shikiHighlighter = await createHighlighter({
-  themes: ["github-dark"],
-  langs: ["yaml", "javascript", "typescript", "svelte", "html", "css", "bash", "json"],
-});
+// Created on the first code block, so config loads that compile no markdown
+// (svelte-kit sync, svelte-check) skip loading shiki.
+let shikiHighlighter: Promise<Highlighter> | undefined;
+const getShikiHighlighter = () =>
+  (shikiHighlighter ??= import("shiki").then(({ createHighlighter }) =>
+    createHighlighter({
+      themes: ["github-dark"],
+      langs: ["yaml", "javascript", "typescript", "svelte", "html", "css", "bash", "json"],
+    }),
+  ));
 
 export default defineConfig({
   plugins: [
@@ -63,7 +67,7 @@ export default defineConfig({
         Inter: ["Arial"],
         "Monaspace Neon": ["Courier New"],
       },
-      resolvePath: (id) => resolve(__dirname, "src", id),
+      resolvePath: (id) => resolve(import.meta.dirname, "src", id),
     }),
     tailwindcss(),
     imagetools({
@@ -82,10 +86,10 @@ export default defineConfig({
             quotes: true,
             dashes: "oldschool",
           },
-          layout: resolve(__dirname, "./src/lib/mdsvex/layout.svelte"),
+          layout: resolve(import.meta.dirname, "./src/lib/mdsvex/layout.svelte"),
           highlight: {
-            highlighter: (code, lang) => {
-              const html = shikiHighlighter.codeToHtml(code, {
+            highlighter: async (code, lang) => {
+              const html = (await getShikiHighlighter()).codeToHtml(code, {
                 lang: lang || "text",
                 theme: "github-dark",
               });
