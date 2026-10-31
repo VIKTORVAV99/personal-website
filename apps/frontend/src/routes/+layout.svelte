@@ -1,18 +1,18 @@
 <script lang="ts">
-  import iconSVG from "$lib/assets/favicon.svg";
-  import appleTouchIcon from "$lib/assets/apple-touch-icon.png";
-  import icon48 from "$lib/assets/icon-48x48.png";
-  import icon96 from "$lib/assets/icon-96x96.png";
+  import iconSVG from "#lib/assets/favicon.svg";
+  import appleTouchIcon from "#lib/assets/apple-touch-icon.png";
+  import icon48 from "#lib/assets/icon-48x48.png";
+  import icon96 from "#lib/assets/icon-96x96.png";
   import "../app.css";
   import Menu from "@lucide/svelte/icons/menu";
   import { afterNavigate } from "$app/navigation";
   import { page, navigating } from "$app/state";
-  import Footer from "$components/Footer.svelte";
-  import Highlight from "$components/Highlight.svelte";
-  import { SITE_AUTHOR, SITE_URL } from "$lib/config";
-  import { SITE_PAGES } from "$lib/pages";
+  import Footer from "#components/Footer.svelte";
+  import Highlight from "#components/Highlight.svelte";
+  import { SITE_AUTHOR, SITE_URL } from "#lib/config.ts";
+  import { SITE_PAGES } from "#lib/pages.ts";
   import { type Snippet } from "svelte";
-  import { motion } from "$lib/motion";
+  import { motion } from "#lib/motion.ts";
   import { cubicOut } from "svelte/easing";
   import { fade } from "svelte/transition";
 

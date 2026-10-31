@@ -1,11 +1,12 @@
+import { describe, expect, it } from "bun:test";
+
 import {
   getAllTagSlugs,
   getPostsForTag,
   isTagIndexable,
   slugFromPath,
   slugifyTag,
-} from "$lib/blog";
-import { describe, expect, it } from "bun:test";
+} from "#lib/blog.ts";
 
 import { makePost, postsTagged } from "../tests/fixtures/posts";
 

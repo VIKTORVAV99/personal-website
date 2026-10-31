@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import TitleText from "$components/TitleText.svelte";
-  import ProfileCard from "$components/ProfileCard.svelte";
-  import SEO from "$lib/seo/components/SEO.svelte";
-  import Highlight from "$components/Highlight.svelte";
-  import { SITE_AUTHOR, SITE_DESCRIPTION } from "$lib/config";
-  import { SITE_PAGES } from "$lib/pages";
+  import TitleText from "#components/TitleText.svelte";
+  import ProfileCard from "#components/ProfileCard.svelte";
+  import SEO from "#lib/seo/components/SEO.svelte";
+  import Highlight from "#components/Highlight.svelte";
+  import { SITE_AUTHOR, SITE_DESCRIPTION } from "#lib/config.ts";
+  import { SITE_PAGES } from "#lib/pages.ts";
 
   let { data }: { data: PageData } = $props();
 

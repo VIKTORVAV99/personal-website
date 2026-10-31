@@ -1,7 +1,7 @@
 export const prerender = true;
-import { getAllPosts } from "$lib/blog.server";
-import { SITE_AUTHOR, SITE_URL, SITE_DESCRIPTION } from "$lib/config";
-import { SITE_PAGES, RESOURCE_LINKS, type SiteLink } from "$lib/pages";
+import { getAllPosts } from "#lib/blog.server.ts";
+import { SITE_AUTHOR, SITE_URL, SITE_DESCRIPTION } from "#lib/config.ts";
+import { SITE_PAGES, RESOURCE_LINKS, type SiteLink } from "#lib/pages.ts";
 
 interface LlmsLink {
   title: string;

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import BlogPostList from "$components/blog/BlogPostList.svelte";
-  import TitleText from "$components/TitleText.svelte";
-  import SEO from "$lib/seo/components/SEO.svelte";
+  import BlogPostList from "#components/blog/BlogPostList.svelte";
+  import TitleText from "#components/TitleText.svelte";
+  import SEO from "#lib/seo/components/SEO.svelte";
 
   import type { loadTagListing } from "./listing";
 

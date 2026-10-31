@@ -1,6 +1,6 @@
-import type { TimelineEntry } from "$interfaces/timelineEntry";
+import type { TimelineEntry } from "#interfaces/timelineEntry.ts";
 
-import { CURRENT_YEAR, CURRENT_MONTH } from "$lib/helpers/currentDate";
+import { CURRENT_YEAR, CURRENT_MONTH } from "#lib/helpers/currentDate.ts";
 
 import {
   ORIGIN_YEAR,

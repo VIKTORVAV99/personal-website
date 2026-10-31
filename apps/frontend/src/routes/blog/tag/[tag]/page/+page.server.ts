@@ -1,5 +1,6 @@
-import { slugifyTag } from "$lib/blog";
 import { redirect } from "@sveltejs/kit";
+
+import { slugifyTag } from "#lib/blog.ts";
 
 import type { PageServerLoadEvent } from "./$types";
 

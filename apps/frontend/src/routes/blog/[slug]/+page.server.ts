@@ -1,12 +1,13 @@
-import { getAllPosts } from "$lib/blog.server";
-import { FALLBACK_HERO_IMAGE, SITE_URL } from "$lib/config";
-import { SITE_OWNER_PERSON_REF, SITE_WEBSITE_REF } from "$lib/seo";
 import { error } from "@sveltejs/kit";
 import {
   createArticleSchema,
   createBreadcrumbListSchema,
   createWebPageSchema,
 } from "structured-data-generators";
+
+import { getAllPosts } from "#lib/blog.server.ts";
+import { FALLBACK_HERO_IMAGE, SITE_URL } from "#lib/config.ts";
+import { SITE_OWNER_PERSON_REF, SITE_WEBSITE_REF } from "#lib/seo/index.ts";
 
 import type { PageServerLoadEvent } from "./$types";
 

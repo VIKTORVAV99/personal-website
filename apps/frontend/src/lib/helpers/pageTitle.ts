@@ -1,4 +1,4 @@
-import { SITE_AUTHOR } from "$lib/config";
+import { SITE_AUTHOR } from "#lib/config.ts";
 
 /** Maximum `<title>` length before the author suffix is dropped. */
 const MAX_TITLE_LENGTH = 60;

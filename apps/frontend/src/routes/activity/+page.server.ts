@@ -1,7 +1,9 @@
-import { fetchActivityServer } from "$lib/api";
-import { SITE_URL } from "$lib/config";
-import { SITE_WEBSITE_REF } from "$lib/seo";
+import { env } from "cloudflare:workers";
 import { createBreadcrumbListSchema, createWebPageSchema } from "structured-data-generators";
+
+import { fetchActivityServer } from "#lib/api.ts";
+import { SITE_URL } from "#lib/config.ts";
+import { SITE_WEBSITE_REF } from "#lib/seo/index.ts";
 
 import type { PageServerLoad } from "./$types";
 
@@ -21,8 +23,8 @@ const structuredData = [
   createBreadcrumbListSchema([{ name: "Home", url: SITE_URL }, { name: "Activity" }]),
 ];
 
-export const load = (async ({ platform }) => {
-  const backend = platform?.env?.BACKEND;
+export const load = (async () => {
+  const backend = env.BACKEND;
   // No binding (e.g. build-time discovery or a misconfigured env) → null, which
   // the page renders as the git-flavored error state.
   const activity = backend ? await fetchActivityServer(backend) : null;

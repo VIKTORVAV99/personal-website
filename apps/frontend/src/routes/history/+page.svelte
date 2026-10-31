@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Timeline from "$components/Timeline.svelte";
-  import TitleText from "$components/TitleText.svelte";
-  import { timelineEntries } from "$data/metadata";
-  import SEO from "$lib/seo/components/SEO.svelte";
-  import { pageTitle } from "$lib/helpers/pageTitle";
-  import { SITE_URL } from "$lib/config";
+  import Timeline from "#components/Timeline.svelte";
+  import TitleText from "#components/TitleText.svelte";
+  import { timelineEntries } from "#data/metadata.ts";
+  import SEO from "#lib/seo/components/SEO.svelte";
+  import { pageTitle } from "#lib/helpers/pageTitle.ts";
+  import { SITE_URL } from "#lib/config.ts";
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();

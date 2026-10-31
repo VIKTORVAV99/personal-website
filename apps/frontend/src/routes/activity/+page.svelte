@@ -1,11 +1,11 @@
 <script lang="ts">
-  import ActivityLine from "$components/ActivityLine.svelte";
-  import ContributionsSummary from "$components/ContributionsSummary.svelte";
-  import Highlight from "$components/Highlight.svelte";
-  import TitleText from "$components/TitleText.svelte";
-  import SEO from "$lib/seo/components/SEO.svelte";
-  import { pageTitle } from "$lib/helpers/pageTitle";
-  import { SITE_URL } from "$lib/config";
+  import ActivityLine from "#components/ActivityLine.svelte";
+  import ContributionsSummary from "#components/ContributionsSummary.svelte";
+  import Highlight from "#components/Highlight.svelte";
+  import TitleText from "#components/TitleText.svelte";
+  import SEO from "#lib/seo/components/SEO.svelte";
+  import { pageTitle } from "#lib/helpers/pageTitle.ts";
+  import { SITE_URL } from "#lib/config.ts";
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();

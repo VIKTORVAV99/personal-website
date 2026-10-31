@@ -1,8 +1,9 @@
-import { getAllPosts } from "$lib/blog.server";
-import { SITE_URL, SITE_DESCRIPTION, SITE_AUTHOR, REPO_URL, LICENSE_URL } from "$lib/config";
-import { SITE_OWNER_PERSON_REF, SITE_WEBSITE_REF } from "$lib/seo";
-import { siteOwnerPerson } from "$lib/seo/person";
 import { createSoftwareSourceCodeSchema, createWebSiteSchema } from "structured-data-generators";
+
+import { getAllPosts } from "#lib/blog.server.ts";
+import { SITE_URL, SITE_DESCRIPTION, SITE_AUTHOR, REPO_URL, LICENSE_URL } from "#lib/config.ts";
+import { SITE_OWNER_PERSON_REF, SITE_WEBSITE_REF } from "#lib/seo/index.ts";
+import { siteOwnerPerson } from "#lib/seo/person.ts";
 
 import type { PageServerLoad } from "./$types";
 

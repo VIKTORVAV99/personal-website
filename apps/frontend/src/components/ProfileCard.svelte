@@ -1,8 +1,8 @@
 <script lang="ts">
   // @ts-expect-error — Vite enhanced:img query string not resolvable by svelte-check
-  import portrait from "$images/Viktor_Andersson.jpeg?w=96;192&enhanced";
-  import Link from "$components/Link.svelte";
-  import { SITE_AUTHOR, SOCIAL_LINKS } from "$lib/config";
+  import portrait from "#images/Viktor_Andersson.jpeg?w=96;192&enhanced";
+  import Link from "#components/Link.svelte";
+  import { SITE_AUTHOR, SOCIAL_LINKS } from "#lib/config.ts";
 
   let { as = "h2" }: { as?: "h1" | "h2" } = $props();
 </script>

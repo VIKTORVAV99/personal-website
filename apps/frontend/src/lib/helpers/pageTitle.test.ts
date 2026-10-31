@@ -1,5 +1,6 @@
-import { SITE_AUTHOR } from "$lib/config";
 import { describe, it, expect } from "bun:test";
+
+import { SITE_AUTHOR } from "#lib/config.ts";
 
 import { pageTitle } from "./pageTitle";
 

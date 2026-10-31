@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { BlogPostMeta } from "$lib/blog";
-  import { pageURL } from "$lib/helpers/paginationURLs";
+  import type { BlogPostMeta } from "#lib/blog.ts";
+  import { pageURL } from "#lib/helpers/paginationURLs.ts";
   import type { LucideIcon } from "@lucide/svelte";
   import ChevronLeft from "@lucide/svelte/icons/chevron-left";
   import ChevronRight from "@lucide/svelte/icons/chevron-right";

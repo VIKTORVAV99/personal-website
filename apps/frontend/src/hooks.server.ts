@@ -1,6 +1,6 @@
-import type { Handle } from "@sveltejs/kit";
+import type { Handle } from "@sveltejs/kit/hooks";
 
-import { ifNoneMatchHits, weakEtag } from "$lib/helpers/etag";
+import { ifNoneMatchHits, weakEtag } from "#lib/helpers/etag.ts";
 
 export const handle: Handle = async ({ event, resolve }) => {
   const response = await resolve(event, {

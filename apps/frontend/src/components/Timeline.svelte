@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { TimelineEntry } from '$interfaces/timelineEntry';
+	import type { TimelineEntry } from '#interfaces/timelineEntry.ts';
 	import type { TimelineMode } from './timeline/types';
 	import TimelineGraph from './timeline/TimelineGraph.svelte';
 	import TimelineAccordionCard from './timeline/TimelineAccordionCard.svelte';
-	import { CURRENT_YEAR } from '$lib/helpers/currentDate';
+	import { CURRENT_YEAR } from '#lib/helpers/currentDate.ts';
 	import {
 		ORIGIN_YEAR,
 		PX_PER_MONTH,

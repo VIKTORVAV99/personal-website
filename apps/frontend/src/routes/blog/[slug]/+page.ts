@@ -1,4 +1,4 @@
-import { getPostModule } from "$lib/blog-loader";
+import { getPostModule } from "#lib/blog-loader.ts";
 
 import type { PageLoadEvent } from "./$types";
 

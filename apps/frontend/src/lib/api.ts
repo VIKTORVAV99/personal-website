@@ -1,3 +1,4 @@
+import type { env } from "cloudflare:workers";
 import type { AppType } from "portfolio-backend";
 
 import { hc, type InferResponseType } from "hono/client";
@@ -13,9 +14,9 @@ type ActivityResponse = InferResponseType<Client["github"]["activity"]["$get"], 
 export type LatestActivity = ActivityResponse["log"][number];
 export type Contributions = ActivityResponse["contributions"];
 
-// The BACKEND service binding, sourced from its one declaration in app.d.ts
+// The BACKEND service binding, sourced from its one declaration in cloudflare.d.ts
 // (Fetcher itself is a workers-types global the frontend tsconfig doesn't carry).
-type BackendBinding = NonNullable<App.Platform["env"]>["BACKEND"];
+type BackendBinding = NonNullable<(typeof env)["BACKEND"]>;
 
 // The /activity page fetches server-side, straight over the BACKEND service
 // binding — no public URL, no proxy. A 200 is a usable body; anything else

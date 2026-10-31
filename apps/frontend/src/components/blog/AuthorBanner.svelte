@@ -1,7 +1,7 @@
 <script lang="ts">
   // @ts-expect-error — Vite enhanced:img query string not resolvable by svelte-check
-  import portrait from "$images/Viktor_Andersson.jpeg?w=40;80&enhanced";
-  import { SITE_AUTHOR } from "$lib/config";
+  import portrait from "#images/Viktor_Andersson.jpeg?w=40;80&enhanced";
+  import { SITE_AUTHOR } from "#lib/config.ts";
 </script>
 
 <hr class="border-surface-700" />

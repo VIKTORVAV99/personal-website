@@ -3,6 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
+  "imports": {
+    "#components/*": "./src/components/*",
+    "#data/*": "./src/data/*",
+    "#images/*": "./src/images/*",
+    "#interfaces/*": "./src/interfaces/*",
+    "#lib/*": "./src/lib/*"
+  },
   "scripts": {
     "dev": "vite dev",
     "build": "bun --bun vite build",
@@ -21,23 +28,22 @@
     "portfolio-backend": "workspace:*"
   },
   "devDependencies": {
-    "@lucide/svelte": "^1.24.0",
-    "@sveltejs/adapter-cloudflare": "^7.2.9",
-    "@sveltejs/enhanced-img": "^0.11.0",
-    "@sveltejs/kit": "^2.69.3",
-    "@sveltejs/vite-plugin-svelte": "^7.2.0",
+    "@lucide/svelte": "^1.66.0",
+    "@sveltejs/adapter-cloudflare": "^8.0.2",
+    "@sveltejs/enhanced-img": "^1.0.0",
+    "@sveltejs/kit": "^3.1.1",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
-    "@types/bun": "^1.3.14",
-    "@types/serviceworker": "^0.0.199",
-    "fontaine": "^0.8.0",
-    "mdsvex": "^0.12.7",
-    "shiki": "^4.3.1",
-    "structured-data-generators": "^0.1.1",
-    "svelte": "^5.56.5",
-    "svelte-check": "^4.7.3",
+    "@types/bun": "^1.4.4",
+    "fontaine": "^1.0.3",
+    "mdsvex": "^0.12.8",
+    "shiki": "^4.5.0",
+    "structured-data-generators": "^0.1.2",
+    "svelte": "^5.57.3",
+    "svelte-check": "^4.7.7",
     "tailwindcss": "^4.3.3",
-    "vite": "^8.1.5",
-    "vite-imagetools": "^10.0.1"
+    "vite": "^8.3.5",
+    "vite-imagetools": "^12.0.1"
   }
 }

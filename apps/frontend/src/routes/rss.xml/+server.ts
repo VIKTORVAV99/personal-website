@@ -1,6 +1,6 @@
 export const prerender = true;
-import { getAllPosts } from "$lib/blog.server";
-import { BLOG_DESCRIPTION, SITE_AUTHOR, SITE_URL } from "$lib/config";
+import { getAllPosts } from "#lib/blog.server.ts";
+import { BLOG_DESCRIPTION, SITE_AUTHOR, SITE_URL } from "#lib/config.ts";
 
 interface RssItem {
   title: string;

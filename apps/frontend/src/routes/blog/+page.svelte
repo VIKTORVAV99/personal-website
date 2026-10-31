@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { PageData } from './$types';
-  import SEO from "$lib/seo/components/SEO.svelte";
-  import BlogPostList from "$components/blog/BlogPostList.svelte";
-  import TitleText from "$components/TitleText.svelte";
-  import { pageTitle } from "$lib/helpers/pageTitle";
+  import SEO from "#lib/seo/components/SEO.svelte";
+  import BlogPostList from "#components/blog/BlogPostList.svelte";
+  import TitleText from "#components/TitleText.svelte";
+  import { pageTitle } from "#lib/helpers/pageTitle.ts";
 
   let { data }: { data: PageData } = $props();
 </script>

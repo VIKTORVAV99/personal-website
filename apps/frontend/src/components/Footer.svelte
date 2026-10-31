@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { version } from "$app/environment";
-  import Highlight from "$components/Highlight.svelte";
-  import Link from "$components/Link.svelte";
-  import { LICENSE_URL, SITE_AUTHOR, SOCIAL_LINKS } from "$lib/config";
-  import { CURRENT_YEAR } from "$lib/helpers/currentDate";
+  import { version } from "$app/env";
+  import Highlight from "#components/Highlight.svelte";
+  import Link from "#components/Link.svelte";
+  import { LICENSE_URL, SITE_AUTHOR, SOCIAL_LINKS } from "#lib/config.ts";
+  import { CURRENT_YEAR } from "#lib/helpers/currentDate.ts";
 
-  // First 8 chars of kit.version.name — see appVersion() in svelte.config.js.
+  // First 8 chars of version.name — see appVersion() in vite.config.ts.
   const build = version.slice(0, 8);
 </script>
 

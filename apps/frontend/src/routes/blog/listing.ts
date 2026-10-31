@@ -1,13 +1,14 @@
-import { paginatePosts } from "$lib/blog";
-import { getAllPosts } from "$lib/blog.server";
-import { BLOG_DESCRIPTION, SITE_URL } from "$lib/config";
-import { buildPaginationURLs } from "$lib/helpers/paginationURLs";
-import { SITE_WEBSITE_REF } from "$lib/seo";
 import {
   createBreadcrumbListSchema,
   createCollectionPageSchema,
   createItemListSchema,
 } from "structured-data-generators";
+
+import { getAllPosts } from "#lib/blog.server.ts";
+import { paginatePosts } from "#lib/blog.ts";
+import { BLOG_DESCRIPTION, SITE_URL } from "#lib/config.ts";
+import { buildPaginationURLs } from "#lib/helpers/paginationURLs.ts";
+import { SITE_WEBSITE_REF } from "#lib/seo/index.ts";
 
 /** Shared load logic for /blog and /blog/page/[page]. */
 export const loadBlogListing = (page: number) => {

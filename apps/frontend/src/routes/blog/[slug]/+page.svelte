@@ -1,13 +1,13 @@
 <script lang="ts">
   import type { PageData } from './$types';
-  import SEO from '$lib/seo/components/SEO.svelte';
-  import { pageTitle } from '$lib/helpers/pageTitle';
-  import { SITE_URL } from '$lib/config';
+  import SEO from '#lib/seo/components/SEO.svelte';
+  import { pageTitle } from '#lib/helpers/pageTitle.ts';
+  import { SITE_URL } from '#lib/config.ts';
   import ChevronLeft from "@lucide/svelte/icons/chevron-left";
   import ChevronRight from "@lucide/svelte/icons/chevron-right";
-  import PostDate from '$components/blog/PostDate.svelte';
-  import PostTags from '$components/blog/PostTags.svelte';
-  import AuthorBanner from '$components/blog/AuthorBanner.svelte';
+  import PostDate from '#components/blog/PostDate.svelte';
+  import PostTags from '#components/blog/PostTags.svelte';
+  import AuthorBanner from '#components/blog/AuthorBanner.svelte';
   import './blog.css';
 
   let { data }: { data: PageData } = $props();

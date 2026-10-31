@@ -9,7 +9,7 @@
     AUTHOR_GIVEN_NAME,
     SITE_AUTHOR,
     TWITTER_HANDLE,
-  } from "$lib/config";
+  } from "#lib/config.ts";
   import type { StructuredDataSchema } from "structured-data-generators";
   import type { Robots } from "..";
   import { toJsonLd } from "structured-data-generators";

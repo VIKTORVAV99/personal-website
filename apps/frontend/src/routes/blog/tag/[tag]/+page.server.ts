@@ -1,5 +1,5 @@
-import { getAllTagSlugs } from "$lib/blog";
-import { getAllPosts } from "$lib/blog.server";
+import { getAllPosts } from "#lib/blog.server.ts";
+import { getAllTagSlugs } from "#lib/blog.ts";
 
 import type { PageServerLoadEvent } from "./$types";
 
