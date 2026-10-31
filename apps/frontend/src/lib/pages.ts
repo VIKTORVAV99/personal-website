@@ -1,4 +1,4 @@
-import { BLOG_DESCRIPTION } from "$lib/config";
+import { BLOG_DESCRIPTION } from "#lib/config.ts";
 
 export interface SiteLink {
   /** Path relative to the site root. Empty string is the homepage. */

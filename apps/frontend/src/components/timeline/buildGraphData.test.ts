@@ -1,7 +1,8 @@
-import type { TimelineEntry } from "$interfaces/timelineEntry";
-
-import { timelineEntries } from "$data/metadata";
 import { describe, it, expect } from "bun:test";
+
+import type { TimelineEntry } from "#interfaces/timelineEntry.ts";
+
+import { timelineEntries } from "#data/metadata.ts";
 
 import { buildGraphData } from "./buildGraphData";
 import { PX_PER_MONTH } from "./constants";

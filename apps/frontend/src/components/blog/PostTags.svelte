@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { slugifyTag } from "$lib/blog";
+  import { slugifyTag } from "#lib/blog.ts";
 
   interface Props {
     tags?: string[];

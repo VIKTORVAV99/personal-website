@@ -1,12 +1,3 @@
-import portrait from "$images/Viktor_Andersson.jpeg";
-import {
-  AUTHOR_FAMILY_NAME,
-  AUTHOR_GIVEN_NAME,
-  IDENTITY_URLS,
-  SITE_AUTHOR,
-  SITE_URL,
-  SOCIAL_LINKS,
-} from "$lib/config";
 import {
   createPersonSchema,
   createOrganizationSchema,
@@ -18,6 +9,16 @@ import {
   createDefinedTermSchema,
   createEducationalCredentialSchema,
 } from "structured-data-generators";
+
+import portrait from "#images/Viktor_Andersson.jpeg";
+import {
+  AUTHOR_FAMILY_NAME,
+  AUTHOR_GIVEN_NAME,
+  IDENTITY_URLS,
+  SITE_AUTHOR,
+  SITE_URL,
+  SOCIAL_LINKS,
+} from "#lib/config.ts";
 
 export const electricityMaps = createOrganizationSchema({
   name: "Electricity Maps",

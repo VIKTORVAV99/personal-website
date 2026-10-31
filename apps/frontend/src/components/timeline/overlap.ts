@@ -1,4 +1,4 @@
-import type { TimelineEntry } from "$interfaces/timelineEntry";
+import type { TimelineEntry } from "#interfaces/timelineEntry.ts";
 
 import type { CommitNode } from "./types";
 

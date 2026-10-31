@@ -1,5 +1,6 @@
-import { buildPaginationURLs, pageURL } from "$lib/helpers/paginationURLs";
 import { describe, expect, it } from "bun:test";
+
+import { buildPaginationURLs, pageURL } from "#lib/helpers/paginationURLs.ts";
 
 describe("pageURL", () => {
   it("leaves page 1 at the base, unsuffixed", () => {

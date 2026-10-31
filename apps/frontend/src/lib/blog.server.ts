@@ -1,6 +1,6 @@
-import type { BlogPostMeta } from "$lib/blog";
+import type { BlogPostMeta } from "#lib/blog.ts";
 
-import { slugFromPath } from "$lib/blog";
+import { slugFromPath } from "#lib/blog.ts";
 
 const WORDS_PER_MINUTE = 200;
 
@@ -16,8 +16,8 @@ const countWords = (raw: string): number => {
  * makes SvelteKit enforce that — see $lib/blog.ts for the glob-free helpers.
  */
 export const getAllPosts = (): BlogPostMeta[] => {
-  const modules = import.meta.glob("$blogs/*.md", { eager: true });
-  const rawPaths = import.meta.glob("$blogs/*.md", {
+  const modules = import.meta.glob("/src/blog_posts/*.md", { eager: true });
+  const rawPaths = import.meta.glob("/src/blog_posts/*.md", {
     eager: true,
     query: "?raw",
     import: "default",

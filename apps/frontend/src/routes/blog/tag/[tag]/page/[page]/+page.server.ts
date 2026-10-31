@@ -1,6 +1,13 @@
-import { getAllTagSlugs, getPostsForTag, PAGE_SIZE, parsePageParam, slugifyTag } from "$lib/blog";
-import { getAllPosts } from "$lib/blog.server";
 import { error, redirect } from "@sveltejs/kit";
+
+import { getAllPosts } from "#lib/blog.server.ts";
+import {
+  getAllTagSlugs,
+  getPostsForTag,
+  PAGE_SIZE,
+  parsePageParam,
+  slugifyTag,
+} from "#lib/blog.ts";
 
 import type { PageServerLoadEvent } from "./$types";
 

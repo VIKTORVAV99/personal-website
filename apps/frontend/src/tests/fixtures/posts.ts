@@ -1,4 +1,4 @@
-import type { BlogPostMeta } from "$lib/blog";
+import type { BlogPostMeta } from "#lib/blog.ts";
 
 export const makePost = (overrides: Partial<BlogPostMeta> & { slug: string }): BlogPostMeta => ({
   title: overrides.slug,

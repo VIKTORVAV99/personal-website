@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { TimelineEntry } from '$interfaces/timelineEntry';
+	import type { TimelineEntry } from '#interfaces/timelineEntry.ts';
 	import ChevronsUpDown from '@lucide/svelte/icons/chevrons-up-down';
 	import ChevronsDownUp from '@lucide/svelte/icons/chevrons-down-up';
-	import Link from '$components/Link.svelte';
+	import Link from '#components/Link.svelte';
 
 	let {
 		entry,

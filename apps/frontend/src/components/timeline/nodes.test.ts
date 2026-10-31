@@ -1,6 +1,6 @@
-import type { TimelineEntry } from "$interfaces/timelineEntry";
-
 import { describe, it, expect } from "bun:test";
+
+import type { TimelineEntry } from "#interfaces/timelineEntry.ts";
 
 import type { Branch } from "./types";
 

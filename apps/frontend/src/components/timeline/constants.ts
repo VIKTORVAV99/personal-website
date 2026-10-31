@@ -1,5 +1,5 @@
-import { timelineEntries } from "$data/metadata";
-import { CURRENT_YEAR, CURRENT_MONTH } from "$lib/helpers/currentDate";
+import { timelineEntries } from "#data/metadata.ts";
+import { CURRENT_YEAR, CURRENT_MONTH } from "#lib/helpers/currentDate.ts";
 
 // Layout constants
 const lifeEntry = timelineEntries.find((e) => e.type === "life");

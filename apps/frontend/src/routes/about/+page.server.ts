@@ -1,7 +1,8 @@
-import { SITE_URL } from "$lib/config";
-import { SITE_WEBSITE_REF } from "$lib/seo";
-import { PROFILE_DATE_CREATED, PROFILE_DATE_MODIFIED, siteOwnerPerson } from "$lib/seo/person";
 import { createBreadcrumbListSchema, createProfilePageSchema } from "structured-data-generators";
+
+import { SITE_URL } from "#lib/config.ts";
+import { SITE_WEBSITE_REF } from "#lib/seo/index.ts";
+import { PROFILE_DATE_CREATED, PROFILE_DATE_MODIFIED, siteOwnerPerson } from "#lib/seo/person.ts";
 
 import type { PageServerLoad } from "./$types";
 

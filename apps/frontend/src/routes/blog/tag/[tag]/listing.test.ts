@@ -1,6 +1,7 @@
-import { TAG_INDEX_MIN_POSTS } from "$lib/blog";
-import { ROBOTS } from "$lib/seo";
 import { describe, expect, it } from "bun:test";
+
+import { TAG_INDEX_MIN_POSTS } from "#lib/blog.ts";
+import { ROBOTS } from "#lib/seo/index.ts";
 
 import { postsTagged } from "../../../../tests/fixtures/posts";
 import { loadTagListing } from "./listing";

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Link from "$components/Link.svelte";
-  import type { LatestActivity } from "$lib/api";
-  import { relativeTime } from "$lib/helpers/relativeTime";
+  import Link from "#components/Link.svelte";
+  import type { LatestActivity } from "#lib/api.ts";
+  import { relativeTime } from "#lib/helpers/relativeTime.ts";
 
   let { activity }: { activity: LatestActivity } = $props();
 

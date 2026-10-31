@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { hasContributions, type Contributions } from "$lib/api";
+  import { hasContributions, type Contributions } from "#lib/api.ts";
 
   let { contributions }: { contributions: Contributions } = $props();
 </script>

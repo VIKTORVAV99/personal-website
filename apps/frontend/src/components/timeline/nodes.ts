@@ -1,4 +1,4 @@
-import type { TimelineEntry } from "$interfaces/timelineEntry";
+import type { TimelineEntry } from "#interfaces/timelineEntry.ts";
 
 import { MIN_SPAN, COLOR_LIFE } from "./constants";
 import {

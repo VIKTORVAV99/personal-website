@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Repository Overview
 
 Bun workspaces monorepo for my personal website, deployed to Cloudflare Workers:
-- **apps/frontend/** — SvelteKit personal website (Svelte 5, Tailwind CSS v4, adapter-cloudflare)
+- **apps/frontend/** — SvelteKit 3 personal website (Svelte 5, Tailwind CSS v4, adapter-cloudflare)
 - **apps/backend/** — Hono API worker proxying the GitHub API (authenticated via Secrets Store binding with `GITHUB_PORTFOLIO_TOKEN`)
 
 ## Commands
@@ -34,15 +34,18 @@ All root scripts use `bun --filter` to proxy into workspaces. You can also run w
 
 SvelteKit file-based routing with Svelte 5 runes (`$props()`, `$state()`, etc.).
 
-**Prerendered by default (one runtime exception):** the root `+layout.ts` sets `prerender = true` (and `trailingSlash = "never"`), so routes are generated at build time and served as static assets — including the `sitemap.xml` endpoint. For these, load functions run at build time and query strings cannot drive routing or pagination. One route opts out with `prerender = false`: `src/routes/activity/+page.server.ts` is server-rendered per request so the GitHub activity log is in the HTML crawlers receive (SEO). Its load calls the backend directly over the `BACKEND` service binding via `fetchActivityServer` (a typed Hono RPC client whose transport is the binding, not a public URL); the backend's 1-hour cache keeps the per-request cost off GitHub.
+**Prerendered by default (one runtime exception):** the root `+layout.ts` sets `prerender = true` (and `trailingSlash = "never"`), so routes are generated at build time and served as static assets — including the `sitemap.xml` endpoint. For these, load functions run at build time and query strings cannot drive routing or pagination. One route opts out with `prerender = false`: `src/routes/activity/+page.server.ts` is server-rendered per request so the GitHub activity log is in the HTML crawlers receive (SEO). Its load calls the backend directly over the `BACKEND` service binding via `fetchActivityServer` (a typed Hono RPC client whose transport is the binding, not a public URL; the binding comes from `env` in `cloudflare:workers`, declared in `src/cloudflare.d.ts`); the backend's 1-hour cache keeps the per-request cost off GitHub.
 
-**Path aliases** (defined in svelte.config.js):
-- `$blogs` → `./src/blog_posts`
-- `$components` → `./src/components`
-- `$data` → `./src/data`
-- `$images` → `./src/images`
-- `$lib` → `./src/lib`
-- `$interfaces` → `./src/interfaces`
+**Configuration:** there is no `svelte.config.js` — SvelteKit 3 takes its options (adapter, mdsvex/Shiki preprocessing, `version.name`, prerender settings) as arguments to the `sveltekit()` plugin in `vite.config.ts`. `tsconfig.json` extends the generated `$app/tsconfig`.
+
+**Path aliases** are Node subpath imports (the `imports` field in apps/frontend/package.json), not SvelteKit `alias`. Imports need an explicit extension (`#lib/config.ts`, `#components/Link.svelte`):
+- `#components/*` → `./src/components/*`
+- `#data/*` → `./src/data/*`
+- `#images/*` → `./src/images/*`
+- `#interfaces/*` → `./src/interfaces/*`
+- `#lib/*` → `./src/lib/*`
+
+Blog posts are globbed by root-relative path (`import.meta.glob("/src/blog_posts/*.md")`).
 
 **Key directories:**
 - `src/routes/` — Pages and endpoints (+page.svelte, +page.server.ts, +server.ts, +layout.svelte)

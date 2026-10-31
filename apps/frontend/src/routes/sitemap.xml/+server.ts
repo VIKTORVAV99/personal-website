@@ -1,12 +1,12 @@
 export const prerender = true;
-import type { BlogPostMeta } from "$lib/blog";
+import type { BlogPostMeta } from "#lib/blog.ts";
 
-import { getAllTagSlugs, getPostsForTag, isTagIndexable } from "$lib/blog";
-import { getAllPosts } from "$lib/blog.server";
-import { SITE_URL } from "$lib/config";
-import { formatDate } from "$lib/helpers/formatDate";
-import { SITE_PAGES } from "$lib/pages";
-import { PROFILE_DATE_MODIFIED } from "$lib/seo/person";
+import { getAllPosts } from "#lib/blog.server.ts";
+import { getAllTagSlugs, getPostsForTag, isTagIndexable } from "#lib/blog.ts";
+import { SITE_URL } from "#lib/config.ts";
+import { formatDate } from "#lib/helpers/formatDate.ts";
+import { SITE_PAGES } from "#lib/pages.ts";
+import { PROFILE_DATE_MODIFIED } from "#lib/seo/person.ts";
 
 interface SitemapPage {
   path: string;

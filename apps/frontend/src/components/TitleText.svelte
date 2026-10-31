@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Highlight from "$components/Highlight.svelte";
+  import Highlight from "#components/Highlight.svelte";
   // heading: optional visually-hidden page <h1>.
   let {
     path,

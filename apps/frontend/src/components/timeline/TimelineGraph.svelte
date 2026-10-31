@@ -1,6 +1,6 @@
 <script lang="ts">
   import { afterNavigate } from "$app/navigation";
-  import { motion } from "$lib/motion";
+  import { motion } from "#lib/motion.ts";
   import { linear } from "svelte/easing";
   import { draw, fade, scale } from "svelte/transition";
   import { LINE_WIDTH, NODE_RADIUS } from "./constants";

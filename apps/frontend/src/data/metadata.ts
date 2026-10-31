@@ -1,4 +1,4 @@
-import type { TimelineEntry } from "$interfaces/timelineEntry";
+import type { TimelineEntry } from "#interfaces/timelineEntry.ts";
 
 const electricityMapsBase = {
   organization: "Electricity Maps",

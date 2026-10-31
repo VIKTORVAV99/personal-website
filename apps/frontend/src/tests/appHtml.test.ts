@@ -1,7 +1,8 @@
-import { LICENSE_URL, SITE_AUTHOR, SITE_URL } from "$lib/config";
 import { describe, it, expect } from "bun:test";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { LICENSE_URL, SITE_AUTHOR, SITE_URL } from "#lib/config.ts";
 
 const appHtml = await Bun.file(
   resolve(dirname(fileURLToPath(import.meta.url)), "../app.html"),
